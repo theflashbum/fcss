@@ -1,3 +1,4 @@
+
 /** 
  * <p>Original Author:  jessefreeman</p>
  * <p>Class File: CamoStyleSheetLibrary.as</p>
@@ -28,13 +29,14 @@
  *
  */
 
-package com.flashartofwar.fcss.managers {
-	import com.flashartofwar.fcss.property.IPropertySheet;
-	import com.flashartofwar.fcss.property.PropertySelector;
-	import com.flashartofwar.fcss.property.PropertySheet;
+package com.flashartofwar.fcss.managers 
+{
+	import com.flashartofwar.fcss.styles.Style;
+	import com.flashartofwar.fcss.stylesheets.IStyleSheet;
 
-	public class PropertySheetManager
+	public class StyleSheetManager
 	{
+
 		public var styleSheets : Array = [];
 
 		/**
@@ -42,7 +44,7 @@ package com.flashartofwar.fcss.managers {
 		 * @param enforcer
 		 * 
 		 */		
-		public function PropertySheetManager() 
+		public function StyleSheetManager() 
 		{
 		}
 
@@ -52,13 +54,13 @@ package com.flashartofwar.fcss.managers {
 		 * @return 
 		 * 
 		 */		
-		public function getSelector( ... selectorNames) : PropertySelector
+		public function getSelector( ... selectorNames) : Style
 		{
-			var tempProperties : PropertySelector = new PropertySelector( );
+			var tempProperties : Style = new Style( );
 			
-			for each (var styleSheet:IPropertySheet in styleSheets)
+			for each (var styleSheet:IStyleSheet in styleSheets)
 			{
-				var sheetProperties : PropertySelector = styleSheet.getSelector.apply( null, selectorNames );
+				var sheetProperties : Style = styleSheet.getSelector.apply( null, selectorNames );
 				if(sheetProperties.selectorName != "EmptyProperties")
 					tempProperties.merge( sheetProperties );	
 			}
@@ -68,30 +70,20 @@ package com.flashartofwar.fcss.managers {
 
 		/**
 		 * 
-		 * @return 
+		 * @param id
+		 * @param sheet
 		 * 
 		 */		
-		protected function createPropertySheet() : IPropertySheet
+		public function addPropertySheet(id : String, sheet : IStyleSheet) : void
 		{
-			return new PropertySheet( );
+			styleSheets[id] = sheet;
 		}
 
 		/**
 		 * 
 		 * @param id
-		 * @param sheet
-		 * 
-		 */		
-		public function addPropertySheet(id : String, sheet : IPropertySheet) : void
-		{
-			styleSheets[id] = sheet;
-		}
-		
-		/**
-		 * 
-		 * @param id
 		 */
-		public function getPropertySheet(id:String):IPropertySheet
+		public function getPropertySheet(id : String) : IStyleSheet
 		{
 			return styleSheets[id];	
 		}
@@ -109,15 +101,9 @@ package com.flashartofwar.fcss.managers {
 
 		/**
 		 * 
-		 * @param id
-		 * @param CSSText
-		 * 
-		 */		
-		public function parseCSS(id : String, CSSText : String, compressText : Boolean = true) : void
+		 */
+		public function registerStyleSheet(id : String, sheet : IStyleSheet) : void
 		{
-			var sheet : IPropertySheet = createPropertySheet( );
-			sheet.parseCSS( CSSText, compressText );
-				
 			addPropertySheet( id, sheet );
 		}
 	}
