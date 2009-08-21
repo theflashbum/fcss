@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Flash Camo Build script -->
+
+<project name="FlashCamo ANT Build" default="compile" basedir=".">
+
+	<!-- import our build properties file -->
+	<property file="./build.properties" />
+
+	<property name="title" value="F*CSS API" />
+	<property name="version" value="1.0.0" />
+
+	<!-- Flex Ant Tasks used to perform compc and mxml compiling more info at http://labs.adobe.com/wiki/index.php/Flex_Ant_Tasks -->
+	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}${flex.tasks}" />
+
+	<!-- Main Ant Task, compiles Flash Camo's main SWC and documents it -->
+	<target name="compile" description="series of tasks to create docs and swc">
+
+		<antcall target="buildSWC" description="build the SWC file" />
+
+		<antcall target="asDocs" description="full build of asdocs" />
+
+	</target>
+
+	<!-- Build Flash Camo SWC -->
+	<target name="buildSWC" description="Compile the SWC file for the Library Project">
+
+		<compc output="../${liboutputfolder}/${flashCamo.directory}/dist/${flashCamo.outputfile}" compute-digest="false">
+
+			<!-- include our Class packages into the build (com folder) -->
+			<include-sources dir="../src" includes="*" />
+
+		</compc>
+		
+		<echo>Flash Camo SWC was created</echo>
+		
+	</target>
+
+	<!-- Run ASDocs for Flash Camo Framework -->
+
+	<target name="asDocs" description="Run the ASDoc executable and generate the ASDocs to the new output folder">
+
+		<exec executable="${FLEX_HOME}${asdoc.exe}" failonerror="true">
+
+			<arg line="-doc-sources ../src" />
+
+			<arg value="-window-title" />
+			<arg value="'${title}'" />
+
+			<arg value="-output" />
+			<arg value="../${liboutputfolder}/${flashCamo.directory}/dist/docs" />
+
+		</exec>
+
+		<echo>Flash Camo Docs were created</echo>
+
+	</target>
+
+</project>
