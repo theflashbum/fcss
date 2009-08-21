@@ -35,5 +35,90 @@ package com.flashartofwar.fcss.utils
 	public class TextFieldUtility 
 	{
 
+		private static const STYLE_SHEET : String = "styleSheet";
+
+		/**
+		 * <p>Returns given lowercaseandunderscoreword as a camelCased word.</p>
+		 *
+		 * @param string lowercaseandunderscoreword Word to camelize
+		 * @return string Camelized word. likeThis.
+		 */
+		private function camelize(lowercaseandunderscoreword : String, deimiter : String = "_") : String
+		{
+			var tarray : Array = lowercaseandunderscoreword.split( deimiter );
+			
+			for (var i : int = 1; i < tarray.length ; i ++ )
+			{
+				tarray[i] = ucfirst( tarray[i] as String );
+			}
+			var replace : String = tarray.join( "" );
+			return replace;
+		}
+
+		/**
+		 * <p>Make first character of word upper case</p>
+		 * @param	word
+		 * @return string
+		 */
+		private function ucfirst(word : String) : String
+		{
+			return word.substr( 0, 1 ).toUpperCase( ) + word.substr( 1 );
+		}
+
+		/**
+		 * 
+		 * @param prop
+		 * @param value
+		 * @return 
+		 * 
+		 */		
+//		override protected function cleanUpValue(prop : String, value : String) : String
+//		{
+//			switch (prop)
+//			{
+//				case STYLE_SHEET:
+//					var selectorNames : Array = value.split( "," );
+//					
+//					return buildStyleSheetString.apply( null, selectorNames );
+//					break;
+//				default:
+//					return super.cleanUpValue( prop, value );
+//					break;
+//			}
+//		}
+
+		/**
+		 * 
+		 * @param selectorNames
+		 * @return 
+		 * 
+		 */		
+//		protected function buildStyleSheetString( ... selectorNames) : String
+//		{
+//			var cssTest : String = clone.apply( null, selectorNames ).toString( );
+//			return cssTest;
+//		}
+
+		/**
+		 * 
+		 * @param prop
+		 * @param value
+		 * @return 
+		 * 
+		 */		
+//		override protected function cleanUpValue(prop : String, value : String) : String
+//		{
+//			switch (prop)
+//			{
+//				case STYLE_SHEET:
+//					var selectorNames : Array = value.split( "," );
+//					
+//					return buildStyleSheetString.apply( null, selectorNames );
+//					break;
+//				default:
+//					return super.cleanUpValue( prop, value );
+//					break;
+//			}	
+//		}
 	}
 }
