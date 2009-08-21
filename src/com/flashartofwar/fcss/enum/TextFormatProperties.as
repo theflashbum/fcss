@@ -31,7 +31,7 @@
 package com.flashartofwar.fcss.enum {
 	import com.flashartofwar.fcss.utils.TypeHelperUtil;
 
-	public class TextFormatReference {
+	public class TextFormatProperties {
 
 		public static const ALIGN : String = "align";
 		public static const TEXT_ALIGN : String = "textAlign";

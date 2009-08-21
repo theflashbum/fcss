@@ -31,7 +31,7 @@
 package com.flashartofwar.fcss.enum {
 	import com.flashartofwar.fcss.utils.TypeHelperUtil;
 
-	public class TextFieldReference 
+	public class TextFieldProperties 
         {
 
                 public static const ALWAYS_SHOW_SELECTION:String = "alwaysShowSelection";
