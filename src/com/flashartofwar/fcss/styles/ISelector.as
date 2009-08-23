@@ -35,7 +35,6 @@ package com.flashartofwar.fcss.styles {
 		function toString() : String;
 
 		function merge(style : ISelector) : void;
-
-		function clone() : ISelector;
+		
 	}
 }

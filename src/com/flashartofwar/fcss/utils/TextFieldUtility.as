@@ -29,29 +29,159 @@
  *
  */
 
-package com.flashartofwar.fcss.utils 
-{
+package com.flashartofwar.fcss.utils {
+	import com.flashartofwar.fcss.enum.TextFieldProperties;
+	import com.flashartofwar.fcss.enum.TextFormatProperties;
+	import com.flashartofwar.fcss.styles.IStyle;
 
-	public class TextFieldUtility 
-	{
+	import flash.text.TextField;
+	import flash.text.TextFormat;
+	import flash.utils.Dictionary;
+
+	public class TextFieldUtility {
 
 		private static const STYLE_SHEET : String = "styleSheet";
+		private static var textFieldConfigCache : Dictionary = new Dictionary(true);
 
+		public static function applyStyle(textField : TextField, style : IStyle) : void {
+			
+			//			trace("Converting style", style.toString());
+			//			var tfs : TextFieldStyle = convertStyleToTextFieldConfig(style);
+			//			applyStyleToTextField(textField, tfs);
+
+			var text : String = textField.text;			var htmlText : String = textField.htmlText;
+			
+			var textFormat : TextFormat = new TextFormat();
+			var camelCasePropName : String;
+			var prop : String;
+			var value : String;
+               
+			for (prop in style) {
+				
+				camelCasePropName = camelize(prop, "-");
+				value = style[prop];
+				trace("Prop", prop, "~", camelCasePropName, ":", "value", value);
+				
+				if(TextFieldProperties.isSupported(camelCasePropName)) {
+					trace("Is TextFieldProperty", camelCasePropName);
+					textField[camelCasePropName] = TextFieldProperties.cleanupProp(camelCasePropName, value);
+				}
+                else if (TextFormatProperties.isSupported(camelCasePropName)) {
+					trace("Is TextFormatProperty", camelCasePropName);
+					textFormat[TextFormatProperties.convertProp(camelCasePropName)] = TextFormatProperties.cleanupProp(camelCasePropName, value);
+				}
+//				else if (camelCasePropName == "styleSheet") {
+//					trace("Is StyleSheet");
+//					if(value) {
+//						var tempStyleSheet : StyleSheet = new StyleSheet();
+//						tempStyleSheet.parseCSS(value);
+//						this["styleSheet"] = tempStyleSheet;
+//					} else {
+//						trace("There was no CSS to parse");
+//					}
+//				} else {
+//					trace(prop, " is not supported");
+//				}
+			}
+			
+			textField.setTextFormat(textFormat);
+			/*
+			if(text) textField.text = text;
+			if(htmlText) textField.htmlText = htmlText;
+			 
+			 */
+		}
+
+		/**
+		 * 
+		 * @param style
+		 * @return 
+		 * 
+		 */             
+		//		protected static function convertStyleToTextFieldConfig(style : IStyle) : TextFieldStyle {
+		//			//FIXME this may be intensive and pointless to cache since the clone calls transform itself
+		//			if(style) {
+		//				var id : String = style.selectorName;
+		//				var tfConfig : TextFieldStyle;
+		//                                
+		//				if(textFieldConfigCache[id]) {
+		//					// Created From Cache
+		//					tfConfig = textFieldConfigCache[style.selectorName];
+		//				} else {
+		//					// Created From Scratch
+		//					trace("Creating from scratch");
+		//					tfConfig = new TextFieldStyle();
+		//					tfConfig.transform(style);
+		//					textFieldConfigCache[style.selectorName] = tfConfig;
+		//				}
+		//			} else {
+		//				// This is a last ditch effort to return an Empty TextFieldModel in case there is no style.
+		//				tfConfig = new TextFieldStyle();             
+		//			}
+		//                        
+		//			return tfConfig;
+		//		}
+
+		/**
+		 * 
+		 * @param target
+		 * @param template
+		 * @return 
+		 * 
+		 */             
+		//		public static function applyStyleToTextField(target : TextField, template : TextFieldStyle) : TextField {
+		//                        
+		//			// FIXME Due to a strange bug in Flash where you can't apply a 
+		//			// styleSheet at the same time as a TextFormat I have to strip it 
+		//			// out, then apply it after the TextField has been created. Is there
+		//			// a better work around for this?
+		//			var tempStyleSheet : StyleSheet;
+		//			              
+		//			// Strip out cssSheet
+		//			if(template["styleSheet"]) {
+		//				tempStyleSheet = template["styleSheet"];
+		//				delete(template["styleSheet"]);
+		//				target.styleSheet = null;       
+		//			}
+		//                                   
+		//			mergeClass(target, template);
+		//                        
+		//			// Reapply StyleSheet
+		//			if(tempStyleSheet) {
+		//				target.styleSheet = tempStyleSheet;
+		//			}
+		//           
+		//			return target;
+		//		}
+
+		//		private static function mergeClass(c1 : Object,c2 : Object) : Object {
+		//			
+		//			for(var j:String in c2) {
+		//				if(c1.hasOwnProperty(j))
+		//				{
+		//					trace("Applying new property", j);
+		//					
+		//					c1[j] = c2[j];
+		//				}
+		//			}
+		//			return c1;
+		//		}
+		//TODO also need some way to fix trace so TextFormat and StyleSheet come out right
+		
+		
 		/**
 		 * <p>Returns given lowercaseandunderscoreword as a camelCased word.</p>
 		 *
 		 * @param string lowercaseandunderscoreword Word to camelize
 		 * @return string Camelized word. likeThis.
 		 */
-		private function camelize(lowercaseandunderscoreword : String, deimiter : String = "_") : String
-		{
-			var tarray : Array = lowercaseandunderscoreword.split( deimiter );
+		private static function camelize(lowercaseandunderscoreword : String, deimiter : String = "-") : String {
+			var tarray : Array = lowercaseandunderscoreword.split(deimiter);
 			
-			for (var i : int = 1; i < tarray.length ; i ++ )
-			{
-				tarray[i] = ucfirst( tarray[i] as String );
+			for (var i : int = 1;i < tarray.length; i++ ) {
+				tarray[i] = ucfirst(tarray[i] as String);
 			}
-			var replace : String = tarray.join( "" );
+			var replace : String = tarray.join("");
 			return replace;
 		}
 
@@ -60,65 +190,8 @@ package com.flashartofwar.fcss.utils
 		 * @param	word
 		 * @return string
 		 */
-		private function ucfirst(word : String) : String
-		{
-			return word.substr( 0, 1 ).toUpperCase( ) + word.substr( 1 );
+		private static function ucfirst(word : String) : String {
+			return word.substr(0, 1).toUpperCase() + word.substr(1);
 		}
-
-		/**
-		 * 
-		 * @param prop
-		 * @param value
-		 * @return 
-		 * 
-		 */		
-//		override protected function cleanUpValue(prop : String, value : String) : String
-//		{
-//			switch (prop)
-//			{
-//				case STYLE_SHEET:
-//					var selectorNames : Array = value.split( "," );
-//					
-//					return buildStyleSheetString.apply( null, selectorNames );
-//					break;
-//				default:
-//					return super.cleanUpValue( prop, value );
-//					break;
-//			}
-//		}
-
-		/**
-		 * 
-		 * @param selectorNames
-		 * @return 
-		 * 
-		 */		
-//		protected function buildStyleSheetString( ... selectorNames) : String
-//		{
-//			var cssTest : String = clone.apply( null, selectorNames ).toString( );
-//			return cssTest;
-//		}
-
-		/**
-		 * 
-		 * @param prop
-		 * @param value
-		 * @return 
-		 * 
-		 */		
-//		override protected function cleanUpValue(prop : String, value : String) : String
-//		{
-//			switch (prop)
-//			{
-//				case STYLE_SHEET:
-//					var selectorNames : Array = value.split( "," );
-//					
-//					return buildStyleSheetString.apply( null, selectorNames );
-//					break;
-//				default:
-//					return super.cleanUpValue( prop, value );
-//					break;
-//			}	
-//		}
 	}
 }

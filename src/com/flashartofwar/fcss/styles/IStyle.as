@@ -36,5 +36,7 @@ package com.flashartofwar.fcss.styles {
 		function get selectorName() : String;
 
 		function set selectorName(name : String) : void;
+		
+		function clone() : IStyle;
 	}
 }

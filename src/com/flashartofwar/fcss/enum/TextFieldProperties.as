@@ -70,9 +70,9 @@ package com.flashartofwar.fcss.enum {
                         PROPERTY_TYPES[ANTI_ALIAS_TYPE] = "string";
                         PROPERTY_TYPES[AUTO_SIZE] = "string"; // Values none, left, center, right
                         PROPERTY_TYPES[BACKGROUND] = "boolean";
-                        PROPERTY_TYPES[BACKGROUND_COLOR] = "color";
+                        PROPERTY_TYPES[BACKGROUND_COLOR] = "uint";
                         PROPERTY_TYPES[BORDER] = "boolean";
-                        PROPERTY_TYPES[BORDER_COLOR] = "color";
+                        PROPERTY_TYPES[BORDER_COLOR] = "uint";
                         PROPERTY_TYPES[CONDENSE_WHITE] = "boolean";
                         PROPERTY_TYPES[DISPLAY_AS_PASSWORD] = "boolean";
                         PROPERTY_TYPES[EMBED_FONTS] = "boolean";
@@ -85,7 +85,7 @@ package com.flashartofwar.fcss.enum {
                         PROPERTY_TYPES[SELECTION_BEGIN_INDEX] = true;
                         PROPERTY_TYPES[SELECTIOEND_INDEX] = true;
                         PROPERTY_TYPES[SHARPNESS] = "number";
-                        PROPERTY_TYPES[TEXT_COLOR] = "number";
+                        PROPERTY_TYPES[TEXT_COLOR] = "uint";
                         PROPERTY_TYPES[TEXT_HEIGHT] = "number";
                         PROPERTY_TYPES[TEXT_WIDTH] = "number";
                         PROPERTY_TYPES[THICKNESS] = "number";

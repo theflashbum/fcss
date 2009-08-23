@@ -238,19 +238,7 @@ package com.flashartofwar.fcss.styles {
 			{
 				this[prop] = properties[prop];
 			}
-		}
+		}	
 
-		/**
-		 * 
-		 * <p>Performs a deep copy of all the values from the Properties 
-		 * instance.</p>
-		 * 
-		 * @return 
-		 * 
-		 */		
-		public function clone() : ISelector
-		{
-			return null;
-		}
 	}
 }

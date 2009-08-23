@@ -62,7 +62,7 @@ package com.flashartofwar.fcss.enum {
 		PROPERTY_TYPES[BLOCK_INDENT] = "boolean";
 		PROPERTY_TYPES[BOLD] = "boolean";
 		PROPERTY_TYPES[BULLET] = "boolean";
-		PROPERTY_TYPES[COLOR] = "color";
+		PROPERTY_TYPES[COLOR] = "uint";
 		PROPERTY_TYPES[FONT] = "string";
 		PROPERTY_TYPES[INDENT] = "number";
 		PROPERTY_TYPES[ITALIC] = "boolean";

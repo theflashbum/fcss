@@ -1,6 +1,7 @@
 
 package com.flashartofwar.fcss.utils 
 {
+	import com.flashartofwar.fcss.styles.IStyle;
 	import com.flashartofwar.fcss.styles.Style;
 	import com.flashartofwar.fcss.styles.PropertyMap;
 
@@ -90,7 +91,7 @@ package com.flashartofwar.fcss.utils
 		/**
 		 * 
 		 */		
-		public static function applyProperties( target : Object, properties : Style) : void 
+		public static function applyProperties( target : Object, properties : IStyle) : void 
 		{
 			var propMap : PropertyMap = propertyMap( target );
 			

@@ -109,7 +109,7 @@ package com.flashartofwar.fcss.styles
 		 * @return 
 		 * 
 		 */		
-		override public function clone() : ISelector
+		public function clone() : IStyle
 		{
 			var cloneProp : Style = new Style( );
 			var total : int = propertiesIndex.length;

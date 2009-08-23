@@ -87,7 +87,7 @@ package com.flashartofwar.fcss.styles
 			if (! propsByType[type])
                 propsByType[type] = new Array( );
 
-			Array(propsByType[type]).push( name );
+			propsByType[type].push( name );
 
 			if (propertyTypes.indexOf( type ) == - 1)
                 propertyTypes.push( type );
@@ -143,7 +143,7 @@ package com.flashartofwar.fcss.styles
 		 * @return
 		 *
 		 */
-		override public function clone() : ISelector
+		public function clone() : ISelector
 		{
 			var myBA : ByteArray = new ByteArray( );
 			myBA.writeObject( this );
