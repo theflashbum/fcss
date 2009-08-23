@@ -29,35 +29,81 @@
  *
  */
 
-package com.flashartofwar.fcss.managers 
-{
-	import com.flashartofwar.fcss.stylesheets.StyleSheetCollection;
+package com.flashartofwar.fcss.stylesheets {
+	import com.flashartofwar.fcss.styles.Style;
+	import com.flashartofwar.fcss.stylesheets.IStyleSheet;
 
-	public class StyleSheetManager 
+	public class StyleSheetCollection
 	{
 
-		public static const INIT : String = "init";
-		private static var __instance : StyleSheetCollection;
+		public var styleSheets : Array = [];
 
-		public function StyleSheetManager(enforcer : SingletonEnforcer) 
+		/**
+		 * 
+		 * @param enforcer
+		 * 
+		 */		
+		public function StyleSheetCollection() 
 		{
-			if (enforcer == null) 
-			{
-				throw new Error( "Error: Instantiation failed: Use GlobalDecalSheetManager.instance instead." );
-			}
 		}
 
-		public static function get instance() : StyleSheetCollection 
+		/**
+		 * 
+		 * @param selectorName
+		 * @return 
+		 * 
+		 */		
+		public function getSelector( ... selectorNames) : Style
 		{
-			if(StyleSheetManager.__instance == null) 
+			var tempProperties : Style = new Style( );
+			
+			for each (var styleSheet:IStyleSheet in styleSheets)
 			{
-				StyleSheetManager.__instance = new StyleSheetCollection( );
+				var sheetProperties : Style = styleSheet.getSelector.apply( null, selectorNames );
+				if(sheetProperties.selectorName != "EmptyProperties")
+					tempProperties.merge( sheetProperties );	
 			}
-			return StyleSheetManager.__instance;
+			
+			return tempProperties; 
+		}
+
+		/**
+		 * 
+		 * @param id
+		 * @param sheet
+		 * 
+		 */		
+		public function addPropertySheet(id : String, sheet : IStyleSheet) : void
+		{
+			styleSheets[id] = sheet;
+		}
+
+		/**
+		 * 
+		 * @param id
+		 */
+		public function getPropertySheet(id : String) : IStyleSheet
+		{
+			return styleSheets[id];	
+		}
+
+		/**
+		 * 
+		 * @param id
+		 * 
+		 */		
+		public function removePropertySheet(id : String) : void
+		{
+			styleSheets[id] = null;
+			delete styleSheets[id];
+		}
+
+		/**
+		 * 
+		 */
+		public function registerStyleSheet(id : String, sheet : IStyleSheet) : void
+		{
+			addPropertySheet( id, sheet );
 		}
 	}
-}
-
-internal class SingletonEnforcer 
-{
 }
