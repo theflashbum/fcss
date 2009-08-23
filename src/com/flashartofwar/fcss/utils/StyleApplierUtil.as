@@ -2,7 +2,6 @@
 package com.flashartofwar.fcss.utils 
 {
 	import com.flashartofwar.fcss.styles.IStyle;
-	import com.flashartofwar.fcss.styles.Style;
 	import com.flashartofwar.fcss.styles.PropertyMap;
 
 	import flash.utils.Dictionary;
