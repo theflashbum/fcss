@@ -1,7 +1,7 @@
 
 /** 
  * <p>Original Author:  jessefreeman</p>
- * <p>Class File: TextFieldUtility.as</p>
+ * <p>Class File: TextFieldUtil.as</p>
  * 
  * <p>Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,7 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/> 
- *      2.0  Initial version Jan 7, 2009</p>
+ *		1.0  Initial version Aug 28, 2009</p>
  *
  */
 
@@ -38,7 +38,7 @@ package com.flashartofwar.fcss.utils {
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 
-	public class TextFieldUtility {
+	public class TextFieldUtil {
 
 		private static const STYLE_SHEET : String = "styleSheet";
 

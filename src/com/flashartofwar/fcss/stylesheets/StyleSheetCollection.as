@@ -1,7 +1,7 @@
 
 /** 
  * <p>Original Author:  jessefreeman</p>
- * <p>Class File: CamoStyleSheetLibrary.as</p>
+ * <p>Class File: StyleSheetCollection.as</p>
  * 
  * <p>Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,18 +25,19 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/> 
- * 	2.0  Initial version Jan 19, 2009</p>
+ *		1.0  Initial version Aug 28, 2009</p>
  *
  */
 
 package com.flashartofwar.fcss.stylesheets {
+	import flash.utils.Dictionary;
 	import com.flashartofwar.fcss.styles.Style;
 	import com.flashartofwar.fcss.stylesheets.IStyleSheet;
 
 	public class StyleSheetCollection
 	{
 
-		public var styleSheets : Array = [];
+		public var styleSheets : Dictionary = new Dictionary(true);
 
 		/**
 		 * 
@@ -73,7 +74,7 @@ package com.flashartofwar.fcss.stylesheets {
 		 * @param sheet
 		 * 
 		 */		
-		public function addPropertySheet(id : String, sheet : IStyleSheet) : void
+		public function addStyleSheet(id : String, sheet : IStyleSheet) : void
 		{
 			styleSheets[id] = sheet;
 		}
@@ -82,7 +83,7 @@ package com.flashartofwar.fcss.stylesheets {
 		 * 
 		 * @param id
 		 */
-		public function getPropertySheet(id : String) : IStyleSheet
+		public function getStyleSheet(id : String) : IStyleSheet
 		{
 			return styleSheets[id];	
 		}
@@ -92,18 +93,11 @@ package com.flashartofwar.fcss.stylesheets {
 		 * @param id
 		 * 
 		 */		
-		public function removePropertySheet(id : String) : void
+		public function removeStyleSheet(id : String) : void
 		{
 			styleSheets[id] = null;
 			delete styleSheets[id];
 		}
 
-		/**
-		 * 
-		 */
-		public function registerStyleSheet(id : String, sheet : IStyleSheet) : void
-		{
-			addPropertySheet( id, sheet );
-		}
 	}
 }

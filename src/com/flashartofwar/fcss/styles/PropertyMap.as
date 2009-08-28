@@ -24,7 +24,7 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/>
- * 	2.0  Initial version April 9, 2009</p>
+ *		1.0  Initial version Aug 28, 2009</p>
  *
  */
 
