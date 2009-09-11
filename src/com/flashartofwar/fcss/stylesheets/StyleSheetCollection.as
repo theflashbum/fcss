@@ -34,7 +34,7 @@ package com.flashartofwar.fcss.stylesheets {
 	import com.flashartofwar.fcss.styles.Style;
 	import com.flashartofwar.fcss.stylesheets.IStyleSheet;
 
-	public class StyleSheetCollection
+	public class StyleSheetCollection implements IStyleSheet
 	{
 
 		public var styleSheets : Dictionary = new Dictionary(true);
@@ -98,6 +98,23 @@ package com.flashartofwar.fcss.stylesheets {
 			styleSheets[id] = null;
 			delete styleSheets[id];
 		}
-
+		
+		public function parseCSS(CSSText : String, compressText : Boolean = true) : void
+		{
+		}
+		
+		public function clear() : void
+		{
+		}
+		
+		public function newSelector(selectorName : String, propertySelector : Style) : void
+		{
+		}
+		
+		public function get selectorNames() : Array
+		{
+			// TODO: Auto-generated method stub
+			return null;
+		}
 	}
 }
