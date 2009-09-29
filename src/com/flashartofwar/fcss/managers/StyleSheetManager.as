@@ -55,6 +55,7 @@ package com.flashartofwar.fcss.managers
 			}
 			return StyleSheetManager.__instance;
 		}
+
 	}
 }
 

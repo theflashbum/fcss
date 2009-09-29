@@ -1,4 +1,3 @@
-
 /** 
  * <p>Original Author:  jessefreeman</p>
  * <p>Class File: StyleSheetCollection.as</p>
@@ -29,15 +28,17 @@
  *
  */
 
-package com.flashartofwar.fcss.stylesheets {
-	import flash.utils.Dictionary;
+package com.flashartofwar.fcss.stylesheets 
+{
 	import com.flashartofwar.fcss.styles.Style;
 	import com.flashartofwar.fcss.stylesheets.IStyleSheet;
 
 	public class StyleSheetCollection implements IStyleSheet
 	{
 
-		public var styleSheets : Dictionary = new Dictionary(true);
+		protected var styleSheets : Array = [];
+		protected var totalSheets : Number = 0;
+		protected var defaultSheetName : String = "StyleSheet";
 
 		/**
 		 * 
@@ -77,6 +78,7 @@ package com.flashartofwar.fcss.stylesheets {
 		public function addStyleSheet(id : String, sheet : IStyleSheet) : void
 		{
 			styleSheets[id] = sheet;
+			totalSheets ++;
 		}
 
 		/**
@@ -96,25 +98,40 @@ package com.flashartofwar.fcss.stylesheets {
 		public function removeStyleSheet(id : String) : void
 		{
 			styleSheets[id] = null;
+			totalSheets --;
 			delete styleSheets[id];
 		}
-		
+
 		public function parseCSS(CSSText : String, compressText : Boolean = true) : void
 		{
+			var styleSheet : StyleSheet = new StyleSheet( );
+			styleSheet.parseCSS( CSSText, compressText );
+			
+			addStyleSheet( defaultSheetName + totalSheets + 1, styleSheet );
 		}
-		
+
 		public function clear() : void
 		{
+			styleSheets = [];
 		}
-		
+
 		public function newSelector(selectorName : String, propertySelector : Style) : void
 		{
+			if(styleSheets[0])
+				IStyleSheet(styleSheets[0]).newSelector(selectorName, propertySelector);
 		}
-		
+
 		public function get selectorNames() : Array
 		{
+			var selectorNames : Array = new Array( );
+			
+			var styleSheet : IStyleSheet;
+			for each(styleSheet in styleSheets)
+			{
+				
+			}
 			// TODO: Auto-generated method stub
-			return null;
+			return selectorNames;
 		}
 	}
 }
