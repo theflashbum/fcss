@@ -1,3 +1,4 @@
+
 /** 
  * <p>Original Author:  jessefreeman</p>
  * <p>Class File: StyleSheetCollection.as</p>
@@ -36,9 +37,9 @@ package com.flashartofwar.fcss.stylesheets
 	public class StyleSheetCollection implements IStyleSheet
 	{
 
-		protected var styleSheets : Array = [];
-		protected var totalSheets : Number = 0;
-		protected var defaultSheetName : String = "StyleSheet";
+		protected var styleSheets:Array = [];
+		protected var totalSheets:Number = 0;
+		protected var defaultSheetName:String = "StyleSheet";
 
 		/**
 		 * 
@@ -55,13 +56,13 @@ package com.flashartofwar.fcss.stylesheets
 		 * @return 
 		 * 
 		 */		
-		public function getSelector( ... selectorNames) : Style
+		public function getSelector( ... selectorNames):Style
 		{
-			var tempProperties : Style = new Style( );
+			var tempProperties:Style = new Style( );
 			
 			for each (var styleSheet:IStyleSheet in styleSheets)
 			{
-				var sheetProperties : Style = styleSheet.getSelector.apply( null, selectorNames );
+				var sheetProperties:Style = styleSheet.getSelector.apply( null, selectorNames );
 				if(sheetProperties.selectorName != "EmptyProperties")
 					tempProperties.merge( sheetProperties );	
 			}
@@ -75,7 +76,7 @@ package com.flashartofwar.fcss.stylesheets
 		 * @param sheet
 		 * 
 		 */		
-		public function addStyleSheet(id : String, sheet : IStyleSheet) : void
+		public function addStyleSheet(id:String, sheet:IStyleSheet):void
 		{
 			styleSheets[id] = sheet;
 			totalSheets ++;
@@ -85,7 +86,7 @@ package com.flashartofwar.fcss.stylesheets
 		 * 
 		 * @param id
 		 */
-		public function getStyleSheet(id : String) : IStyleSheet
+		public function getStyleSheet(id:String):IStyleSheet
 		{
 			return styleSheets[id];	
 		}
@@ -95,42 +96,41 @@ package com.flashartofwar.fcss.stylesheets
 		 * @param id
 		 * 
 		 */		
-		public function removeStyleSheet(id : String) : void
+		public function removeStyleSheet(id:String):void
 		{
 			styleSheets[id] = null;
 			totalSheets --;
 			delete styleSheets[id];
 		}
 
-		public function parseCSS(CSSText : String, compressText : Boolean = true) : void
+		public function parseCSS(CSSText:String, compressText:Boolean = true):void
 		{
-			var styleSheet : StyleSheet = new StyleSheet( );
+			var styleSheet:StyleSheet = new StyleSheet( );
 			styleSheet.parseCSS( CSSText, compressText );
 			
 			addStyleSheet( defaultSheetName + totalSheets + 1, styleSheet );
 		}
 
-		public function clear() : void
+		public function clear():void
 		{
 			styleSheets = [];
 		}
 
-		public function newSelector(selectorName : String, propertySelector : Style) : void
+		public function newSelector(selectorName:String, propertySelector:Style):void
 		{
 			if(styleSheets[0])
-				IStyleSheet(styleSheets[0]).newSelector(selectorName, propertySelector);
+				IStyleSheet( styleSheets[0] ).newSelector( selectorName, propertySelector );
 		}
 
-		public function get selectorNames() : Array
+		public function get selectorNames():Array
 		{
-			var selectorNames : Array = new Array( );
+			var selectorNames:Array = new Array( );
 			
-			var styleSheet : IStyleSheet;
+			var styleSheet:IStyleSheet;
 			for each(styleSheet in styleSheets)
 			{
-				
+				//TODO need to finish this method.
 			}
-			// TODO: Auto-generated method stub
 			return selectorNames;
 		}
 	}

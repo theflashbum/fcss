@@ -36,10 +36,10 @@ package com.flashartofwar.fcss.managers
 	public class StyleSheetManager 
 	{
 
-		public static const INIT : String = "init";
-		private static var __instance : StyleSheetCollection;
+		public static const INIT:String = "init";
+		private static var __instance:StyleSheetCollection;
 
-		public function StyleSheetManager(enforcer : SingletonEnforcer) 
+		public function StyleSheetManager(enforcer:SingletonEnforcer) 
 		{
 			if (enforcer == null) 
 			{
@@ -47,7 +47,7 @@ package com.flashartofwar.fcss.managers
 			}
 		}
 
-		public static function get instance() : StyleSheetCollection 
+		public static function get instance():StyleSheetCollection 
 		{
 			if(StyleSheetManager.__instance == null) 
 			{
@@ -55,7 +55,6 @@ package com.flashartofwar.fcss.managers
 			}
 			return StyleSheetManager.__instance;
 		}
-
 	}
 }
 

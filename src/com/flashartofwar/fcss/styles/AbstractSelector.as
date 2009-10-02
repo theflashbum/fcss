@@ -1,3 +1,4 @@
+
 /** 
  * <p>Original Author:  jessefreeman</p>
  * <p>Class File: AbstractSelector.as</p>
@@ -28,8 +29,8 @@
  *	
  */
 
-package com.flashartofwar.fcss.styles {
-	
+package com.flashartofwar.fcss.styles 
+{
 	import flash.errors.IllegalOperationError;
 	import flash.net.registerClassAlias;
 	import flash.utils.Proxy;
@@ -37,14 +38,15 @@ package com.flashartofwar.fcss.styles {
 
 	dynamic public class AbstractSelector extends Proxy implements ISelector
 	{
-		protected var properties : Object = new Object( );
-		protected var propertiesIndex : Array = new Array( );
+
+		protected var properties:Object = new Object( );
+		protected var propertiesIndex:Array = new Array( );
 
 		/**
 		 * 
-		 * <p>Properties is a special object that contains the names and values
+		 * <p>Selector is a special object that contains the names and values
 		 * of properties another class can use to configure itself off of. Unlike
-		 * a regular Object, the Properties instance keeps an ordered list to 
+		 * a regular Object, the Selector instance keeps an ordered list to 
 		 * allow ordered looping through it's values. This assures that the order
 		 * of the values set will be correctly returned in the order expected.</p>
 		 *  
@@ -52,7 +54,7 @@ package com.flashartofwar.fcss.styles {
 		 * @param propertiesIndex
 		 * 
 		 */		
-		public function AbstractSelector(self : AbstractSelector)
+		public function AbstractSelector(self:AbstractSelector)
 		{
 			if(self != this)
 			{
@@ -71,7 +73,7 @@ package com.flashartofwar.fcss.styles {
 		 * <p>It is important to override this class so that the correct Class
 		 * Alias is registered when doing a clone.</p>
 		 */		
-		protected function registerClass() : void
+		protected function registerClass():void
 		{
 			registerClassAlias( "camo.core.property.AbstractProperties", AbstractSelector );
 		}
@@ -84,7 +86,7 @@ package com.flashartofwar.fcss.styles {
 		 * @return 
 		 * 
 		 */	
-		override flash_proxy function deleteProperty(name : *) : Boolean
+		override flash_proxy function deleteProperty(name:*):Boolean
 		{
 			return $deleteProperty( name );
 		}
@@ -95,9 +97,9 @@ package com.flashartofwar.fcss.styles {
 		 * @return 
 		 * 
 		 */		
-		protected function $deleteProperty(name : *) : Boolean
+		protected function $deleteProperty(name:*):Boolean
 		{
-			var wasDeleted : Boolean = delete properties[name];
+			var wasDeleted:Boolean = delete properties[name];
 			if (wasDeleted)
 			{
 				propertiesIndex.splice( propertiesIndex.indexOf( name ), 1 );
@@ -113,7 +115,7 @@ package com.flashartofwar.fcss.styles {
 		 * @return 
 		 * 
 		 */	
-		override flash_proxy function getProperty(name : *) : *
+		override flash_proxy function getProperty(name:*):*
 		{
 			return properties[name];
 		}
@@ -126,7 +128,7 @@ package com.flashartofwar.fcss.styles {
 		 * @return 
 		 * 
 		 */	
-		override flash_proxy function hasProperty(name : *) : Boolean
+		override flash_proxy function hasProperty(name:*):Boolean
 		{
 			return properties.hasOwnProperty( name );
 		}
@@ -139,7 +141,7 @@ package com.flashartofwar.fcss.styles {
 		 * @return 
 		 * 
 		 */	
-		override flash_proxy function nextName(index : int) : String
+		override flash_proxy function nextName(index:int):String
 		{
 			return propertiesIndex[index - 1];
 		}
@@ -152,7 +154,7 @@ package com.flashartofwar.fcss.styles {
 		 * @return 
 		 * 
 		 */	
-		override flash_proxy function nextNameIndex(index : int) : int
+		override flash_proxy function nextNameIndex(index:int):int
 		{
 			if (index < propertiesIndex.length)
 				return index + 1;
@@ -168,7 +170,7 @@ package com.flashartofwar.fcss.styles {
 		 * @return 
 		 * 
 		 */	
-		override flash_proxy function nextValue(index : int) : *
+		override flash_proxy function nextValue(index:int):*
 		{
 			return properties[propertiesIndex[index - 1]];
 		}
@@ -181,17 +183,18 @@ package com.flashartofwar.fcss.styles {
 		 * @param value
 		 * 
 		 */
-		override flash_proxy function setProperty(name : *, value : *) : void
+		override flash_proxy function setProperty(name:*, value:*):void
 		{
 			$setProperty( name, value );
 		}
 
 		/**
+		 * @private
 		 * 
 		 * @return 
 		 * 
 		 */		
-		protected function $setProperty(name : *, value : *) : void
+		protected function $setProperty(name:*, value:*):void
 		{
 			properties[name] = value;
 	
@@ -205,9 +208,9 @@ package com.flashartofwar.fcss.styles {
 		 * @return 
 		 * 
 		 */	
-		public function toString() : String
+		public function toString():String
 		{
-			var styleString : String = "{";
+			var styleString:String = "{";
 			
 			for (var prop:String in properties)
 			{
@@ -231,13 +234,12 @@ package com.flashartofwar.fcss.styles {
 		 * @param style
 		 * 
 		 */		
-		public function merge(properties : ISelector) : void
+		public function merge(properties:ISelector):void
 		{
 			for(var prop:String in properties) 
 			{
 				this[prop] = properties[prop];
 			}
 		}	
-
 	}
 }

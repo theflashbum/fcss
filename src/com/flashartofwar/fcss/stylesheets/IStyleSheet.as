@@ -1,3 +1,4 @@
+
 /** 
  * <p>Original Author:  jessefreeman</p>
  * <p>Class File: IStyleSheet.as</p>
@@ -34,14 +35,15 @@ package com.flashartofwar.fcss.stylesheets
 
 	public interface IStyleSheet
 	{
-		function parseCSS(CSSText : String, compressText : Boolean = true) : void;
 
-		function clear() : void;
+		function parseCSS(CSSText:String, compressText:Boolean = true):void;
 
-		function get selectorNames() : Array;
+		function clear():void;
 
-		function newSelector(selectorName : String, propertySelector : Style) : void;
+		function get selectorNames():Array;
 
-		function getSelector( ... selectorNames) : Style;
+		function newSelector(selectorName:String, propertySelector:Style):void;
+
+		function getSelector( ... selectorNames):Style;
 	}
 }

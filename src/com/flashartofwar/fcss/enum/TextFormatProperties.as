@@ -1,3 +1,4 @@
+
 /** 
  * <p>Original Author:  jessefreeman</p>
  * <p>Class File: TextFormatProperties.as</p>
@@ -28,12 +29,14 @@
  *
  */
 
-package com.flashartofwar.fcss.enum {
+package com.flashartofwar.fcss.enum 
+{
 	import com.flashartofwar.fcss.utils.TypeHelperUtil;
 
-	public class TextFormatProperties {
+	public class TextFormatProperties 
+	{
 
-		private static const PROPERTY_TYPES : Object = new Object();
+		private static const PROPERTY_TYPES:Object = new Object( );
 		{
 		PROPERTY_TYPES[CSSProperties.ALIGN] = "string";
 		PROPERTY_TYPES[CSSProperties.BLOCK_INDENT] = "boolean";
@@ -53,8 +56,7 @@ package com.flashartofwar.fcss.enum {
 		PROPERTY_TYPES[CSSProperties.TARGET] = "string";
 		PROPERTY_TYPES[CSSProperties.UNDERLINE] = "boolean";
 		}
-
-		private static const PROPERTY_MAP : Object = new Object;
+		private static const PROPERTY_MAP:Object = new Object;
 		{
 		PROPERTY_MAP[CSSProperties.FONT_FACE] = CSSProperties.FONT;
 		PROPERTY_MAP[CSSProperties.TEXT_ALIGN] = CSSProperties.ALIGN;
@@ -63,15 +65,18 @@ package com.flashartofwar.fcss.enum {
 		PROPERTY_MAP[CSSProperties.FONT_SIZE] = CSSProperties.SIZE;
 		}
 
-		public static function isSupported(property : String) : Boolean {
-			return (PROPERTY_TYPES[convertProp(property)]);
+		public static function isSupported(property:String):Boolean 
+		{
+			return (PROPERTY_TYPES[convertProp( property )]);
 		}
 
-		public static function cleanupProp(id : String,value : String) : * {
-			return TypeHelperUtil.getType(value, PROPERTY_TYPES[convertProp(id)]);
+		public static function cleanupProp(id:String,value:String):* 
+		{
+			return TypeHelperUtil.getType( value, PROPERTY_TYPES[convertProp( id )] );
 		}
 
-		public static function convertProp(prop : String) : String {
+		public static function convertProp(prop:String):String 
+		{
 			return (PROPERTY_MAP[prop]) ? PROPERTY_MAP[prop] : prop;
 		}
 	}

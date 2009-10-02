@@ -40,7 +40,7 @@ package com.flashartofwar.fcss.utils
 	public class StyleApplierUtil 
 	{
 
-		protected static var cachedPropertyMaps : Dictionary = new Dictionary( true );
+		protected static var cachedPropertyMaps:Dictionary = new Dictionary( true );
 
 		/**
 		 * 
@@ -48,9 +48,9 @@ package com.flashartofwar.fcss.utils
 		 * @return 
 		 * 
 		 */		
-		private static function scan(target : Object) : XML 
+		private static function scan(target:Object):XML 
 		{
-			var classXML : XML = describeType( target );
+			var classXML:XML = describeType( target );
 			return classXML;
 		}
 
@@ -60,28 +60,28 @@ package com.flashartofwar.fcss.utils
 		 * @return 
 		 * 
 		 */			
-		public static function propertyMap(target : Object) : PropertyMap 
+		public static function propertyMap(target:Object):PropertyMap 
 		{
-			var propMap : PropertyMap = new PropertyMap( );
+			var propMap:PropertyMap = new PropertyMap( );
 			
-			var classXML : XML = scan( target );
-			var className : String = classXML.@name;
+			var classXML:XML = scan( target );
+			var className:String = classXML.@name;
 			
 			if(! cachedPropertyMaps[className]) 
 			{
-				var list : XMLList = classXML.*;
+				var list:XMLList = classXML.*;
 				
-				var item : XML;
+				var item:XML;
 				for each (item in list) 
 				{
-					var itemName : String = item.name( ).toString( );
+					var itemName:String = item.name( ).toString( );
 					switch(itemName) 
 					{
 						case "variable":
 							propMap[item.@name.toString( )] = item.@type.toString( );
 							break;
 						case "accessor":
-							var access : String = item.@access;
+							var access:String = item.@access;
 							if((access == "readwrite") || (access == "writeonly")) 
 							{
 								propMap[item.@name.toString( )] = item.@type.toString( );
@@ -103,11 +103,11 @@ package com.flashartofwar.fcss.utils
 		/**
 		 * 
 		 */		
-		public static function propertyMapCollection( ... targets ) : Dictionary 
+		public static function propertyMapCollection( ... targets ):Dictionary 
 		{
-			var collection : Dictionary = new Dictionary( true );
-			var total : int = targets.length;
-			var i : int;
+			var collection:Dictionary = new Dictionary( true );
+			var total:int = targets.length;
+			var i:int;
 			
 			for (i = 0; i < total; i ++) 
 			{
@@ -120,9 +120,9 @@ package com.flashartofwar.fcss.utils
 		/**
 		 * 
 		 */		
-		public static function applyProperties( target : Object, properties : IStyle) : void 
+		public static function applyProperties( target:Object, properties:IStyle):void 
 		{
-			var propMap : PropertyMap = propertyMap( target );
+			var propMap:PropertyMap = propertyMap( target );
 			
 			for(var prop:String in properties) 
 			{
@@ -130,8 +130,8 @@ package com.flashartofwar.fcss.utils
 				if(target.hasOwnProperty( prop )) 
 				{
 					
-					var type : String = propMap[prop];
-					var cleanedUpValue : * = TypeHelperUtil.getType( properties[prop], type );
+					var type:String = propMap[prop];
+					var cleanedUpValue:* = TypeHelperUtil.getType( properties[prop], type );
 					
 					target[prop] = cleanedUpValue;
 				}

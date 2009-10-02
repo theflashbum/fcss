@@ -29,7 +29,8 @@
  *
  */
 
-package com.flashartofwar.fcss.utils {
+package com.flashartofwar.fcss.utils 
+{
 	import com.flashartofwar.fcss.enum.TextFieldProperties;
 	import com.flashartofwar.fcss.enum.TextFormatProperties;
 	import com.flashartofwar.fcss.styles.IStyle;
@@ -38,48 +39,62 @@ package com.flashartofwar.fcss.utils {
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 
-	public class TextFieldUtil {
+	public class TextFieldUtil 
+	{
 
-		private static const STYLE_SHEET : String = "styleSheet";
+		private static const STYLE_SHEET:String = "styleSheet";
 
 		/**
 		 * This utility helps apply Styles to TextFields. Pass in a TextField
 		 * and a Style and the utility will handle everything for you. The method
 		 * will parse out props for TextField, TextFormat, and native StyleSheet.
 		 */
-		public static function applyStyle(textField : TextField, style : IStyle) : void {
+		public static function applyStyle(textField:TextField, style:IStyle):void 
+		{
 
-			var textFormat : TextFormat = new TextFormat();
-			var camelCasePropName : String;
-			var prop : String;
-			var value : String;
+			var textFormat:TextFormat = new TextFormat( );
+			var camelCasePropName:String;
+			var prop:String;
+			var value:String;
                
-			for (prop in style) {
+			for (prop in style) 
+			{
 				
-				camelCasePropName = camelize(prop, "-");
+				camelCasePropName = camelize( prop, "-" );
 				value = style[prop];
 				
-				if(TextFieldProperties.isSupported(camelCasePropName)) {
-					textField[camelCasePropName] = TextFieldProperties.cleanupProp(camelCasePropName, value);
+				if(TextFieldProperties.isSupported( camelCasePropName )) 
+				{
+					textField[camelCasePropName] = TextFieldProperties.cleanupProp( camelCasePropName, value );
 				}
-                else if (TextFormatProperties.isSupported(camelCasePropName)) {
-					textFormat[TextFormatProperties.convertProp(camelCasePropName)] = TextFormatProperties.cleanupProp(camelCasePropName, value);
+                else if (TextFormatProperties.isSupported( camelCasePropName )) 
+				{
+					textFormat[TextFormatProperties.convertProp( camelCasePropName )] = TextFormatProperties.cleanupProp( camelCasePropName, value );
 				}
-				else if (camelCasePropName == STYLE_SHEET) {
-					if(value) {
-						var tempStyleSheet : StyleSheet = new StyleSheet();
-						tempStyleSheet.parseCSS(value);
-					} else {
+				else if (camelCasePropName == STYLE_SHEET) 
+				{
+					if(value) 
+					{
+						var tempStyleSheet:StyleSheet = new StyleSheet( );
+						tempStyleSheet.parseCSS( value );
+					} 
+					else 
+					{
 						// There was no CSS to parse
 					}
-				} else {
+				} 
+				else 
+				{
 					// prop is not supported;
 				}
 			}
 			
-			if(textField.htmlText || textField.text) {
-				textField.setTextFormat(textFormat);
-			} else {
+			if(textField.htmlText || textField.text) 
+			{
+				textField.setTextFormat( textFormat );
+			} 
+			else 
+			{
 				textField.defaultTextFormat = textFormat;
 			}
 			if(tempStyleSheet)
@@ -92,13 +107,15 @@ package com.flashartofwar.fcss.utils {
 		 * @param string lowercaseandunderscoreword Word to camelize
 		 * @return string Camelized word. likeThis.
 		 */
-		private static function camelize(lowercaseandunderscoreword : String, deimiter : String = "-") : String {
-			var tarray : Array = lowercaseandunderscoreword.split(deimiter);
+		private static function camelize(lowercaseandunderscoreword:String, deimiter:String = "-"):String 
+		{
+			var tarray:Array = lowercaseandunderscoreword.split( deimiter );
 			
-			for (var i : int = 1;i < tarray.length; i++ ) {
-				tarray[i] = ucfirst(tarray[i] as String);
+			for (var i:int = 1; i < tarray.length; i ++ ) 
+			{
+				tarray[i] = ucfirst( tarray[i] as String );
 			}
-			var replace : String = tarray.join("");
+			var replace:String = tarray.join( "" );
 			return replace;
 		}
 
@@ -107,8 +124,9 @@ package com.flashartofwar.fcss.utils {
 		 * @param	word
 		 * @return string
 		 */
-		private static function ucfirst(word : String) : String {
-			return word.substr(0, 1).toUpperCase() + word.substr(1);
+		private static function ucfirst(word:String):String 
+		{
+			return word.substr( 0, 1 ).toUpperCase( ) + word.substr( 1 );
 		}
 	}
 }

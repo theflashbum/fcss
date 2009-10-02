@@ -36,58 +36,58 @@ package com.flashartofwar.fcss.enum
 	public class TextFieldProperties 
 	{
 
-		private static const PROPERTY_TYPES : Object = new Object( );
+		private static const PROPERTY_TYPES:Object = new Object( );
 		{
-	        PROPERTY_TYPES[CSSProperties.ALWAYS_SHOW_SELECTION] = "boolean";
-            PROPERTY_TYPES[CSSProperties.ANTI_ALIAS_TYPE] = "string";
-            PROPERTY_TYPES[CSSProperties.AUTO_SIZE] = "string"; // Values none, left, center, right
-            PROPERTY_TYPES[CSSProperties.BACKGROUND] = "boolean";
-            PROPERTY_TYPES[CSSProperties.BACKGROUND_COLOR] = "uint";
-            PROPERTY_TYPES[CSSProperties.BORDER] = "boolean";
-            PROPERTY_TYPES[CSSProperties.BORDER_COLOR] = "uint";
-            PROPERTY_TYPES[CSSProperties.CONDENSE_WHITE] = "boolean";
-            PROPERTY_TYPES[CSSProperties.DISPLAY_AS_PASSWORD] = "boolean";
-            PROPERTY_TYPES[CSSProperties.EMBED_FONTS] = "boolean";
-            PROPERTY_TYPES[CSSProperties.GRID_FIT_TYPE] = true;
-            PROPERTY_TYPES[CSSProperties.MAX_CHARS] = "number";
-            PROPERTY_TYPES[CSSProperties.MOUSE_WHEEL_ENABLED] = "boolean";
-            PROPERTY_TYPES[CSSProperties.MULTILINE] = "boolean";
-            PROPERTY_TYPES[CSSProperties.RESTRICT] = true;
-            PROPERTY_TYPES[CSSProperties.SELECTABLE] = "boolean";
-            PROPERTY_TYPES[CSSProperties.SHARPNESS] = "number";
-            PROPERTY_TYPES[CSSProperties.TEXT_COLOR] = "uint";
-            PROPERTY_TYPES[CSSProperties.TEXT_HEIGHT] = "number";
-            PROPERTY_TYPES[CSSProperties.TEXT_WIDTH] = "number";
-            PROPERTY_TYPES[CSSProperties.THICKNESS] = "number";
-            PROPERTY_TYPES[CSSProperties.WORD_WRAP] = "boolean";
-            PROPERTY_TYPES[CSSProperties.WIDTH] = "number";
-            PROPERTY_TYPES[CSSProperties.HEIGHT] = "number";
-            PROPERTY_TYPES[CSSProperties.ALPHA] = "number";
-            PROPERTY_TYPES[CSSProperties.X] = "number";
-            PROPERTY_TYPES[CSSProperties.Y] = "number";
-            PROPERTY_TYPES[CSSProperties.ROTATION] = "number";
-	     }
-	     
-	    /**
-	     * <p>Looks up the property type and confirms that it exists.</p>
-	     * 
-	     * @param property
-	     */ 
-	    public static function isSupported(property:String):Boolean 
-	    {
-	         return (PROPERTY_TYPES[property]);
-	    }
-	     
-	    /**
-	     * <p>Take a supplied property, and it value then returns the value in it's native type.
-	     * This helps convert any string value into a usable property to build a TextField from.</p>
-	     * 
-	     * @param name
-	     * @param value
-	     */
-	    public static function cleanupProp(id:String,value:String):*
-	    {
-			return TypeHelperUtil.getType(value, PROPERTY_TYPES[id]);
-	    }
+		PROPERTY_TYPES[CSSProperties.ALWAYS_SHOW_SELECTION] = "boolean";
+		PROPERTY_TYPES[CSSProperties.ANTI_ALIAS_TYPE] = "string";
+		PROPERTY_TYPES[CSSProperties.AUTO_SIZE] = "string"; // Values none, left, center, right
+		PROPERTY_TYPES[CSSProperties.BACKGROUND] = "boolean";
+		PROPERTY_TYPES[CSSProperties.BACKGROUND_COLOR] = "uint";
+		PROPERTY_TYPES[CSSProperties.BORDER] = "boolean";
+		PROPERTY_TYPES[CSSProperties.BORDER_COLOR] = "uint";
+		PROPERTY_TYPES[CSSProperties.CONDENSE_WHITE] = "boolean";
+		PROPERTY_TYPES[CSSProperties.DISPLAY_AS_PASSWORD] = "boolean";
+		PROPERTY_TYPES[CSSProperties.EMBED_FONTS] = "boolean";
+		PROPERTY_TYPES[CSSProperties.GRID_FIT_TYPE] = true;
+		PROPERTY_TYPES[CSSProperties.MAX_CHARS] = "number";
+		PROPERTY_TYPES[CSSProperties.MOUSE_WHEEL_ENABLED] = "boolean";
+		PROPERTY_TYPES[CSSProperties.MULTILINE] = "boolean";
+		PROPERTY_TYPES[CSSProperties.RESTRICT] = true;
+		PROPERTY_TYPES[CSSProperties.SELECTABLE] = "boolean";
+		PROPERTY_TYPES[CSSProperties.SHARPNESS] = "number";
+		PROPERTY_TYPES[CSSProperties.TEXT_COLOR] = "uint";
+		PROPERTY_TYPES[CSSProperties.TEXT_HEIGHT] = "number";
+		PROPERTY_TYPES[CSSProperties.TEXT_WIDTH] = "number";
+		PROPERTY_TYPES[CSSProperties.THICKNESS] = "number";
+		PROPERTY_TYPES[CSSProperties.WORD_WRAP] = "boolean";
+		PROPERTY_TYPES[CSSProperties.WIDTH] = "number";
+		PROPERTY_TYPES[CSSProperties.HEIGHT] = "number";
+		PROPERTY_TYPES[CSSProperties.ALPHA] = "number";
+		PROPERTY_TYPES[CSSProperties.X] = "number";
+		PROPERTY_TYPES[CSSProperties.Y] = "number";
+		PROPERTY_TYPES[CSSProperties.ROTATION] = "number";
+		}
+
+		/**
+		 * <p>Looks up the property type and confirms that it exists.</p>
+		 * 
+		 * @param property
+		 */ 
+		public static function isSupported(property:String):Boolean 
+		{
+			return (PROPERTY_TYPES[property]);
+		}
+
+		/**
+		 * <p>Take a supplied property, and it value then returns the value in it's native type.
+		 * This helps convert any string value into a usable property to build a TextField from.</p>
+		 * 
+		 * @param name
+		 * @param value
+		 */
+		public static function cleanupProp(id:String,value:String):*
+		{
+			return TypeHelperUtil.getType( value, PROPERTY_TYPES[id] );
+		}
 	}
 }

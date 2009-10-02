@@ -34,21 +34,19 @@
 
 package com.flashartofwar.fcss.styles 
 {
-	
-	
 	import flash.net.registerClassAlias;
 
 	dynamic public class Style extends AbstractSelector implements IStyle
 	{
 
-		public static const DEFAULT_SELECTOR_NAME : String = "EmptySelector";
+		public static const DEFAULT_SELECTOR_NAME:String = "EmptySelector";
 
 		/**
 		 * 
 		 * @param value
 		 * 
 		 */		
-		public function set selectorName(value : String) : void
+		public function set selectorName(value:String):void
 		{
 			properties.selectorName = value;
 		}
@@ -58,7 +56,7 @@ package com.flashartofwar.fcss.styles
 		 * @return 
 		 * 
 		 */		
-		public function get selectorName() : String
+		public function get selectorName():String
 		{
 			return properties.selectorName;
 		}
@@ -88,9 +86,9 @@ package com.flashartofwar.fcss.styles
 		 * 
 		 * 
 		 */		
-		override protected function registerClass() : void
+		override protected function registerClass():void
 		{
-			registerClassAlias( "camo.core.property.Properties", Style );
+			registerClassAlias( "com.flashartofwar.fcss.styles.Properties", Style );
 		}
 
 		/**
@@ -100,7 +98,7 @@ package com.flashartofwar.fcss.styles
 		 * @return 
 		 * 
 		 */	
-		override public function toString() : String
+		override public function toString():String
 		{
 			return this["selectorName"].concat( super.toString( ) );
 		}
@@ -110,14 +108,14 @@ package com.flashartofwar.fcss.styles
 		 * @return 
 		 * 
 		 */		
-		public function clone() : IStyle
+		public function clone():IStyle
 		{
-			var cloneProp : Style = new Style( );
-			var total : int = propertiesIndex.length;
+			var cloneProp:Style = new Style( );
+			var total:int = propertiesIndex.length;
 			
-			for( var i : int = 0; i < total ; i ++)
+			for( var i:int = 0; i < total ; i ++)
 			{
-				var prop : String = propertiesIndex[i];
+				var prop:String = propertiesIndex[i];
 				cloneProp[prop] = properties[prop];
 			}
 			

@@ -1,3 +1,4 @@
+
 /** 
  * <p>Original Author:  jessefreeman</p>
  * <p>Class File: IStyle.as</p>
@@ -28,15 +29,16 @@
  *	
  */
  
-package com.flashartofwar.fcss.styles {
+package com.flashartofwar.fcss.styles 
+{
 
-	
 	public interface IStyle extends ISelector
 	{
-		function get selectorName() : String;
 
-		function set selectorName(name : String) : void;
-		
-		function clone() : IStyle;
+		function get selectorName():String;
+
+		function set selectorName(name:String):void;
+
+		function clone():IStyle;
 	}
 }

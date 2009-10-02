@@ -47,20 +47,14 @@ package com.flashartofwar.fcss.factories
 	public class TextFieldFactory 
 	{
 
-		private static const STYLE_SHEET : String = "styleSheet";
-		public static var debug : Boolean;
-		private static var endSelection : int;
-		private static var startSelection : int;
-		private static var newTag : Boolean;
-		private static var tagsFound : int;
-		public static var openFlag : Boolean;
-		public static var closeFlag : Boolean;
+		private static const STYLE_SHEET:String = "styleSheet";
+		public static var debug:Boolean;
 
-		public static function createTextField(id : String, styleSheet : IStyleSheet, htmlText : String = null, className : String = "TextField") : TextField
+		public static function createTextField(id:String, styleSheet:IStyleSheet, htmlText:String = null, className:String = "TextField"):TextField
 		{
-			var textField : TextField = new TextField( );
+			var textField:TextField = new TextField( );
 			
-			var style : Style = styleSheet.getSelector( "." + className, "#" + id );
+			var style:Style = styleSheet.getSelector( "." + className, "#" + id );
 			
 			textField.htmlText = htmlText;
 			
@@ -74,13 +68,13 @@ package com.flashartofwar.fcss.factories
 		 * and a Style and the utility will handle everything for you. The method
 		 * will parse out props for TextField, TextFormat, and native StyleSheet.
 		 */
-		public static function applyStyle(textField : TextField, style : IStyle) : void 
+		public static function applyStyle(textField:TextField, style:IStyle):void 
 		{
 
-			var textFormat : TextFormat = new TextFormat( );
-			var camelCasePropName : String;
-			var prop : String;
-			var value : String;
+			var textFormat:TextFormat = new TextFormat( );
+			var camelCasePropName:String;
+			var prop:String;
+			var value:String;
                
 			for (prop in style) 
 			{
@@ -100,7 +94,7 @@ package com.flashartofwar.fcss.factories
 				{
 					if(value) 
 					{
-						var tempStyleSheet : StyleSheet = new StyleSheet( );
+						var tempStyleSheet:StyleSheet = new StyleSheet( );
 						tempStyleSheet.parseCSS( value );
 					} 
 					else 
@@ -132,15 +126,15 @@ package com.flashartofwar.fcss.factories
 		 * @param string lowercaseandunderscoreword Word to camelize
 		 * @return string Camelized word. likeThis.
 		 */
-		private static function camelize(lowercaseandunderscoreword : String, deimiter : String = "-") : String 
+		private static function camelize(lowercaseandunderscoreword:String, deimiter:String = "-"):String 
 		{
-			var tarray : Array = lowercaseandunderscoreword.split( deimiter );
+			var tarray:Array = lowercaseandunderscoreword.split( deimiter );
 			
-			for (var i : int = 1; i < tarray.length; i ++ ) 
+			for (var i:int = 1; i < tarray.length; i ++ ) 
 			{
 				tarray[i] = ucfirst( tarray[i] as String );
 			}
-			var replace : String = tarray.join( "" );
+			var replace:String = tarray.join( "" );
 			return replace;
 		}
 
@@ -149,10 +143,9 @@ package com.flashartofwar.fcss.factories
 		 * @param	word
 		 * @return string
 		 */
-		private static function ucfirst(word : String) : String 
+		private static function ucfirst(word:String):String 
 		{
 			return word.substr( 0, 1 ).toUpperCase( ) + word.substr( 1 );
 		}
-
 	}
 }

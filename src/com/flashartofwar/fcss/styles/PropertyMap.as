@@ -1,3 +1,4 @@
+
 /**
  * <p>Original Author:  jessefreeman</p>
  * <p>Class File: PropertyMap.as</p>
@@ -30,8 +31,6 @@
 
 package com.flashartofwar.fcss.styles 
 {
-	
-
 	import flash.net.registerClassAlias;
 	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
@@ -39,8 +38,8 @@ package com.flashartofwar.fcss.styles
 	dynamic public class PropertyMap extends AbstractSelector
 	{
 
-		protected var propsByType : Dictionary = new Dictionary( true );
-		public var propertyTypes : Array = new Array( );
+		protected var propsByType:Dictionary = new Dictionary( true );
+		public var propertyTypes:Array = new Array( );
 
 		/**
 		 *
@@ -55,9 +54,9 @@ package com.flashartofwar.fcss.styles
 		 *
 		 *
 		 */
-		override protected function registerClass() : void
+		override protected function registerClass():void
 		{
-			registerClassAlias( "camo.core.property.PropertyMap", PropertyMap );
+			registerClassAlias( "com.flashartofwar.fcss.styles.PropertyMap", PropertyMap );
 		}
 
 		/**
@@ -66,22 +65,22 @@ package com.flashartofwar.fcss.styles
 		 * @param value
 		 *
 		 */
-		override protected function $setProperty(name : *, type : *) : void
+		override protected function $setProperty(name:*, type:*):void
 		{
-			type = (type is String) ? String(type).toLowerCase() : type;
+			type = (type is String) ? String( type ).toLowerCase( ) : type;
 
 			super.$setProperty( name, type );
 
 			registerType( name, type );
 		}
-		
+
 		/**
 		 *
 		 * @param name
 		 * @param type
 		 *
 		 */
-		protected function registerType(name : String, type : String) : void
+		protected function registerType(name:String, type:String):void
 		{
 
 			if (! propsByType[type])
@@ -99,19 +98,19 @@ package com.flashartofwar.fcss.styles
 		 * @return
 		 *
 		 */
-		public function getPropsByTypes(... types) : Array
+		public function getPropsByTypes(... types):Array
 		{
 
-			var results : Array = new Array( );
+			var results:Array = new Array( );
 
-			var key : String;
+			var key:String;
 
 			for (key in propsByType)
 			{
 
 				if ((types.indexOf( key ) != - 1) && (propsByType[key]))
 				{
-					var props : Array = propsByType[key].slice( );
+					var props:Array = propsByType[key].slice( );
 					results = results.concat( props );
 				}
 			}
@@ -125,10 +124,10 @@ package com.flashartofwar.fcss.styles
 		 * @return
 		 *
 		 */
-		override protected function $deleteProperty(name : *) : Boolean
+		override protected function $deleteProperty(name:*):Boolean
 		{
-			var type : String = properties[name];
-			var wasDeleted : Boolean = super.$deleteProperty( name );
+			var type:String = properties[name];
+			var wasDeleted:Boolean = super.$deleteProperty( name );
 
 			if (wasDeleted)
 			{
@@ -143,9 +142,9 @@ package com.flashartofwar.fcss.styles
 		 * @return
 		 *
 		 */
-		public function clone() : ISelector
+		public function clone():ISelector
 		{
-			var myBA : ByteArray = new ByteArray( );
+			var myBA:ByteArray = new ByteArray( );
 			myBA.writeObject( this );
 			myBA.position = 0;
 			return (PropertyMap( myBA.readObject( ) ));

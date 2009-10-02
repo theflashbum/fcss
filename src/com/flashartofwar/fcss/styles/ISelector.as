@@ -1,3 +1,4 @@
+
 /** 
  * <p>Original Author:  jessefreeman</p>
  * <p>Class File: ISelector.as</p>
@@ -28,13 +29,14 @@
  *
  */
 
-package com.flashartofwar.fcss.styles {
+package com.flashartofwar.fcss.styles 
+{
 
 	public interface ISelector
 	{
-		function toString() : String;
 
-		function merge(style : ISelector) : void;
-		
+		function toString():String;
+
+		function merge(style:ISelector):void;
 	}
 }
