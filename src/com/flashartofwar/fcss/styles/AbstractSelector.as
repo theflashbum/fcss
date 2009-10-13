@@ -1,18 +1,18 @@
 
-/** 
+/**
  * <p>Original Author:  jessefreeman</p>
  * <p>Class File: AbstractSelector.as</p>
- * 
+ *
  * <p>Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:</p>
- * 
+ *
  * <p>The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.</p>
- * 
+ *
  * <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -20,141 +20,205 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.</p>
- * 
+ *
  * <p>Licensed under The MIT License</p>
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
- * <p>Revisions<br/> 
+ * <p>Revisions<br/>
  *		1.0  Initial version Aug 28, 2009</p>
- *	
+ *
  */
 
-package com.flashartofwar.fcss.styles 
+package com.flashartofwar.fcss.styles
 {
 	import flash.errors.IllegalOperationError;
 	import flash.net.registerClassAlias;
 	import flash.utils.Proxy;
 	import flash.utils.flash_proxy;
 
-	dynamic public class AbstractSelector extends Proxy implements ISelector
+	/**
+	 * @author jessefreeman
+	 */
+	public dynamic class AbstractSelector extends Proxy implements ISelector
 	{
 
-		protected var properties:Object = new Object( );
-		protected var propertiesIndex:Array = new Array( );
-
 		/**
-		 * 
+		 *
 		 * <p>Selector is a special object that contains the names and values
 		 * of properties another class can use to configure itself off of. Unlike
-		 * a regular Object, the Selector instance keeps an ordered list to 
+		 * a regular Object, the Selector instance keeps an ordered list to
 		 * allow ordered looping through it's values. This assures that the order
 		 * of the values set will be correctly returned in the order expected.</p>
-		 *  
+		 *
 		 * @param properties
 		 * @param propertiesIndex
-		 * 
-		 */		
+		 *
+		 */
 		public function AbstractSelector(self:AbstractSelector)
 		{
-			if(self != this)
+			if (self != this)
 			{
 				//only a subclass can pass a valid reference to self
-				throw new IllegalOperationError( "Abstract class did not receive reference to self. MyAbstractType cannot be instantiated directly." );
+				throw new IllegalOperationError("Abstract class did not receive reference to self. MyAbstractType cannot be instantiated directly.");
 			}
 			else
 			{
-				registerClass( );
+				registerClass();
+			}
+		}
+
+		protected var properties:Object = new Object();
+
+		protected var propertiesIndex:Array = new Array();
+
+		/**
+		 *
+		 * <p>Merges the properties of one group of properties with the current
+		 * instances values. The supplied properties have a higher importance and
+		 * will override any properties with the same name.</p>
+		 *
+		 * <p>It is important to note that the selectorName will also be overrode
+		 * by the new properties.</p>
+		 *
+		 * @param style
+		 *
+		 */
+		public function merge(properties:ISelector):void
+		{
+			for (var prop:String in properties)
+			{
+				this[prop] = properties[prop];
 			}
 		}
 
 		/**
 		 * @private
-		 *  
-		 * <p>It is important to override this class so that the correct Class
-		 * Alias is registered when doing a clone.</p>
-		 */		
-		protected function registerClass():void
+		 *
+		 * @return
+		 *
+		 */
+		public function toString():String
 		{
-			registerClassAlias( "camo.core.property.AbstractProperties", AbstractSelector );
+			var styleString:String = "{";
+			var i:int;
+			var total:int = propertiesIndex.length;
+			var prop:String
+			for (i = 0; i < total; i++)
+			{
+				prop = propertiesIndex[i];
+				styleString = styleString.concat(prop, ":", properties[prop].toString(), ";");
+			}
+
+			styleString = styleString.concat("}");
+
+			return styleString;
 		}
 
 		/**
-		 * 
-		 * @private
-		 * 
+		 *
 		 * @param name
-		 * @return 
-		 * 
-		 */	
-		override flash_proxy function deleteProperty(name:*):Boolean
-		{
-			return $deleteProperty( name );
-		}
-
-		/**
-		 * 
-		 * @param name
-		 * @return 
-		 * 
-		 */		
+		 * @return
+		 *
+		 */
 		protected function $deleteProperty(name:*):Boolean
 		{
 			var wasDeleted:Boolean = delete properties[name];
 			if (wasDeleted)
 			{
-				propertiesIndex.splice( propertiesIndex.indexOf( name ), 1 );
+				propertiesIndex.splice(propertiesIndex.indexOf(name), 1);
 			}
-			return wasDeleted;	
+			return wasDeleted;
 		}
 
 		/**
-		 * 
 		 * @private
-		 * 
+		 *
+		 * @return
+		 *
+		 */
+		protected function $setProperty(name:*, value:*):void
+		{
+			if(!properties.hasOwnProperty(name))
+			{
+				propertiesIndex.push(name.toString());
+			}
+
+			properties[name] = value;
+
+		}
+
+		/**
+		 * @private
+		 *
+		 * <p>It is important to override this class so that the correct Class
+		 * Alias is registered when doing a clone.</p>
+		 */
+		protected function registerClass():void
+		{
+			registerClassAlias("com.flashartofwar.fcss.styles.AbstractProperties", AbstractSelector);
+		}
+
+		/**
+		 *
+		 * @private
+		 *
 		 * @param name
-		 * @return 
-		 * 
-		 */	
-		override flash_proxy function getProperty(name:*):*
+		 * @return
+		 *
+		 */
+		flash_proxy override function deleteProperty(name:*):Boolean
+		{
+			return $deleteProperty(name);
+		}
+
+		/**
+		 *
+		 * @private
+		 *
+		 * @param name
+		 * @return
+		 *
+		 */
+		flash_proxy override function getProperty(name:*):*
 		{
 			return properties[name];
 		}
 
 		/**
-		 * 
+		 *
 		 * @private
-		 * 
+		 *
 		 * @param name
-		 * @return 
-		 * 
-		 */	
-		override flash_proxy function hasProperty(name:*):Boolean
+		 * @return
+		 *
+		 */
+		flash_proxy override function hasProperty(name:*):Boolean
 		{
-			return properties.hasOwnProperty( name );
+			return properties.hasOwnProperty(name);
 		}
 
 		/**
-		 * 
+		 *
 		 * @private
-		 * 
+		 *
 		 * @param index
-		 * @return 
-		 * 
-		 */	
-		override flash_proxy function nextName(index:int):String
+		 * @return
+		 *
+		 */
+		flash_proxy override function nextName(index:int):String
 		{
 			return propertiesIndex[index - 1];
 		}
 
 		/**
-		 * 
+		 *
 		 * @private
-		 * 
+		 *
 		 * @param index
-		 * @return 
-		 * 
-		 */	
-		override flash_proxy function nextNameIndex(index:int):int
+		 * @return
+		 *
+		 */
+		flash_proxy override function nextNameIndex(index:int):int
 		{
 			if (index < propertiesIndex.length)
 				return index + 1;
@@ -163,83 +227,30 @@ package com.flashartofwar.fcss.styles
 		}
 
 		/**
-		 * 
+		 *
 		 * @private
-		 * 
+		 *
 		 * @param index
-		 * @return 
-		 * 
-		 */	
-		override flash_proxy function nextValue(index:int):*
+		 * @return
+		 *
+		 */
+		flash_proxy override function nextValue(index:int):*
 		{
 			return properties[propertiesIndex[index - 1]];
 		}
 
 		/**
-		 * 
+		 *
 		 * @private
-		 * 
+		 *
 		 * @param name
 		 * @param value
-		 * 
+		 *
 		 */
-		override flash_proxy function setProperty(name:*, value:*):void
+		flash_proxy override function setProperty(name:*, value:*):void
 		{
-			$setProperty( name, value );
+			$setProperty(name, value);
 		}
-
-		/**
-		 * @private
-		 * 
-		 * @return 
-		 * 
-		 */		
-		protected function $setProperty(name:*, value:*):void
-		{
-			properties[name] = value;
-	
-			if (propertiesIndex.indexOf( name ) == - 1)
-				propertiesIndex.push( name.toString( ) );
-		}
-
-		/**
-		 * @private
-		 * 
-		 * @return 
-		 * 
-		 */	
-		public function toString():String
-		{
-			var styleString:String = "{";
-			
-			for (var prop:String in properties)
-			{
-				styleString = styleString.concat( prop, ":", properties[prop].toString( ), ";" );
-			}
-			
-			styleString = styleString.concat( "}" );
-			
-			return styleString;
-		}
-
-		/**
-		 * 
-		 * <p>Merges the properties of one group of properties with the current
-		 * instances values. The supplied properties have a higher importance and
-		 * will override any properties with the same name.</p>
-		 * 
-		 * <p>It is important to note that the selectorName will also be overrode
-		 * by the new properties.</p>
-		 *  
-		 * @param style
-		 * 
-		 */		
-		public function merge(properties:ISelector):void
-		{
-			for(var prop:String in properties) 
-			{
-				this[prop] = properties[prop];
-			}
-		}	
 	}
 }
+
