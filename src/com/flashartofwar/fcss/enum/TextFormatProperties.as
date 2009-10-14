@@ -54,21 +54,21 @@ package com.flashartofwar.fcss.enum
 		private static const PROPERTY_TYPES:Object = new Object( );
 		{
 			PROPERTY_TYPES[CSSProperties.ALIGN] = "string";
-			PROPERTY_TYPES[CSSProperties.BLOCK_INDENT] = "boolean";
+			PROPERTY_TYPES[CSSProperties.BLOCK_INDENT] = "number";
 			PROPERTY_TYPES[CSSProperties.BOLD] = "boolean";
 			PROPERTY_TYPES[CSSProperties.BULLET] = "boolean";
 			PROPERTY_TYPES[CSSProperties.COLOR] = "uint";
 			PROPERTY_TYPES[CSSProperties.FONT] = "string";
 			PROPERTY_TYPES[CSSProperties.INDENT] = "number";
 			PROPERTY_TYPES[CSSProperties.ITALIC] = "boolean";
-			PROPERTY_TYPES[CSSProperties.KERNING] = "number";
+			PROPERTY_TYPES[CSSProperties.KERNING] = "boolean";
 			PROPERTY_TYPES[CSSProperties.LEADING] = "number";
 			PROPERTY_TYPES[CSSProperties.LEFT_MARGIN] = "number";
 			PROPERTY_TYPES[CSSProperties.LETTER_SPACING] = "number";
 			PROPERTY_TYPES[CSSProperties.RIGHT_MARGIN] = "number";
 			PROPERTY_TYPES[CSSProperties.SIZE] = "number";
-			PROPERTY_TYPES[CSSProperties.TAB_STOPS] = "number";
-			PROPERTY_TYPES[CSSProperties.TARGET] = "string";
+			//PROPERTY_TYPES[CSSProperties.TAB_STOPS] = "array";
+			//PROPERTY_TYPES[CSSProperties.TARGET] = "string";
 			PROPERTY_TYPES[CSSProperties.UNDERLINE] = "boolean";
 		}
 

@@ -83,11 +83,11 @@ package com.flashartofwar.fcss.styles
 		 * @param style
 		 *
 		 */
-		public function merge(properties:ISelector):void
+		public function merge(selector:ISelector):void
 		{
-			for (var prop:String in properties)
+			for (var prop:String in selector)
 			{
-				this[prop] = properties[prop];
+				this[prop] = selector[prop];
 			}
 		}
 

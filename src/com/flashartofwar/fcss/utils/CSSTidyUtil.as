@@ -11,7 +11,7 @@ package com.flashartofwar.fcss.utils
 		 *
 		 * @default
 		 */
-		public static const COMPRESS_CSS:RegExp = /\s*([@{}:;,]|\)\s|\s\()\s*|\/\*([^*\\\\]|\*(?!\/))+\*\/|[\n\r\t]|(px)/g;
+		protected static const COMPRESS_CSS:RegExp = /\s*([@{}:;,]|\)\s|\s\()\s*|\/\*([^*\\\\]|\*(?!\/))+\*\/|[\n\r\t]|(px)/g;
 
 		/**
 		 *
@@ -21,7 +21,7 @@ package com.flashartofwar.fcss.utils
 		public static function tidy(cssText:String):String
 		{
 			return cssText.replace(COMPRESS_CSS, "$1");
-			;
 		}
 	}
 }
+
