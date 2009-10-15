@@ -61,7 +61,7 @@ package com.flashartofwar.fcss.utils
 
 				camelCasePropName = camelize(prop, "-");
 				value = style[prop];
-
+				//trace("Value", value);
 				if (TextFieldProperties.isSupported(camelCasePropName))
 				{
 					textField[camelCasePropName] = TextFieldProperties.cleanupProp(camelCasePropName, value);
@@ -129,3 +129,4 @@ package com.flashartofwar.fcss.utils
 		}
 	}
 }
+

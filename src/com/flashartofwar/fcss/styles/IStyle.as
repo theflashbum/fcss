@@ -42,3 +42,4 @@ package com.flashartofwar.fcss.styles
 		function clone():IStyle;
 	}
 }
+

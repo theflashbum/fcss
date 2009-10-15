@@ -51,7 +51,7 @@ package com.flashartofwar.fcss.stylesheets
 		}
 
 		protected var defaultSheetName:String = "StyleSheet";
-
+		protected var baseStyleSheetName:String = "StyleSheet1";
 		protected var styleSheets:Array = [];
 
 		private var _totalSheets:Number = 0;
@@ -74,9 +74,12 @@ package com.flashartofwar.fcss.stylesheets
 		 *
 		 * @return
 		 */
-		public function get baseStyleSheet():StyleSheet
+		public function get baseStyleSheet():IStyleSheet
 		{
-			return styleSheets[defaultSheetName+1];
+			if(!styleSheets[baseStyleSheetName])
+				addStyleSheet(baseStyleSheetName, new StyleSheet());
+
+			return styleSheets[baseStyleSheetName];
 		}
 
 		/**
@@ -129,8 +132,7 @@ package com.flashartofwar.fcss.stylesheets
 		 */
 		public function newSelector(name:String, selector:IStyle):void
 		{
-			if (baseStyleSheet)
-				IStyleSheet(baseStyleSheet).newSelector(name, selector);
+			baseStyleSheet.newSelector(name, selector);
 		}
 
 		/**
@@ -174,9 +176,19 @@ package com.flashartofwar.fcss.stylesheets
 			var selectorNames:Array = new Array();
 
 			var styleSheet:IStyleSheet;
+			var selectors:Array;
+
+			//TODO this may need to be optimized a lot more
 			for each (styleSheet in styleSheets)
 			{
-				//TODO need to finish this method.
+
+				selectors = styleSheet.selectorNames;
+				for each (var value:* in selectors)
+				{
+					if (selectorNames.indexOf(value) == -1)
+						selectorNames.push(value);
+				}
+
 			}
 			return selectorNames;
 		}
