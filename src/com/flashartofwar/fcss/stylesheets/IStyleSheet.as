@@ -31,7 +31,7 @@
 
 package com.flashartofwar.fcss.stylesheets
 {
-	import com.flashartofwar.fcss.styles.Style;
+	import com.flashartofwar.fcss.styles.IStyle;
 
 	public interface IStyleSheet
 	{
@@ -42,8 +42,16 @@ package com.flashartofwar.fcss.stylesheets
 
 		function get selectorNames():Array;
 
-		function newSelector(selectorName:String, propertySelector:Style):void;
+		function newSelector(name:String, selector:IStyle):void;
 
-		function getSelector(... selectorNames):Style;
+		function getSelector(... selectorNames):IStyle;
+
+		function hasSelector(name:String):Boolean;
+
+		function relatedSelectors(name:String):Array;
+
+		function toString():String;
+
 	}
 }
+

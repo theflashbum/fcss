@@ -34,8 +34,8 @@ package com.flashartofwar.fcss.factories
 	import com.flashartofwar.fcss.enum.TextFieldProperties;
 	import com.flashartofwar.fcss.enum.TextFormatProperties;
 	import com.flashartofwar.fcss.styles.IStyle;
-	import com.flashartofwar.fcss.styles.Style;
 	import com.flashartofwar.fcss.stylesheets.IStyleSheet;
+
 	import flash.text.StyleSheet;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
@@ -110,7 +110,7 @@ package com.flashartofwar.fcss.factories
 		{
 			var textField:TextField = new TextField();
 
-			var style:Style = styleSheet.getSelector("." + className, "#" + id);
+			var style:IStyle = styleSheet.getSelector("." + className, "#" + id);
 
 			textField.htmlText = htmlText;
 
@@ -148,3 +148,5 @@ package com.flashartofwar.fcss.factories
 		}
 	}
 }
+
+

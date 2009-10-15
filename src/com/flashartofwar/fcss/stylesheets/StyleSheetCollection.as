@@ -31,9 +31,12 @@
 
 package com.flashartofwar.fcss.stylesheets
 {
+	import com.flashartofwar.fcss.styles.IStyle;
 	import com.flashartofwar.fcss.styles.Style;
-	import com.flashartofwar.fcss.stylesheets.IStyleSheet;
 
+	/**
+	 * @author jessefreeman
+	 */
 	public class StyleSheetCollection implements IStyleSheet
 	{
 
@@ -44,13 +47,14 @@ package com.flashartofwar.fcss.stylesheets
 		 */
 		public function StyleSheetCollection()
 		{
+
 		}
 
 		protected var defaultSheetName:String = "StyleSheet";
 
 		protected var styleSheets:Array = [];
 
-		protected var totalSheets:Number = 0;
+		private var _totalSheets:Number = 0;
 
 		/**
 		 *
@@ -58,15 +62,30 @@ package com.flashartofwar.fcss.stylesheets
 		 * @param sheet
 		 *
 		 */
-		public function addStyleSheet(id:String, sheet:IStyleSheet):void
+		public function addStyleSheet(id:String, sheet:IStyleSheet):IStyleSheet
 		{
 			styleSheets[id] = sheet;
-			totalSheets++;
+			_totalSheets++;
+			return styleSheets[id];
 		}
 
+
+		/**
+		 *
+		 * @return
+		 */
+		public function get baseStyleSheet():StyleSheet
+		{
+			return styleSheets[defaultSheetName+1];
+		}
+
+		/**
+		 *
+		 */
 		public function clear():void
 		{
-			styleSheets = [];
+			styleSheets.length = 0;
+			_totalSheets = 0;
 		}
 
 		/**
@@ -75,13 +94,13 @@ package com.flashartofwar.fcss.stylesheets
 		 * @return
 		 *
 		 */
-		public function getSelector(... selectorNames):Style
+		public function getSelector(... selectorNames):IStyle
 		{
-			var tempProperties:Style = new Style();
+			var tempProperties:IStyle = new Style();
 
 			for each (var styleSheet:IStyleSheet in styleSheets)
 			{
-				var sheetProperties:Style = styleSheet.getSelector.apply(null, selectorNames);
+				var sheetProperties:IStyle = styleSheet.getSelector.apply(null, selectorNames);
 				if (sheetProperties.selectorName != "EmptyProperties")
 					tempProperties.merge(sheetProperties);
 			}
@@ -98,18 +117,38 @@ package com.flashartofwar.fcss.stylesheets
 			return styleSheets[id];
 		}
 
-		public function newSelector(selectorName:String, propertySelector:Style):void
+		public function hasSelector(name:String):Boolean
 		{
-			if (styleSheets[0])
-				IStyleSheet(styleSheets[0]).newSelector(selectorName, propertySelector);
+			return false;
 		}
 
+		/**
+		 *
+		 * @param selectorName
+		 * @param propertySelector
+		 */
+		public function newSelector(name:String, selector:IStyle):void
+		{
+			if (baseStyleSheet)
+				IStyleSheet(baseStyleSheet).newSelector(name, selector);
+		}
+
+		/**
+		 *
+		 * @param CSSText
+		 * @param compressText
+		 */
 		public function parseCSS(CSSText:String, compressText:Boolean = true):void
 		{
 			var styleSheet:StyleSheet = new StyleSheet();
 			styleSheet.parseCSS(CSSText, compressText);
 
-			addStyleSheet(defaultSheetName + totalSheets + 1, styleSheet);
+			addStyleSheet(defaultSheetName + (totalSheets + 1), styleSheet);
+		}
+
+		public function relatedSelectors(name:String):Array
+		{
+			return new Array();
 		}
 
 		/**
@@ -117,13 +156,19 @@ package com.flashartofwar.fcss.stylesheets
 		 * @param id
 		 *
 		 */
-		public function removeStyleSheet(id:String):void
+		public function removeStyleSheet(id:String):IStyleSheet
 		{
-			styleSheets[id] = null;
-			totalSheets--;
+			var styleSheet:StyleSheet = styleSheets[id];
 			delete styleSheets[id];
+			_totalSheets--;
+			return styleSheet;
+
 		}
 
+		/**
+		 *
+		 * @return
+		 */
 		public function get selectorNames():Array
 		{
 			var selectorNames:Array = new Array();
@@ -135,5 +180,16 @@ package com.flashartofwar.fcss.stylesheets
 			}
 			return selectorNames;
 		}
+
+		public function get totalSheets():Number
+		{
+			return _totalSheets;
+		}
+
+		public function toString():String
+		{
+			return styleSheets.join();
+		}
 	}
 }
+

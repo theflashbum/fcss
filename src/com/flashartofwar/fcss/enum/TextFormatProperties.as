@@ -67,8 +67,6 @@ package com.flashartofwar.fcss.enum
 			PROPERTY_TYPES[CSSProperties.LETTER_SPACING] = "number";
 			PROPERTY_TYPES[CSSProperties.RIGHT_MARGIN] = "number";
 			PROPERTY_TYPES[CSSProperties.SIZE] = "number";
-			//PROPERTY_TYPES[CSSProperties.TAB_STOPS] = "array";
-			//PROPERTY_TYPES[CSSProperties.TARGET] = "string";
 			PROPERTY_TYPES[CSSProperties.UNDERLINE] = "boolean";
 		}
 

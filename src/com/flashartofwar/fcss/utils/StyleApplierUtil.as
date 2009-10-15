@@ -44,18 +44,18 @@ package com.flashartofwar.fcss.utils
 		/**
 		 *
 		 */
-		public static function applyProperties(target:Object, properties:IStyle):void
+		public static function applyProperties(target:Object, style:IStyle):void
 		{
 			var propMap:PropertyMap = propertyMap(target);
 
-			for (var prop:String in properties)
+			for (var prop:String in style)
 			{
 
 				if (target.hasOwnProperty(prop))
 				{
 
 					var type:String = propMap[prop];
-					var cleanedUpValue:* = TypeHelperUtil.getType(properties[prop], type);
+					var cleanedUpValue:* = TypeHelperUtil.getType(style[prop], type);
 
 					target[prop] = cleanedUpValue;
 				}
@@ -77,12 +77,13 @@ package com.flashartofwar.fcss.utils
 
 			if (!cachedPropertyMaps[className])
 			{
-				var list:XMLList = classXML.*;
+				var list:XMLList = classXML..*.((name() == "accessor") || (name() == "variable"));;
 
 				var item:XML;
 				for each (item in list)
 				{
 					var itemName:String = item.name().toString();
+
 					switch (itemName)
 					{
 						case "variable":
@@ -96,7 +97,6 @@ package com.flashartofwar.fcss.utils
 							}
 							break;
 					}
-
 					cachedPropertyMaps[className] = propMap;
 				}
 			}
@@ -106,23 +106,6 @@ package com.flashartofwar.fcss.utils
 			}
 
 			return propMap.clone() as PropertyMap;
-		}
-
-		/**
-		 *
-		 */
-		public static function propertyMapCollection(... targets):Dictionary
-		{
-			var collection:Dictionary = new Dictionary(true);
-			var total:int = targets.length;
-			var i:int;
-
-			for (i = 0; i < total; i++)
-			{
-				collection[targets[i]] = propertyMap(targets[i]);
-			}
-
-			return collection;
 		}
 
 		/**
@@ -138,3 +121,4 @@ package com.flashartofwar.fcss.utils
 		}
 	}
 }
+
