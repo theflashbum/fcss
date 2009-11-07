@@ -1,1 +1,5 @@
 build.properties
+.actionScriptProperties
+.flexLibProperties
+.DS_Store
+.project
