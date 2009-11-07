@@ -23,10 +23,10 @@
 	<!-- Build F*CSS SWC -->
 	<target name="buildSWC" description="Compile the SWC file for the Library Project">
 
-		<compc output="../${liboutputfolder}/${fcss.outputfile}" compute-digest="false">
+		<compc output="${liboutputfolder}/${fcss.outputfile}" compute-digest="false">
 
 			<!-- include our Class packages into the build (com folder) -->
-			<include-sources dir="../src" includes="*" />
+			<include-sources dir="src" includes="*" />
 
 		</compc>
 		
@@ -40,13 +40,13 @@
 
 		<exec executable="${FLEX_HOME}${asdoc.exe}" failonerror="true">
 
-			<arg line="-doc-sources ../src" />
+			<arg line="-doc-sources src" />
 
 			<arg value="-window-title" />
 			<arg value="'${title}'" />
 
 			<arg value="-output" />
-			<arg value="../${liboutputfolder}/docs" />
+			<arg value="${liboutputfolder}/docs" />
 
 		</exec>
 
