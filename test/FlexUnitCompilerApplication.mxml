@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/halo" minWidth="1024" minHeight="768">	
+<fx:Script>
+	<![CDATA[
+
+			import flexUnitTests.StyleSheetCollectionTest;
+
+			private var flexUnitTests_StyleSheetCollectionTest_obj:flexUnitTests.StyleSheetCollectionTest;
+	]]>
+</fx:Script>	
+<fx:Script>
+	<![CDATA[
+
+			import flexUnitTests.TextFieldUtilTest;
+
+			private var flexUnitTests_TextFieldUtilTest_obj:flexUnitTests.TextFieldUtilTest;
+	]]>
+</fx:Script>	
+<fx:Script>
+	<![CDATA[
+
+			import flexUnitTests.TypeHelperUtilTest;
+
+			private var flexUnitTests_TypeHelperUtilTest_obj:flexUnitTests.TypeHelperUtilTest;
+	]]>
+</fx:Script>	
+<fx:Script>
+	<![CDATA[
+
+			import flexUnitTests.CSSTidyUtilTest;
+
+			private var flexUnitTests_CSSTidyUtilTest_obj:flexUnitTests.CSSTidyUtilTest;
+	]]>
+</fx:Script>	
+<fx:Script>
+	<![CDATA[
+
+			import flexUnitTests.TextFieldFactoryTest;
+
+			private var flexUnitTests_TextFieldFactoryTest_obj:flexUnitTests.TextFieldFactoryTest;
+	]]>
+</fx:Script>	
+<fx:Script>
+	<![CDATA[
+
+			import flexUnitTests.PropertyMapObjectTest;
+
+			private var flexUnitTests_PropertyMapTest_obj:flexUnitTests.PropertyMapObjectTest;
+	]]>
+</fx:Script>	
+<fx:Script>
+	<![CDATA[
+
+			import flexUnitTests.StyleSheetTest;
+
+			private var flexUnitTests_StyleSheetTest_obj:flexUnitTests.StyleSheetTest;
+	]]>
+</fx:Script>	
+<fx:Script>
+	<![CDATA[
+
+			import flexUnitTests.StyleApplierUtilTest;
+
+			private var flexUnitTests_StyleApplierUtilTest_obj:flexUnitTests.StyleApplierUtilTest;
+	]]>
+</fx:Script>	
+<fx:Script>
+	<![CDATA[
+
+			import flexUnitTests.StyleTest;
+
+			private var flexUnitTests_StyleTest_obj:flexUnitTests.StyleTest;
+	]]>
+</fx:Script>	
+<fx:Script>
+	<![CDATA[
+
+			import flexUnitTests.FCSSTestSuite;
+
+			private var flexUnitTests_FCSSTestSuite_obj:flexUnitTests.FCSSTestSuite;
+	]]>
+</fx:Script>	
+<fx:Script>
+	<![CDATA[
+
+			import flexUnitTests.ApplyStyleBehaviorTest;
+
+			private var flexUnitTests_ApplyStyleBehaviorTest_obj:flexUnitTests.ApplyStyleBehaviorTest;
+	]]>
+</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+</s:Application>

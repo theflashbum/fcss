@@ -31,14 +31,21 @@
 
 package com.flashartofwar.fcss.stylesheets
 {
-	import com.flashartofwar.fcss.styles.IStyle;
 	import com.flashartofwar.fcss.styles.Style;
+
 
 	/**
 	 * @author jessefreeman
 	 */
-	public class StyleSheetCollection implements IStyleSheet
+	public class StyleSheetCollection implements IStyleSheetCollection
 	{
+		protected var baseStyleSheetName:String = "StyleSheet1";
+
+		protected var defaultSheetName:String = "StyleSheet";
+
+		protected var styleSheets:Array = [];
+
+		private var _totalSheets:Number = 0;
 
 		/**
 		 *
@@ -49,12 +56,6 @@ package com.flashartofwar.fcss.stylesheets
 		{
 
 		}
-
-		protected var defaultSheetName:String = "StyleSheet";
-		protected var baseStyleSheetName:String = "StyleSheet1";
-		protected var styleSheets:Array = [];
-
-		private var _totalSheets:Number = 0;
 
 		/**
 		 *
@@ -76,7 +77,7 @@ package com.flashartofwar.fcss.stylesheets
 		 */
 		public function get baseStyleSheet():IStyleSheet
 		{
-			if(!styleSheets[baseStyleSheetName])
+			if (!styleSheets[baseStyleSheetName])
 				addStyleSheet(baseStyleSheetName, new StyleSheet());
 
 			return styleSheets[baseStyleSheetName];
@@ -93,18 +94,18 @@ package com.flashartofwar.fcss.stylesheets
 
 		/**
 		 *
-		 * @param selectorName
+		 * @param styleName
 		 * @return
 		 *
 		 */
-		public function getSelector(... selectorNames):IStyle
+		public function getStyle(... styleNames):Style
 		{
-			var tempProperties:IStyle = new Style();
+			var tempProperties:Style = new Style();
 
 			for each (var styleSheet:IStyleSheet in styleSheets)
 			{
-				var sheetProperties:IStyle = styleSheet.getSelector.apply(null, selectorNames);
-				if (sheetProperties.selectorName != "EmptyProperties")
+				var sheetProperties:Style = styleSheet.getStyle.apply(null, styleNames);
+				if (sheetProperties.styleName != "EmptyProperties")
 					tempProperties.merge(sheetProperties);
 			}
 
@@ -120,19 +121,24 @@ package com.flashartofwar.fcss.stylesheets
 			return styleSheets[id];
 		}
 
-		public function hasSelector(name:String):Boolean
+		/**
+		 *
+		 * @param name
+		 * @return
+		 */
+		public function hasStyle(name:String):Boolean
 		{
 			return false;
 		}
 
 		/**
 		 *
-		 * @param selectorName
-		 * @param propertySelector
+		 * @param styleName
+		 * @param propertystyle
 		 */
-		public function newSelector(name:String, selector:IStyle):void
+		public function newStyle(name:String, style:Style):void
 		{
-			baseStyleSheet.newSelector(name, selector);
+			baseStyleSheet.newStyle(name, style);
 		}
 
 		/**
@@ -145,11 +151,17 @@ package com.flashartofwar.fcss.stylesheets
 			var styleSheet:StyleSheet = new StyleSheet();
 			styleSheet.parseCSS(CSSText, compressText);
 
-			addStyleSheet(defaultSheetName + (totalSheets + 1), styleSheet);
+			addStyleSheet(defaultSheetName + (totalStyleSheets + 1), styleSheet);
 		}
 
-		public function relatedSelectors(name:String):Array
+		/**
+		 *
+		 * @param name
+		 * @return
+		 */
+		public function relatedStyle(name:String):Array
 		{
+			//TODO This is not implemented
 			return new Array();
 		}
 
@@ -171,36 +183,48 @@ package com.flashartofwar.fcss.stylesheets
 		 *
 		 * @return
 		 */
-		public function get selectorNames():Array
+		public function get styleNames():Array
 		{
-			var selectorNames:Array = new Array();
+			var styleNames:Array = [];
 
 			var styleSheet:IStyleSheet;
-			var selectors:Array;
+			var styles:Array;
+			var total:int;
+			var i:int;
+			var styleName:String;
 
 			//TODO this may need to be optimized a lot more
 			for each (styleSheet in styleSheets)
 			{
+				styles = styleSheet.styleNames;
+				total = styles.length;
 
-				selectors = styleSheet.selectorNames;
-				for each (var value:* in selectors)
+				for(i = 0; i < total; i++)
 				{
-					if (selectorNames.indexOf(value) == -1)
-						selectorNames.push(value);
+					styleName = styles[i];
+					if (styleNames.indexOf(styleName) == -1)
+						styleNames.push(styleName);
 				}
-
 			}
-			return selectorNames;
+			return styleNames;
 		}
 
-		public function get totalSheets():Number
-		{
-			return _totalSheets;
-		}
-
+		/**
+		 *
+		 * @return
+		 */
 		public function toString():String
 		{
 			return styleSheets.join();
+		}
+
+		/**
+		 *
+		 * @return
+		 */
+		public function get totalStyleSheets():Number
+		{
+			return _totalSheets;
 		}
 	}
 }

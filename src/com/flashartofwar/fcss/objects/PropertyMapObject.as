@@ -29,42 +29,53 @@
  *
  */
 
-package com.flashartofwar.fcss.styles
+package com.flashartofwar.fcss.objects
 {
 	import flash.net.registerClassAlias;
 	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
 
-	public dynamic class PropertyMap extends AbstractSelector
+	/**
+	 * @author jessefreeman
+	 */
+	public dynamic class PropertyMapObject extends AbstractOrderedObject
 	{
-
-		/**
-		 *
-		 *
-		 */
-		public function PropertyMap()
-		{
-			super(this);
-		}
 
 		public var propertyTypes:Array = new Array();
 
 		protected var propsByType:Dictionary = new Dictionary(true);
 
 		/**
+		 * <p>PropertyMapObject extends AbstractOrderedObject and adds the ability
+		 * to return properties by their Types. Lets say you want all the Number
+		 * property names or all the String property names. This also retains the
+		 * order of each property added and handles indexing automatically when
+		 * added to the instance.</p>
+		 *
+		 * <p>This class is primarilly used by the StyleApplierUtil.</p>
+		 */
+		public function PropertyMapObject()
+		{
+			super(this);
+		}
+
+		/**
 		 *
 		 * @return
 		 *
 		 */
-		public function clone():ISelector
+		public function clone():PropertyMapObject
 		{
 			var myBA:ByteArray = new ByteArray();
 			myBA.writeObject(this);
 			myBA.position = 0;
-			return (PropertyMap(myBA.readObject()));
+			return (PropertyMapObject(myBA.readObject()));
 		}
 
 		/**
+		 * <p>This method allows you to get an array of property names based on
+		 * any set of types. If you want to get all Number properties or Number
+		 * and Strings use this.</p>
 		 *
 		 * @param type
 		 * @return
@@ -91,10 +102,7 @@ package com.flashartofwar.fcss.styles
 		}
 
 		/**
-		 *
-		 * @param name
-		 * @return
-		 *
+		 * @private
 		 */
 		override protected function $deleteProperty(name:*):Boolean
 		{
@@ -110,10 +118,7 @@ package com.flashartofwar.fcss.styles
 		}
 
 		/**
-		 *
-		 * @param name
-		 * @param value
-		 *
+		 * @private
 		 */
 		override protected function $setProperty(name:*, type:*):void
 		{
@@ -125,19 +130,15 @@ package com.flashartofwar.fcss.styles
 		}
 
 		/**
-		 *
-		 *
+		 * @private
 		 */
 		override protected function registerClass():void
 		{
-			registerClassAlias("com.flashartofwar.fcss.styles.PropertyMap", PropertyMap);
+			registerClassAlias("com.flashartofwar.fcss.styles.PropertyMap", PropertyMapObject);
 		}
 
 		/**
-		 *
-		 * @param name
-		 * @param type
-		 *
+		 * @private
 		 */
 		protected function registerType(name:String, type:String):void
 		{

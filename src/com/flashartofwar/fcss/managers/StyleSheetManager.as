@@ -29,26 +29,51 @@
  *
  */
 
-package com.flashartofwar.fcss.managers
-{
+package com.flashartofwar.fcss.managers {
+	import com.flashartofwar.fcss.stylesheets.IStyleSheetCollection;
 	import com.flashartofwar.fcss.stylesheets.StyleSheetCollection;
-
+	/**
+	 * @author jessefreeman
+	 */
 	public class StyleSheetManager
 	{
 
 		public static const INIT:String = "init";
 
-		private static var __instance:StyleSheetCollection;
+		private static var __instance:IStyleSheetCollection;
 
-		public static function get instance():StyleSheetCollection
+		/**
+		 *
+		 * @return
+		 */
+		public static function get instance():IStyleSheetCollection
 		{
 			if (StyleSheetManager.__instance == null)
 			{
-				StyleSheetManager.__instance = new StyleSheetCollection();
+				StyleSheetManager.__instance = createStyleSheetCollection();
 			}
 			return StyleSheetManager.__instance;
 		}
 
+		/**
+		 *
+		 * @param collection
+		 */
+		public static function set styleSheetCollection(collection:IStyleSheetCollection):void
+		{
+			__instance = collection;	
+		}
+
+		private static function createStyleSheetCollection():IStyleSheetCollection
+		{
+			return new StyleSheetCollection();	
+		}
+
+		/**
+		 *
+		 * @param enforcer
+		 * @throws Error
+		 */
 		public function StyleSheetManager(enforcer:SingletonEnforcer)
 		{
 			if (enforcer == null)
@@ -62,3 +87,5 @@ package com.flashartofwar.fcss.managers
 internal class SingletonEnforcer
 {
 }
+
+

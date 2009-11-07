@@ -31,6 +31,13 @@
 package com.flashartofwar.fcss.enum
 {
 
+	/**
+	 * <p>This class contains a lists of "supported" css properties that F*CSS
+	 * could build off of. This is meant to be used as a reference when coding
+	 * and is not used at runtime.</p>
+	 *
+	 * @author jessefreeman
+	 */
 	public class CSSProperties
 	{
 
@@ -245,3 +252,4 @@ package com.flashartofwar.fcss.enum
 		public static const Z_INDEX:String = "zIndex";
 	}
 }
+

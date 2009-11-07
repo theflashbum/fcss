@@ -31,22 +31,32 @@
 
 package com.flashartofwar.fcss.utils
 {
-	import com.flashartofwar.fcss.styles.IStyle;
-	import com.flashartofwar.fcss.styles.PropertyMap;
+	import com.flashartofwar.fcss.objects.PropertyMapObject;
+	import com.flashartofwar.fcss.styles.Style;
+
 	import flash.utils.Dictionary;
 	import flash.utils.describeType;
 
+	/**
+	 * @author jessefreeman
+	 */
 	public class StyleApplierUtil
 	{
 
 		protected static var cachedPropertyMaps:Dictionary = new Dictionary(true);
 
+
 		/**
+		 * <p>This method will loop through the properties of a Style and attempt
+		 * to apply them to the target object. There is a lot going on under the
+		 * hood to make this process as fast as possible.</p>
 		 *
+		 * @param target
+		 * @param style
 		 */
-		public static function applyProperties(target:Object, style:IStyle):void
+		public static function applyProperties(target:Object, style:Style):void
 		{
-			var propMap:PropertyMap = propertyMap(target);
+			var propMap:PropertyMapObject = propertyMap(target);
 
 			for (var prop:String in style)
 			{
@@ -68,9 +78,9 @@ package com.flashartofwar.fcss.utils
 		 * @return
 		 *
 		 */
-		public static function propertyMap(target:Object):PropertyMap
+		public static function propertyMap(target:Object):PropertyMapObject
 		{
-			var propMap:PropertyMap = new PropertyMap();
+			var propMap:PropertyMapObject = new PropertyMapObject();
 
 			var classXML:XML = scan(target);
 			var className:String = classXML.@name;
@@ -100,12 +110,13 @@ package com.flashartofwar.fcss.utils
 					cachedPropertyMaps[className] = propMap;
 				}
 			}
+
 			else
 			{
 				propMap = cachedPropertyMaps[className];
 			}
 
-			return propMap.clone() as PropertyMap;
+			return propMap.clone() as PropertyMapObject;
 		}
 
 		/**

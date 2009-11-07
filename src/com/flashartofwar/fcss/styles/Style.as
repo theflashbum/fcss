@@ -1,8 +1,6 @@
 
 /**
  * <p>Original Author:  jessefreeman</p>
- * <p>Based off of a post by Manish Jethani at
- * http://manishjethani.com/guaranteeing-enumeration-order</p>
  *
  * <p>Class File: Style.as</p>
  *
@@ -34,26 +32,28 @@
 
 package com.flashartofwar.fcss.styles
 {
+	import com.flashartofwar.fcss.objects.AbstractOrderedObject;
+
 	import flash.net.registerClassAlias;
 
 	/**
 	 *
 	 * @author jessefreeman
 	 */
-	public dynamic class Style extends AbstractSelector implements IStyle
+	public dynamic class Style extends AbstractOrderedObject
 	{
 
 		/**
 		 *
 		 * @default
 		 */
-		public static const DEFAULT_SELECTOR_NAME:String = "EmptySelector";
+		public static const DEFAULT_style_NAME:String = "Emptystyle";
 
 		/**
 		 *
-		 * <p>Properties is a special object that contains the names and values
+		 * <p>Style is a special object that contains the names and values
 		 * of properties another class can use to configure itself off of. Unlike
-		 * a regular Object, the Properties instance keeps an ordered list to
+		 * a regular Object, the Style instance keeps an ordered list to
 		 * allow ordered looping through it's values. This assures that the order
 		 * of the values set will be correctly returned in the order expected.</p>
 		 *
@@ -66,8 +66,8 @@ package com.flashartofwar.fcss.styles
 			super(this);
 
 			//
-			selectorName = DEFAULT_SELECTOR_NAME;
-			propertiesIndex.push("selectorName");
+			styleName = DEFAULT_style_NAME;
+			propertiesIndex.push("styleName");
 		}
 
 		/**
@@ -75,7 +75,7 @@ package com.flashartofwar.fcss.styles
 		 * @return
 		 *
 		 */
-		public function clone():IStyle
+		public function clone():Style
 		{
 			var cloneProp:Style = new Style();
 			var total:int = propertiesIndex.length;
@@ -95,9 +95,9 @@ package com.flashartofwar.fcss.styles
 		 * @return
 		 *
 		 */
-		public function get selectorName():String
+		public function get styleName():String
 		{
-			return properties.selectorName;
+			return properties.styleName;
 		}
 
 		/**
@@ -105,9 +105,9 @@ package com.flashartofwar.fcss.styles
 		 * @param value
 		 *
 		 */
-		public function set selectorName(value:String):void
+		public function set styleName(value:String):void
 		{
-			properties.selectorName = value;
+			properties.styleName = value;
 		}
 
 		/**
@@ -119,7 +119,7 @@ package com.flashartofwar.fcss.styles
 		 */
 		override public function toString():String
 		{
-			return this["selectorName"].concat(super.toString());
+			return this["styleName"].concat(super.toString());
 		}
 
 		/**

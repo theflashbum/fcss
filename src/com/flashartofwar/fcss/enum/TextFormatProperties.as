@@ -33,19 +33,38 @@ package com.flashartofwar.fcss.enum
 {
 	import com.flashartofwar.fcss.utils.TypeHelperUtil;
 
+	/**
+	 * @author jessefreeman
+	 */
 	public class TextFormatProperties 
 	{
 
+		/**
+		 *
+		 * @param property
+		 * @return
+		 */
 		public static function isSupported(property:String):Boolean 
 		{
 			return (PROPERTY_TYPES[convertProp( property )]);
 		}
 
+		/**
+		 *
+		 * @param id
+		 * @param value
+		 * @return
+		 */
 		public static function cleanupProp(id:String,value:String):* 
 		{
 			return TypeHelperUtil.getType( value, PROPERTY_TYPES[convertProp( id )] );
 		}
 
+		/**
+		 *
+		 * @param prop
+		 * @return
+		 */
 		public static function convertProp(prop:String):String 
 		{
 			return (PROPERTY_MAP[prop]) ? PROPERTY_MAP[prop] : prop;

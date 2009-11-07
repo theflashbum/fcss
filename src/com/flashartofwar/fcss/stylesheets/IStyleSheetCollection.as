@@ -1,7 +1,6 @@
-
 /**
  * <p>Original Author:  jessefreeman</p>
- * <p>Class File: IStyle.as</p>
+ * <p>Class File: IStyleSheetCollection.as</p>
  *
  * <p>Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,21 +24,27 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/>
- *		1.0  Initial version Aug 28, 2009</p>
+ *		1.0  Initial version Oct 20, 2009</p>
  *
  */
 
-package com.flashartofwar.fcss.styles
-{
+package com.flashartofwar.fcss.stylesheets {
 
-	public interface IStyle extends ISelector
-	{
+	/**
+	 * @author jessefreeman
+	 */
+	public interface IStyleSheetCollection extends IStyleSheet {
 
-		function get selectorName():String;
+		function get baseStyleSheet() : IStyleSheet;
 
-		function set selectorName(name:String):void;
+		function getStyleSheet(name : String) : IStyleSheet;
 
-		function clone():IStyle;
+		function addStyleSheet(name : String, sheet : IStyleSheet) : IStyleSheet;
+
+		function removeStyleSheet(name : String) : IStyleSheet;
+
+		function get totalStyleSheets() : Number;
 	}
 }
+
 

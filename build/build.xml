@@ -7,7 +7,6 @@
 	<property file="./build.properties" />
 
 	<property name="title" value="F*CSS API" />
-	<property name="version" value="1.0.0" />
 
 	<!-- Flex Ant Tasks used to perform compc and mxml compiling more info at http://labs.adobe.com/wiki/index.php/Flex_Ant_Tasks -->
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}${flex.tasks}" />

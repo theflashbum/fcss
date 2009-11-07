@@ -33,7 +33,7 @@ package com.flashartofwar.fcss.utils
 {
 	import com.flashartofwar.fcss.enum.TextFieldProperties;
 	import com.flashartofwar.fcss.enum.TextFormatProperties;
-	import com.flashartofwar.fcss.styles.IStyle;
+	import com.flashartofwar.fcss.styles.Style;
 	import flash.text.StyleSheet;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
@@ -48,7 +48,7 @@ package com.flashartofwar.fcss.utils
 		 * and a Style and the utility will handle everything for you. The method
 		 * will parse out props for TextField, TextFormat, and native StyleSheet.
 		 */
-		public static function applyStyle(textField:TextField, style:IStyle):void
+		public static function applyStyle(textField:TextField, style:Style):void
 		{
 
 			var textFormat:TextFormat = new TextFormat();
@@ -75,7 +75,7 @@ package com.flashartofwar.fcss.utils
 					if (value)
 					{
 						var tempStyleSheet:StyleSheet = new StyleSheet();
-						tempStyleSheet.parseCSS(value);
+						tempStyleSheet.parseCSS(TextFieldProperties.cleanupProp(camelCasePropName, value));
 					}
 					else
 					{
@@ -88,16 +88,28 @@ package com.flashartofwar.fcss.utils
 				}
 			}
 
-			if (textField.htmlText || textField.text)
-			{
-				textField.setTextFormat(textFormat);
-			}
-			else
-			{
-				textField.defaultTextFormat = textFormat;
-			}
+			//TODO there is a bug if text already exists it messes up the StyleSheet
+
+//			var text:String;
+//			
+//			if (textField.htmlText)
+//			{
+//				text = textField.htmlText;
+//				textField.htmlText = null;
+//			}
+
+
+			textField.defaultTextFormat = textFormat;
+
 			if (tempStyleSheet)
+			{
 				textField.styleSheet = tempStyleSheet;
+			}
+
+//			if(text)
+//				textField.htmlText = text;
+
+
 		}
 
 		/**
