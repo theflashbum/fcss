@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<testsuite name="com.flashartofwar.fcss.behaviors.ApplyStyleBehaviorTest" tests="4" failures="0" errors="0" skipped="0" time="0.0">
-  <testcase classname="com.flashartofwar.fcss.behaviors::ApplyStyleBehaviorTest" name="testGet_className" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.behaviors::ApplyStyleBehaviorTest" name="testApplyStyle" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.behaviors::ApplyStyleBehaviorTest" name="testApplyDefaultStyle" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.behaviors::ApplyStyleBehaviorTest" name="testGet_id" time="0.000" status="success"/>
-</testsuite>

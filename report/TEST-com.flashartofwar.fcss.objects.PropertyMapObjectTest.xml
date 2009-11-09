@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<testsuite name="com.flashartofwar.fcss.objects.PropertyMapObjectTest" tests="4" failures="0" errors="0" skipped="0" time="0.0">
-  <testcase classname="com.flashartofwar.fcss.objects::PropertyMapObjectTest" name="testClone" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.objects::PropertyMapObjectTest" name="testGetPropsByTypesReturnsCleanArray" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.objects::PropertyMapObjectTest" name="testGetPropsByTypes" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.objects::PropertyMapObjectTest" name="testToString" time="0.000" status="success"/>
-</testsuite>

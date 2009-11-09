@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<testsuite name="com.flashartofwar.fcss.utils.CSSTidyUtilTest" tests="1" failures="0" errors="0" skipped="0" time="0.0">
-  <testcase classname="com.flashartofwar.fcss.utils::CSSTidyUtilTest" name="testTidy" time="0.000" status="success"/>
-</testsuite>

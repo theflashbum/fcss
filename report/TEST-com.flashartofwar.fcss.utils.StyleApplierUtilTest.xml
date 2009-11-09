@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<testsuite name="com.flashartofwar.fcss.utils.StyleApplierUtilTest" tests="2" failures="0" errors="0" skipped="0" time="0.0">
-  <testcase classname="com.flashartofwar.fcss.utils::StyleApplierUtilTest" name="testApplyProperties" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.utils::StyleApplierUtilTest" name="testPropertyMapObject" time="0.000" status="success"/>
-</testsuite>
