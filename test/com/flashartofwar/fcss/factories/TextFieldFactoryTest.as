@@ -1,18 +1,14 @@
-package com.flashartofwar.fcss.factories
-{
-	import com.flashartofwar.fcss.factories.TextFieldFactory;
+package com.flashartofwar.fcss.factories {
+	import flexunit.framework.Assert;
+
 	import com.flashartofwar.fcss.managers.StyleSheetManager;
 	import com.flashartofwar.fcss.utils.TypeHelperUtil;
-	
+
 	import flash.text.TextField;
 	import flash.text.TextFormat;
-	
-	import flexunit.framework.Assert;
-	
+
 	public class TextFieldFactoryTest
 	{
-		// Reference declaration for class to test
-		private var classToTestRef : com.flashartofwar.fcss.factories.TextFieldFactory;
 		private var textField:TextField;
 		private var tfx:TextFormat;
 		

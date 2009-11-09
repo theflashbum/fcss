@@ -4,12 +4,7 @@ package com.flashartofwar.fcss.styles
 
 	public class StyleTest
 	{
-		// please note that all test methods should start with 'test' and should be public
-
-		// Reference declaration for class to test
 		private static const style_NAME:String = "teststyle";
-
-		private var classToTestRef : com.flashartofwar.fcss.styles.Style;
 		private var style:Style;
 
 		public function StyleTest()

@@ -8,20 +8,16 @@ package com.flashartofwar.fcss.stylesheets
 	public class StyleSheetCollectionTest
 	{
 
-		public function StyleSheetCollectionTest()
-		{
-		}
-
-		// please note that all test methods should start with 'test' and should be public
-
-		// Reference declaration for class to test
-		private var classToTestRef:com.flashartofwar.fcss.stylesheets.StyleSheetCollection;
 
 		private var styleSheetA:StyleSheet;
 
 		private var styleSheetB:StyleSheet;
 
 		private var styleSheetCollection:StyleSheetCollection;
+
+		public function StyleSheetCollectionTest()
+		{
+		}
 
 		public function get cssTextA():String
 		{

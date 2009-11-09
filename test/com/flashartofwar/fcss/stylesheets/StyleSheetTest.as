@@ -8,14 +8,11 @@ package com.flashartofwar.fcss.stylesheets
 	public class StyleSheetTest
 	{
 
+		private var sheet:StyleSheet;
+
 		public function StyleSheetTest()
 		{
 		}
-
-		// Reference declaration for class to test
-		private var classToTestRef:com.flashartofwar.fcss.stylesheets.StyleSheet;
-
-		private var sheet:StyleSheet;
 
 		public function get cssTextA():String
 		{

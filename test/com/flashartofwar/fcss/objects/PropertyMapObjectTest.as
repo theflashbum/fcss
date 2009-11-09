@@ -1,17 +1,9 @@
-package com.flashartofwar.fcss.objects
-{
-	import com.flashartofwar.fcss.objects.PropertyMapObject;
-
-	import flexunit.framework.TestCase;
-	
+package com.flashartofwar.fcss.objects {
 	import flexunit.framework.Assert;
-	
+
 	public class PropertyMapObjectTest
 	{
-		// please note that all test methods should start with 'test' and should be public
 
-		// Reference declaration for class to test
-		private var classToTestRef : com.flashartofwar.fcss.objects.PropertyMapObject;
 		private var propMap:PropertyMapObject;
 
 		public function PropertyMapObjectTest()

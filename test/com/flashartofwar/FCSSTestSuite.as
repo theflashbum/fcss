@@ -14,7 +14,6 @@ package com.flashartofwar
 	[RunWith("org.flexunit.runners.Suite")]
 	public class FCSSTestSuite
 	{
-		
 		public var test1:ApplyStyleBehaviorTest;
 		public var test2:TextFieldFactoryTest;
 		public var test3:PropertyMapObjectTest;

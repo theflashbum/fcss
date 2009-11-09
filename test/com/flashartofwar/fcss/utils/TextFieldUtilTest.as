@@ -10,10 +10,6 @@ package com.flashartofwar.fcss.utils
 
 	public class TextFieldUtilTest
 	{
-		// please note that all test methods should start with 'test' and should be public
-
-		// Reference declaration for class to test
-		private var classToTestRef : com.flashartofwar.fcss.utils.TextFieldUtil;
 		private var textField:TextField;
 		private var tfx:TextFormat;
 

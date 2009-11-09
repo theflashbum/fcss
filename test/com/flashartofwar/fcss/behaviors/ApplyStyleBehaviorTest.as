@@ -1,14 +1,10 @@
-package com.flashartofwar.fcss.behaviors
-{
-	import com.flashartofwar.fcss.behaviors.ApplyStyleBehavior;
-	import com.flashartofwar.fcss.managers.StyleSheetManager;
-	
+package com.flashartofwar.fcss.behaviors {
 	import flexunit.framework.Assert;
-	
+
+	import com.flashartofwar.fcss.managers.StyleSheetManager;
+
 	public class ApplyStyleBehaviorTest
 	{
-		// Reference declaration for class to test
-		private var classToTestRef : com.flashartofwar.fcss.behaviors.ApplyStyleBehavior;
 		
 		private var dummyClassA:DummyClass;
 		
