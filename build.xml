@@ -1,57 +1,184 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- F*CSS Build script -->
+<?xml version="1.0"?>
+<project name="robotlegs-framework" basedir="." default="test">
+  <!-- This is 100% ripped off from RobotLegs - http://github.com/darscan/robotlegs-framework.
+   I am working on making my own but this one is so damn good I couldn't help myself. -->
+	
+  <!-- set up a prefix for all environment variables -->
+  <property environment="env."/>
 
-<project name="F*CSS ANT Build" default="compile" basedir=".">
+  <!-- System environment must contain FLEX_HOME variable that points to Flex SDK
+  <property name="FLEX_HOME" location="${env.FLEX_HOME}"/> -->
 
-	<!-- import our build properties file -->
-	<property file="./build.properties" />
+  <!-- identify properties file -->
+  <property file="build.properties"/>
 
-	<property name="title" value="F*CSS API" />
+  <!-- Set up FlexUnit Ant tasks -->
+  <taskdef resource="flexUnitTasks.tasks" classpath="${lib.loc}/flexUnitTasks.jar"/>
 
-	<!-- Flex Ant Tasks used to perform compc and mxml compiling more info at http://labs.adobe.com/wiki/index.php/Flex_Ant_Tasks -->
-	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}${flex.tasks}" />
+  <target name="usage">
+      <echo message=""/>
+      <echo message="Robotlegs Build Usage"/>
+      <echo message="-----------------------------------"/>
+      <echo message=""/>
+      <echo message="Available targets are:"/>
+      <echo message=""/>
+      <echo message="test          --> Build Robotlegs SWC and run unit tests"/>
+      <echo message="asdoc         --> Build Robotlegs SWC, test, and generate asdocs"/>
+      <echo message="package       --> Build Robotlegs SWC, test, and create release zip"/>
+    <echo message="compile       --> Build Robotlegs SWC"/>
+      <echo message="clean         --> Remove all folders created by build script"/>
+      <echo message="init          --> Clean and create build folders"/>
+      <echo message=""/>
+  </target>
 
-	<!-- Main Ant Task, compiles F*CSS's main SWC and documents it -->
-	<target name="compile" description="series of tasks to create docs and swc">
+  <!-- Clean Build and Report files -->
+  <target name="clean">
+    <!-- Remove all directories created during the build process -->
+    <echo>[clean] Removing Build and Report directories</echo>
+    <delete includeemptydirs="true" failonerror="false">
+      <fileset dir="${report.loc}" defaultexcludes="false">
+        <include name="**/*"/>
+      </fileset>
+      <fileset dir="${dist.loc}" defaultexcludes="false">
+        <include name="**/*"/>
+      </fileset>
+    </delete>
+    <echo>[clean] Build and Report directories removed</echo>
+  </target>
 
-		<antcall target="buildSWC" description="build the SWC file" />
+  <!-- Create directories needed for the build process -->
+  <target name="init" depends="clean">
+    <echo>[init] Creating Bin and Report directories</echo>
+    <mkdir dir="${bin.loc}"/>
+    <mkdir dir="${report.loc}"/>
+    <echo>[init] Bin and Report directories created</echo>
+  </target>
 
-		<antcall target="asDocs" description="full build of asdocs" />
+  <!-- Compile Release SWC -->
+  <target name="compile" depends="init">
+    <echo>[compile] Compiling release SWC</echo>
+    <echo>[compile] Using Flex SDK at: ${FLEX_HOME}</echo>
 
-	</target>
+    <java jar="${FLEX_HOME}/lib/compc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
+      <!-- Build our SWC with a versioned name. -->
+      <arg value="-output=${bin.loc}/${project.name.versioned}.swc" />
 
-	<!-- Build F*CSS SWC -->
-	<target name="buildSWC" description="Compile the SWC file for the Library Project">
+      <!-- We want all the org package classes in the SWC being built. -->
+      <arg value="-include-sources=${main.src.loc}/com" />
 
-		<compc output="${liboutputfolder}/${fcss.outputfile}" compute-digest="false">
+      <!-- Include classes from SWCs in this folder, but only the ones we use. -->
+      <arg value="-library-path+=${lib.loc}" />
 
-			<!-- include our Class packages into the build (com folder) -->
-			<include-sources dir="src" includes="*" />
+    <!-- Keep the magic alive. -->
+      <arg value="-keep-as3-metadata+=Inject" />
 
-		</compc>
-		
-		<echo>F*CSS SWC was created</echo>
-		
-	</target>
+    <!-- Boolean mosh pit! -->
+      <arg value="-incremental=true" />
+      <arg value="-static-link-runtime-shared-libraries=true" />
+      <arg value="-verbose-stacktraces=true" />
+      <arg value="-headless-server=true" />
+    </java>
 
-	<!-- Run ASDocs for F*CSS Framework -->
+    <echo>[compile] Release SWC ${project.name.versioned}.swc created successfully</echo>
+  </target>
 
-	<target name="asDocs" description="Run the ASDoc executable and generate the ASDocs to the new output folder">
+  <!-- Run Unit Tests -->
+  <target name="test" depends="compile">
+    <echo>[test] Running Unit Tests</echo>
+    <!-- Compile TestRunner.mxml as a SWF -->
+    <java jar="${FLEX_HOME}/lib/mxmlc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
+      <arg value="${test.src.loc}/FCSSTest.mxml" />
+      <arg value="-source-path=${main.src.loc}" />
 
-		<exec executable="${FLEX_HOME}${asdoc.exe}" failonerror="true">
+    <!-- Flash those sweet legs. Blink and you'll miss 'em. -->
+      <arg value="-output=${bin.loc}/TestRunner.swf" />
+      <arg value="-default-size=307,136" />
+      <arg value="-default-background-color=0x000000" />
 
-			<arg line="-doc-sources src" />
+      <!-- Include classes from SWCs in this folder, but only the ones we use. -->
+      <arg value="-library-path+=${lib.loc}" />
 
-			<arg value="-window-title" />
-			<arg value="'${title}'" />
+    <!-- So true. -->
+      <arg value="-incremental=true" />
+      <arg value="-verbose-stacktraces=true" />
+      <arg value="-headless-server=true" />
+    </java>
 
-			<arg value="-output" />
-			<arg value="${liboutputfolder}/docs" />
+    <!-- Execute TestRunner.swf as FlexUnit tests and publish reports -->
+    <flexunit swf="bin/TestRunner.swf" toDir="${report.loc}" haltonfailure="true" verbose="true" localTrusted="true"/>
+    <!-- Generate readable JUnit-style reports -->
+    <junitreport todir="${report.loc}">
+      <fileset dir="${report.loc}">
+        <include name="TEST-*.xml"/>
+      </fileset>
+      <report format="frames" todir="${report.loc}/html"/>
+    </junitreport>
+    <echo>[test] Finished running Unit Tests</echo>
+  </target>
 
-		</exec>
+  <!-- Build Documentation -->
+  <target name="asdoc" depends="test">
+    <echo>[create-docs] Generating ASDOC documentation</echo>
+    <tstamp>
+      <format property="docgen.time" pattern="MM/dd/yyyy hh:mm aa" unit="hour"/>
+    </tstamp>
 
-		<echo>F*CSS Docs were created</echo>
+    <java jar="${FLEX_HOME}/lib/asdoc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
+      <arg line="-external-library-path ${lib.loc}"/>
+      <arg line="-doc-sources ${main.src.loc}"/>
+      <arg line="-source-path ${main.src.loc}"/>
+      <arg line="-output ${doc.loc}"/>
+      <arg line="-window-title 'Robotlegs ${robotlegs.ver.num}'"/>
+      <arg line="-main-title 'Robotlegs ${robotlegs.ver.num}'"/>
+      <arg line="-footer 'Robotlegs - http://www.robotlegs.org/ - Documentation generated at: ${docgen.time}'" />
+      <arg line="-package org.robotlegs.adapters 'Adapters to bridge third-party Di/IoC and reflection libraries'"/>
+      <arg line="-package org.robotlegs.base 'Base classes used to build custom Robotlegs frameworks'"/>
+      <arg line="-package org.robotlegs.core 'The core Robotlegs Framework apparatus contracts'"/>
+      <arg line="-package org.robotlegs.mvcs 'The reference MVCS Robotlegs Framework implementation'"/>
+    </java>
 
-	</target>
+    <echo>[create-docs] ASDOC documentation generated successfully</echo>
+  </target>
+
+  <!-- Package the Build -->
+  <target name="package" depends="test">
+    <tstamp>
+      <format property="touch.time" pattern="MM/dd/yyyy hh:mm aa" unit="hour"/>
+    </tstamp>
+    <!-- Assemble  -->
+    <echo>[package] Packaging Release</echo>
+    <mkdir dir="${dist.loc}"/>
+    <mkdir dir="${dist.loc}/bin"/>
+    <mkdir dir="${dist.loc}/src"/>
+    <copy file="${bin.loc}/${project.name.versioned}.swc" todir="${dist.loc}/bin"/>
+    <copy todir="${dist.loc}/src/org">
+      <fileset dir="${main.src.loc}/org"/>
+    </copy>
+    <!-- Copy README  -->
+    <copy file="${template.loc}/README.tmpl" tofile="${dist.loc}/README" overwrite="true">
+      <filterchain>
+        <replacetokens>
+          <token key="date" value="${touch.time}"/>
+          <token key="rlversion" value="${robotlegs.ver.num}"/>
+          <token key="releasename" value="${project.name.versioned}"/>
+          <token key="ssversion" value="${swift.suspenders.version}"/>
+          <token key="sslink" value="${swift.suspenders.link}"/>
+          <token key="rlprojectlink" value="${robotlegs.project.link}"/>
+          <token key="bestpracticeslink" value="${robotlegs.faq.link}"/>
+          <token key="faqlink" value="${robotlegs.best.practices.link}"/>
+        </replacetokens>
+      </filterchain>
+    </copy>
+    <!-- Zip It  -->
+    <zip destfile="${dist.loc}/${project.name.versioned}.zip">
+      <fileset dir="${dist.loc}"/>
+    </zip>
+    <!-- Clean Up  -->
+    <delete file="${dist.loc}/${project.name.versioned}.swc"/>
+    <delete file="${dist.loc}/README"/>
+    <delete dir="${dist.loc}/bin"/>
+    <delete dir="${dist.loc}/src"/>
+    <echo>[package] Release packaged successfully</echo>
+  </target>
 
 </project>

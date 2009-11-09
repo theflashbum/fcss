@@ -3,3 +3,4 @@ build.properties
 .flexLibProperties
 .DS_Store
 .project
+.settings
