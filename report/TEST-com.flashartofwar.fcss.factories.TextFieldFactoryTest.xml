@@ -1,82 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <testsuite name="com.flashartofwar.fcss.factories.TextFieldFactoryTest" tests="78" failures="0" errors="0" skipped="0" time="0.0">
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_wordWrap" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_gridFitType" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_maxChars" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_leading" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_autoSize" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_mouseWheelEnabled" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_leftMargin" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_multiline" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_restrict" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_rightMargin" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_selectable" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_size" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_letterSpacing" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_multiline" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_underline" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_restrict" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testHTMLText" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_selectable" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testNativeStyleSheet" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_sharpness" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_styleSheet" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testHTMLText" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_textColor" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testNativeStyleSheet" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_underline" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_thickness" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_embedFonts" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_font" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_wordWrap" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_alwaysShowSelection" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_align" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_antiAliasType" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_blockIndent" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_autoSize" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_rightMargin" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_bold" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_background" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_bullet" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_backgroundColor" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_color" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_border" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_font" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_borderColor" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_indent" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_condenseWhite" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_italic" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_defaultTextFormat" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_kerning" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_displayAsPassword" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_condenseWhite" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_wordWrap" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_gridFitType" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_maxChars" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_leading" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_mouseWheelEnabled" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_embedFonts" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_leftMargin" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_multiline" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_restrict" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_rightMargin" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_selectable" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_size" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_gridFitType" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_letterSpacing" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_maxChars" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_autoSize" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_mouseWheelEnabled" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_size" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_multiline" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_underline" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_restrict" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testHTMLText" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_selectable" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testNativeStyleSheet" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_sharpness" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_styleSheet" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testHTMLText" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_textColor" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testNativeStyleSheet" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_underline" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_thickness" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_embedFonts" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_font" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_wordWrap" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_alwaysShowSelection" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_align" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_antiAliasType" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_blockIndent" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_autoSize" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_rightMargin" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_bold" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_background" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_bullet" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_backgroundColor" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_color" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_border" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_font" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_borderColor" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_indent" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_condenseWhite" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_italic" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_defaultTextFormat" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_kerning" time="0.000" status="success"/>
   <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_displayAsPassword" time="0.000" status="success"/>
-  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_condenseWhite" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_leading" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_embedFonts" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_leftMargin" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_gridFitType" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_letterSpacing" time="0.000" status="success"/>
+  <testcase classname="com.flashartofwar.fcss.factories::TextFieldFactoryTest" name="testGet_maxChars" time="0.000" status="success"/>
 </testsuite>
