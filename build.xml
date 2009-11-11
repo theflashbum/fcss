@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="robotlegs-framework" basedir="." default="test">
+<project name="F*CSS Library" basedir="." default="compile">
 	<!-- This is 100% ripped off from RobotLegs - http://github.com/darscan/robotlegs-framework.
    I am working on making my own but this one is so damn good I couldn't help myself. -->
 
