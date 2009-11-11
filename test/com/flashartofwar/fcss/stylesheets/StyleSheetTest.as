@@ -23,12 +23,12 @@ package com.flashartofwar.fcss.stylesheets
 								}
 								
 								baseStyle {
-										x: 10px;
-										y: 10px;
+										x: 10;
+										y: 10;
 										width: 100px;
 										height: 100%;
-										padding: 5px;
-										margin: 10px;
+										padding: 5;
+										margin: 10;
 								}
 								
 								baseStyle .Button{
@@ -72,9 +72,9 @@ package com.flashartofwar.fcss.stylesheets
 								}
 								
 								baseStyle {
-									x: 300px;
+									x: 300;
 									height: 150px;
-									margin: 0px;
+									margin: 0;
 								}
 								
 								extraStyle
@@ -173,7 +173,7 @@ package com.flashartofwar.fcss.stylesheets
 			praseSecondCSSSheet();
 			var style:Style = sheet.getStyle("baseStyle");
 			var styleTest:String = style.toString();
-			var sampleTest:String = "baseStyle{styleName:baseStyle;x:300;y:10;width:100;height:150;padding:5;margin:0;}";
+			var sampleTest:String = "baseStyle{styleName:baseStyle;x:300;y:10;width:100px;height:150px;padding:5;margin:0;}";
 			Assert.assertEquals(style.toString(), sampleTest);
 		}
 		
@@ -239,6 +239,13 @@ package com.flashartofwar.fcss.stylesheets
 			}
 			Assert.assertEquals(sheet.styleNames.length, total);
 
+		}
+		
+		[Test]
+		public function testRetainCSSUnitInformation():void
+		{
+			var style: Style = sheet.getStyle("baseStyle");
+			Assert.assertEquals(style.width, "100px");
 		}
 	}
 }

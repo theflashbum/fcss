@@ -136,6 +136,12 @@ package com.flashartofwar.fcss.styles
 
 			Assert.assertTrue(props.indexOf("propC"), (2));
 		}
+		
+		[Test(expected="Error")]
+		public function testSettingNonStringAsProp():void {
+			style.nonStringProp = 5;
+		}
+
 	}
 }
 

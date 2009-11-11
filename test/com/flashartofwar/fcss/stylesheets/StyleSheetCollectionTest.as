@@ -23,17 +23,17 @@ package com.flashartofwar.fcss.stylesheets
 		{
 			var xml:XML = <css><![CDATA[/* This is a comment in the CSS file */
 								baseStyle {
-										x: 10px;
-										y: 10px;
-										width: 100px;
-										height: 100px;
-										padding: 5px;
-										margin: 10px;
+										x: 10;
+										y: 10;
+										width: 100;
+										height: 100;
+										padding: 5;
+										margin: 10;
 								}
 								
 								baseStyle .Button{
-										x: 0px;
-										y: 0px;
+										x: 0;
+										y: 0;
 										background-color: #000000;
 								}
 								
@@ -73,7 +73,7 @@ package com.flashartofwar.fcss.stylesheets
 								baseStyle {
 									x: 300px;
 									height: 150px;
-									margin: 0px;
+									margin: 0;
 								}
 								
 								extraStyle
@@ -116,7 +116,7 @@ package com.flashartofwar.fcss.stylesheets
 		protected function addBothStyleSheets():void
 		{
 			styleSheetCollection.addStyleSheet("sheetA", styleSheetA);
-			styleSheetCollection.addStyleSheet("sheetB", styleSheetB);	
+			styleSheetCollection.addStyleSheet("sheetB", styleSheetB);
 		}
 		
 		[Test]
@@ -129,9 +129,9 @@ package com.flashartofwar.fcss.stylesheets
 		public function testStyleToStringFromSheet():void
 		{
 			addBothStyleSheets();
-
+			
 			var style:Style = styleSheetCollection.getStyle("baseStyle");
-			var output:String = "baseStyle{styleName:baseStyle;x:300;y:10;width:100;height:150;padding:5;margin:0;}";
+			var output:String = "baseStyle{styleName:baseStyle;x:300px;y:10;width:100;height:150px;padding:5;margin:0;}";
 			Assert.assertEquals(style.toString(), output);
 		}
 		
@@ -190,7 +190,7 @@ package com.flashartofwar.fcss.stylesheets
 			addBothStyleSheets();
 
 			var style:Style = styleSheetCollection.getStyle("baseStyle");
-			Assert.assertEquals(style.x, "300");
+			Assert.assertEquals(style.x, "300px");
 		}
 		
 		[Test]
@@ -218,8 +218,6 @@ package com.flashartofwar.fcss.stylesheets
 
 			styleSheetCollection.newStyle("Teststyle", style);
 			Assert.assertEquals(styleSheetCollection.getStyle("Teststyle").styleName, "Teststyle");
-
-
 		}
 		
 		[Test]

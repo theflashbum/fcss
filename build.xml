@@ -15,6 +15,8 @@
 	<!-- Set up FlexUnit Ant tasks -->
 	<taskdef resource="flexUnitTasks.tasks" classpath="${lib.loc}/flexUnitTasks.jar" />
 
+	<taskdef resource="cpptasks" classpath="${lib.loc}/cpptasks.jar" />
+
 	<target name="usage">
 		<echo message="" />
 		<echo message="F*CSS Build Usage" />
@@ -54,8 +56,56 @@
 		<echo>[init] Bin and Report directories created</echo>
 	</target>
 
+	<!-- Run Unit Tests -->
+	<target name="test" depends="init">
+		<echo>[test] Running Unit Tests</echo>
+		<!-- Compile TestRunner.mxml as a SWF -->
+
+		<java jar="${FLEX_HOME}/lib/mxmlc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
+			<arg value="${test.src.loc}/FCSSTest.mxml" />
+			<arg value="-source-path=${main.src.loc}" />
+
+			<!-- Flash those sweet legs. Blink and you'll miss 'em. -->
+			<arg value="-output=${bin.loc}/TestRunner.swf" />
+			<arg value="-default-size=307,136" />
+			<arg value="-default-background-color=0x000000" />
+
+			<!-- Include classes from SWCs in this folder, but only the ones we use. -->
+			<arg value="-library-path+=${lib.loc}" />
+
+			<!-- So true. -->
+			<arg value="-incremental=true" />
+			<arg value="-verbose-stacktraces=true" />
+			<arg value="-headless-server=true" />
+		</java>
+
+		<!-- Execute TestRunner.swf as FlexUnit tests and publish reports -->
+		<flexunit swf="bin/TestRunner.swf" toDir="${report.loc}" haltonfailure="false" verbose="true" localTrusted="true" failureproperty="flexunit.failed" />
+		<!-- Generate readable JUnit-style reports -->
+		<junitreport todir="${report.loc}">
+			<fileset dir="${report.loc}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${report.loc}/html" />
+		</junitreport>
+		<echo>[test] Finished running Unit Tests</echo>
+
+		<condition property="flexunit.passed">
+			<and>
+				<equals arg1="${flexunit.failed}" arg2="false" />
+			</and>
+		</condition>
+	</target>
+
+	<!-- Opens JUnit Report when test fails -->
+	<target name="junitreport" depends="test">
+		<exec executable="open">
+			<arg line="-a ${browser} ${report.url}" />
+		</exec>
+	</target>
+	
 	<!-- Compile Release SWC -->
-	<target name="compile" depends="init">
+	<target name="compile" depends="junitreport" if="flexunit.passed">
 		<echo>[compile] Compiling release SWC</echo>
 		<echo>[compile] Using Flex SDK at: ${FLEX_HOME}</echo>
 
@@ -82,42 +132,8 @@
 		<echo>[compile] Release SWC ${project.name.versioned}.swc created successfully</echo>
 	</target>
 
-	<!-- Run Unit Tests -->
-	<target name="test" depends="compile">
-		<echo>[test] Running Unit Tests</echo>
-		<!-- Compile TestRunner.mxml as a SWF -->
-		<java jar="${FLEX_HOME}/lib/mxmlc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
-			<arg value="${test.src.loc}/FCSSTest.mxml" />
-			<arg value="-source-path=${main.src.loc}" />
-
-			<!-- Flash those sweet legs. Blink and you'll miss 'em. -->
-			<arg value="-output=${bin.loc}/TestRunner.swf" />
-			<arg value="-default-size=307,136" />
-			<arg value="-default-background-color=0x000000" />
-
-			<!-- Include classes from SWCs in this folder, but only the ones we use. -->
-			<arg value="-library-path+=${lib.loc}" />
-
-			<!-- So true. -->
-			<arg value="-incremental=true" />
-			<arg value="-verbose-stacktraces=true" />
-			<arg value="-headless-server=true" />
-		</java>
-
-		<!-- Execute TestRunner.swf as FlexUnit tests and publish reports -->
-		<flexunit swf="bin/TestRunner.swf" toDir="${report.loc}" haltonfailure="true" verbose="true" localTrusted="true" />
-		<!-- Generate readable JUnit-style reports -->
-		<junitreport todir="${report.loc}">
-			<fileset dir="${report.loc}">
-				<include name="TEST-*.xml" />
-			</fileset>
-			<report format="frames" todir="${report.loc}/html" />
-		</junitreport>
-		<echo>[test] Finished running Unit Tests</echo>
-	</target>
-
 	<!-- Build Documentation -->
-	<target name="asdoc" depends="test">
+	<target name="asdoc" depends="compile">
 		<echo>[create-docs] Generating ASDOC documentation</echo>
 		<tstamp>
 			<format property="docgen.time" pattern="MM/dd/yyyy hh:mm aa" unit="hour" />

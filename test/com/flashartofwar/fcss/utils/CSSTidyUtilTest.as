@@ -17,8 +17,8 @@ package com.flashartofwar.fcss.utils
 			var xml:XML = <css><![CDATA[/* This is a comment in the CSS file */
 								baseStyle {
 									x: 300px;
-									height: 150 px;
-									margin: 0px;
+									height: 150;
+									margin: 0;
 								}
 								
 								baseStyle .SimpleButton
@@ -36,7 +36,7 @@ package com.flashartofwar.fcss.utils
 			// Add your test logic here
 			var tidyCSS:String = CSSTidyUtil.tidy(cssText);
 			//trace(tidyCSS);
-			Assert.assertEquals(tidyCSS, "baseStyle{x:300;height:150 ;margin:0;}baseStyle .SimpleButton{border:#ff0000;}");
+			Assert.assertEquals(tidyCSS, "baseStyle{x:300px;height:150;margin:0;}baseStyle .SimpleButton{border:#ff0000;}");
 		}
 	}
 }

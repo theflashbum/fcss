@@ -130,6 +130,22 @@ package com.flashartofwar.fcss.styles
 		{
 			registerClassAlias("com.flashartofwar.fcss.styles.Style", Style);
 		}
+		
+		/**
+		 * 
+		 * 
+		 */
+		override protected function $setProperty(name:*, value:*):void
+		{
+			if(value is String)
+			{
+				super.$setProperty(name, value);
+			}
+			else
+			{
+				throw new Error("Only strings can be set as properties of a Style.");
+			}
+		}
 	}
 }
 

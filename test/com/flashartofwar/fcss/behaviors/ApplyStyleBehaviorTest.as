@@ -15,8 +15,8 @@ package com.flashartofwar.fcss.behaviors {
 			var xml:XML = <css><![CDATA[/* This is a comment in the CSS file */
 								.DummyClass {
 									name: DummyClass;
-									x:50px;
-									y:50px;
+									x:50;
+									y:50;
 									visible:false;
 								}
 								
@@ -28,7 +28,7 @@ package com.flashartofwar.fcss.behaviors {
 								#testStyle
 								{
 									name: testStyle;
-									x: 350px;
+									x: 350;
 								}
 							]]>
 				</css>;

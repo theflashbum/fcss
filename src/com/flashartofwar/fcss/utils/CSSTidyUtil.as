@@ -15,7 +15,7 @@ package com.flashartofwar.fcss.utils
 	public class CSSTidyUtil
 	{
 
-		protected static const COMPRESS_CSS:RegExp = /\s*([@{}:;,]|\)\s|\s\()\s*|\/\*([^*\\\\]|\*(?!\/))+\*\/|[\n\r\t]|(px)|(%)/g;
+		protected static const COMPRESS_CSS:RegExp = /\s*([@{}:;,]|\)\s|\s\()\s*|\/\*([^*\\\\]|\*(?!\/))+\*\/|[\n\r\t]/g;
 
 		/**
 		 * <p>This uses regex to remove spaces, breaks, "px" and other items

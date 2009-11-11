@@ -99,7 +99,7 @@ package com.flashartofwar.fcss.objects
 			var styleString:String = "{";
 			var i:int;
 			var total:int = propertiesIndex.length;
-			var prop:String
+			var prop:String;
 			for (i = 0; i < total; i++)
 			{
 				prop = propertiesIndex[i];
