@@ -1,15 +1,15 @@
 package com.flashartofwar.fcss.stylesheets
 {
-	import org.flexunit.Assert;
-
 	import com.flashartofwar.fcss.styles.Style;
 	import com.flashartofwar.fcss.utils.CSSTidyUtil;
+
+	import org.flexunit.Assert;
 
 	public class StyleSheetCollectionTest
 	{
 
-		private var styleSheetA : StyleSheet;
-		private var styleSheetB : StyleSheet;
+		private var styleSheetA : FStyleSheet;
+		private var styleSheetB : FStyleSheet;
 		private var styleSheetCollection : StyleSheetCollection;
 
 		public function StyleSheetCollectionTest()
@@ -86,10 +86,10 @@ package com.flashartofwar.fcss.stylesheets
 		public function runBeforeEveryTest() : void 
 		{
 			styleSheetCollection = new StyleSheetCollection();
-			styleSheetA = new StyleSheet();
+			styleSheetA = new FStyleSheet();
 			styleSheetA.parseCSS(cssTextA);
 
-			styleSheetB = new StyleSheet();
+			styleSheetB = new FStyleSheet();
 			styleSheetB.parseCSS(cssTextB);
 		}
 
@@ -138,7 +138,7 @@ package com.flashartofwar.fcss.stylesheets
 		{
 			addBothStyleSheets();
 			
-			var style : Style = styleSheetCollection.getStyle("baseStyle");
+			var style : Style = styleSheetCollection.getStyle("baseStyle") as Style;
 			var output : String = "baseStyle{styleName:baseStyle;x:300px;y:10;width:100;height:150px;padding:5;margin:0;}";
 			Assert.assertEquals(style.toString(), output);
 		}
@@ -163,7 +163,7 @@ package com.flashartofwar.fcss.stylesheets
 		{
 			addBothStyleSheets();
 
-			var style : Style = styleSheetCollection.getStyle("baseStyle");
+			var style : Style = styleSheetCollection.getStyle("baseStyle") as Style;
 			Assert.assertEquals(style.styleName, "baseStyle");
 		}
 
@@ -173,7 +173,7 @@ package com.flashartofwar.fcss.stylesheets
 		{
 			addBothStyleSheets();
 
-			var style : Style = styleSheetCollection.getStyle("baseStyle");
+			var style : Style = styleSheetCollection.getStyle("baseStyle") as Style;
 			Assert.assertEquals(style.y, "10");
 		}
 
@@ -183,7 +183,7 @@ package com.flashartofwar.fcss.stylesheets
 		{
 			addBothStyleSheets();
 
-			var style : Style = styleSheetCollection.getStyle("baseStyle");
+			var style : Style = styleSheetCollection.getStyle("baseStyle") as Style;
 			Assert.assertEquals(style.width, "100");
 		}
 
@@ -193,7 +193,7 @@ package com.flashartofwar.fcss.stylesheets
 		{
 			addBothStyleSheets();
 
-			var style : Style = styleSheetCollection.getStyle("baseStyle");
+			var style : Style = styleSheetCollection.getStyle("baseStyle") as Style;
 			Assert.assertEquals(style.padding, "5");
 		}
 
@@ -203,7 +203,7 @@ package com.flashartofwar.fcss.stylesheets
 		{
 			addBothStyleSheets();
 
-			var style : Style = styleSheetCollection.getStyle("baseStyle");
+			var style : Style = styleSheetCollection.getStyle("baseStyle") as Style;
 			Assert.assertEquals(style.x, "300px");
 		}
 

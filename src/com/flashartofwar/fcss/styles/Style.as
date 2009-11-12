@@ -40,7 +40,7 @@ package com.flashartofwar.fcss.styles
 	 *
 	 * @author jessefreeman
 	 */
-	public dynamic class Style extends AbstractOrderedObject
+	public dynamic class Style extends AbstractOrderedObject implements IStyle
 	{
 
 		/**
@@ -75,9 +75,9 @@ package com.flashartofwar.fcss.styles
 		 * @return
 		 *
 		 */
-		public function clone():Style
+		public function clone():IStyle
 		{
-			var cloneProp:Style = new Style();
+			var cloneProp:IStyle = createEmptyStyle();
 			var total:int = propertiesIndex.length;
 
 			for (var i:int = 0; i < total; i++)
@@ -89,7 +89,11 @@ package com.flashartofwar.fcss.styles
 			return cloneProp;
 		}
 
-
+		protected function createEmptyStyle():IStyle
+		{
+			return new Style();
+		}
+		
 		/**
 		 *
 		 * @return

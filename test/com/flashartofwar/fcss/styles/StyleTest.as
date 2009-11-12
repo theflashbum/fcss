@@ -25,7 +25,7 @@ package com.flashartofwar.fcss.styles
 		[Test]
 		public function testClone():void
 		{
-			var clone:Style = style.clone();
+			var clone:IStyle = style.clone();
 			Assert.assertEquals(clone.toString(), style.toString());
 
 		}

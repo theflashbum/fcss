@@ -30,6 +30,7 @@
 
 package com.flashartofwar.fcss.stylesheets
 {
+	import com.flashartofwar.fcss.styles.IStyle;
 	import com.flashartofwar.fcss.styles.Style;
 
 	/**
@@ -73,7 +74,7 @@ package com.flashartofwar.fcss.stylesheets
 		public function get baseStyleSheet() : IStyleSheet
 		{
 			if (! styleSheets[baseStyleSheetName])
-				addStyleSheet(baseStyleSheetName, new StyleSheet());
+				addStyleSheet(baseStyleSheetName, new FStyleSheet());
 
 			return styleSheets[baseStyleSheetName];
 		}
@@ -93,18 +94,23 @@ package com.flashartofwar.fcss.stylesheets
 		 * @return
 		 *
 		 */
-		public function getStyle(... styleNames) : Style
+		public function getStyle(... styleNames) : IStyle
 		{
-			var tempProperties : Style = new Style();
+			var tempProperties : IStyle = createEmptyStyle();
 
 			for each (var styleSheet:IStyleSheet in styleSheets)
 			{
-				var sheetProperties : Style = styleSheet.getStyle.apply(null, styleNames);
+				var sheetProperties : IStyle = styleSheet.getStyle.apply(null, styleNames);
 				if (sheetProperties.styleName != "EmptyProperties")
 					tempProperties.merge(sheetProperties);
 			}
 
 			return tempProperties;
+		}
+		
+		protected function createEmptyStyle() : IStyle
+		{
+			return new Style() as IStyle;
 		}
 
 		/**
@@ -131,7 +137,7 @@ package com.flashartofwar.fcss.stylesheets
 		 * @param styleName
 		 * @param propertystyle
 		 */
-		public function newStyle(name : String, style : Style) : void
+		public function newStyle(name : String, style : IStyle) : void
 		{
 			baseStyleSheet.newStyle(name, style);
 		}
@@ -143,7 +149,7 @@ package com.flashartofwar.fcss.stylesheets
 		 */
 		public function parseCSS(CSSText : String, compressText : Boolean = true) : IStyleSheet
 		{
-			var styleSheet : StyleSheet = new StyleSheet();
+			var styleSheet : FStyleSheet = new FStyleSheet();
 			styleSheet.parseCSS(CSSText, compressText);
 			styleSheet.name = defaultSheetName + (totalStyleSheets + 1);
 			addStyleSheet(styleSheet.name, styleSheet);
@@ -168,7 +174,7 @@ package com.flashartofwar.fcss.stylesheets
 		 */
 		public function removeStyleSheet(id : String) : IStyleSheet
 		{
-			var styleSheet : StyleSheet = styleSheets[id];
+			var styleSheet : FStyleSheet = styleSheets[id];
 			delete styleSheets[id];
 			_totalSheets --;
 			return styleSheet;

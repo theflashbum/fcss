@@ -1,5 +1,6 @@
 package com.flashartofwar
 {
+	import com.flashartofwar.fcss.utils.TextFieldUtilTest;
 	import com.flashartofwar.fcss.behaviors.ApplyStyleBehaviorTest;
 	import com.flashartofwar.fcss.factories.TextFieldFactoryTest;
 	import com.flashartofwar.fcss.objects.PropertyMapObjectTest;
@@ -23,6 +24,6 @@ package com.flashartofwar
 		public var test7:CSSTidyUtilTest;
 		public var test8:StyleApplierUtilTest;
 		public var test9:TextFieldFactoryTest;
-		public var test10:TypeHelperUtilTest;
+		public var test10:TypeHelperUtilTest;		public var test11:TextFieldUtilTest;
 	}
 }

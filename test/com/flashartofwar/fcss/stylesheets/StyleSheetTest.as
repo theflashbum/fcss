@@ -1,14 +1,16 @@
 package com.flashartofwar.fcss.stylesheets
 {
+	import com.flashartofwar.fcss.styles.Style;
+
 	import org.flexunit.Assert;
 
-	import com.flashartofwar.fcss.styles.Style;
+	import com.flashartofwar.fcss.styles.IStyle;
 	import com.flashartofwar.fcss.utils.CSSTidyUtil;
 
 	public class StyleSheetTest
 	{
 
-		private var sheet : StyleSheet;
+		private var sheet : FStyleSheet;
 
 		public function StyleSheetTest()
 		{
@@ -18,7 +20,7 @@ package com.flashartofwar.fcss.stylesheets
 
 		public function runBeforeEveryTest() : void 
 		{
-			sheet = new StyleSheet();
+			sheet = new FStyleSheet();
 			sheet.parseCSS(cssTextA);
 		}
 
@@ -113,7 +115,7 @@ package com.flashartofwar.fcss.stylesheets
 		public function testClone() : void
 		{
 			// Add your test logic here
-			var clone : StyleSheet = sheet.clone() as StyleSheet;
+			var clone : FStyleSheet = sheet.clone() as FStyleSheet;
 
 			Assert.assertStrictlyEquals(sheet.toString(), clone.toString());
 		}
@@ -122,7 +124,7 @@ package com.flashartofwar.fcss.stylesheets
 
 		public function testGetstyle() : void
 		{
-			var style : Style = sheet.getStyle("#playButton");
+			var style : IStyle = sheet.getStyle("#playButton");
 			var sampleTest : String = "#playButton{styleName:#playButton;background-color:#FFFFFF;background-image:url('/images/play_button_background.jpg');}";
 			Assert.assertEquals(style.toString(), sampleTest);
 		}
@@ -164,7 +166,7 @@ package com.flashartofwar.fcss.stylesheets
 		public function testSecondCSSParseStyle() : void
 		{
 			praseSecondCSSSheet();
-			var style : Style = sheet.getStyle("baseStyle");
+			var style : IStyle = sheet.getStyle("baseStyle");
 			var sampleTest : String = "baseStyle{styleName:baseStyle;x:300;y:10;width:100px;height:150px;padding:5;margin:0;}";
 			Assert.assertEquals(style.toString(), sampleTest);
 		}
@@ -213,7 +215,7 @@ package com.flashartofwar.fcss.stylesheets
 
 		public function testVariableReplace() : void
 		{
-			var style : Style = sheet.getStyle("#playButton:over");
+			var style : IStyle = sheet.getStyle("#playButton:over");
 			Assert.assertEquals(style.toString(), "#playButton:over{styleName:#playButton:over;background-color:#333333;background-image:url('/images/play_button_background.jpg');}");
 		}
 
@@ -222,7 +224,7 @@ package com.flashartofwar.fcss.stylesheets
 		public function testNumberOfStylesAfterRequestingAllStyles() : void
 		{
 			var i : int;
-			var style : Style;
+			var style : IStyle;
 			var styles : Array = sheet.styleNames;
 			var total : Number = styles.length;
 
@@ -237,7 +239,7 @@ package com.flashartofwar.fcss.stylesheets
 
 		public function testRetainCSSUnitInformation() : void
 		{
-			var style : Style = sheet.getStyle("baseStyle");
+			var style : Style = sheet.getStyle("baseStyle") as Style;
 			Assert.assertEquals(style.width, "100px");
 		}
 
@@ -245,8 +247,8 @@ package com.flashartofwar.fcss.stylesheets
 
 		public function testStyleSheetReturnFromParse() : void
 		{
-			var newSheet : StyleSheet = new StyleSheet();
-			var returnedStyleSheet : StyleSheet = newSheet.parseCSS(cssTextA) as StyleSheet;
+			var newSheet : FStyleSheet = new FStyleSheet();
+			var returnedStyleSheet : FStyleSheet = newSheet.parseCSS(cssTextA) as FStyleSheet;
 			Assert.assertEquals(newSheet, returnedStyleSheet);
 		}
 
@@ -255,7 +257,7 @@ package com.flashartofwar.fcss.stylesheets
 		public function testSetStyleSheetName() : void 
 		{
 			sheet.name = "DemoStyleSHeet";
-			var returnedStyleSheet : StyleSheet = sheet.parseCSS(cssTextB) as StyleSheet;
+			var returnedStyleSheet : FStyleSheet = sheet.parseCSS(cssTextB) as FStyleSheet;
 			
 			Assert.assertEquals(sheet.name, returnedStyleSheet.name);
 		}
@@ -264,7 +266,7 @@ package com.flashartofwar.fcss.stylesheets
 
 		public function testDefaultStyleSheetName() : void
 		{
-			Assert.assertEquals(sheet.name, StyleSheet.DEFAULT_STYLE_SHEET_NAME);
+			Assert.assertEquals(sheet.name, FStyleSheet.DEFAULT_STYLE_SHEET_NAME);
 		}
 
 		[Test]

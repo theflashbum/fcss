@@ -54,18 +54,18 @@ package com.flashartofwar.fcss.utils
 		 * @param target
 		 * @param style
 		 */
-		public static function applyProperties(target:Object, style:Style):void
+		public static function applyProperties(target:Object, styleObject:Object):void
 		{
 			var propMap:PropertyMapObject = propertyMap(target);
 
-			for (var prop:String in style)
+			for (var prop:String in styleObject)
 			{
 
 				if (target.hasOwnProperty(prop))
 				{
 
 					var type:String = propMap[prop];
-					var cleanedUpValue:* = TypeHelperUtil.getType(style[prop], type);
+					var cleanedUpValue:* = TypeHelperUtil.getType(styleObject[prop], type);
 
 					target[prop] = cleanedUpValue;
 				}

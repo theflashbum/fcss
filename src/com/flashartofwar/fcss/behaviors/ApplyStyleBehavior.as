@@ -30,7 +30,7 @@
 
 package com.flashartofwar.fcss.behaviors {
 	import com.flashartofwar.fcss.managers.StyleSheetManager;
-	import com.flashartofwar.fcss.styles.Style;
+	import com.flashartofwar.fcss.styles.IStyle;
 	import com.flashartofwar.fcss.stylesheets.IStyleSheetCollection;
 	import com.flashartofwar.fcss.utils.StyleApplierUtil;
 
@@ -88,7 +88,7 @@ package com.flashartofwar.fcss.behaviors {
 		 */
 		public function applyDefaultStyle():void
 		{
-			var style:Style = styleSheetCollection.getStyle.apply(null, defaultstyleNames);
+			var style:IStyle = styleSheetCollection.getStyle.apply(null, defaultstyleNames);
 			applyStyle(style);
 		}
 
@@ -103,7 +103,7 @@ package com.flashartofwar.fcss.behaviors {
 		 * documentation for help on how to do that.</p>
 		 * @param style
 		 */
-		public function applyStyle(style:Style):void
+		public function applyStyle(style:IStyle):void
 		{
 			StyleApplierUtil.applyProperties(target, style);
 		}

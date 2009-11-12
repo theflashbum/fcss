@@ -1,4 +1,5 @@
-package com.flashartofwar.fcss.behaviors {
+package com.flashartofwar.fcss.behaviors 
+{
 	import flexunit.framework.Assert;
 
 	import com.flashartofwar.fcss.managers.StyleSheetManager;
@@ -85,7 +86,7 @@ package com.flashartofwar.fcss.behaviors {
 }
 
 import com.flashartofwar.fcss.behaviors.ApplyStyleBehavior;
-import com.flashartofwar.fcss.styles.Style;
+import com.flashartofwar.fcss.styles.IStyle;
 
 import flash.display.Sprite;
 
@@ -99,7 +100,7 @@ class DummyClass extends Sprite
 		createStyleBehavior(id);
 	}
 	
-	public function applyStyle(style:Style):void
+	public function applyStyle(style:IStyle):void
 	{
 		styleBehavior.applyStyle(style);
 	}

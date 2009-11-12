@@ -48,7 +48,7 @@ package com.flashartofwar.fcss.utils
 		 * and a Style and the utility will handle everything for you. The method
 		 * will parse out props for TextField, TextFormat, and native StyleSheet.
 		 */
-		public static function applyStyle(textField:TextField, style:Style):void
+		public static function applyStyle(textField:TextField, styleObject:Object):void
 		{
 
 			var textFormat:TextFormat = new TextFormat();
@@ -56,11 +56,11 @@ package com.flashartofwar.fcss.utils
 			var prop:String;
 			var value:String;
 
-			for (prop in style)
+			for (prop in styleObject)
 			{
 
 				camelCasePropName = camelize(prop, "-");
-				value = style[prop];
+				value = styleObject[prop];
 				//trace("Value", value);
 				if (TextFieldProperties.isSupported(camelCasePropName))
 				{
@@ -88,27 +88,12 @@ package com.flashartofwar.fcss.utils
 				}
 			}
 
-			//TODO there is a bug if text already exists it messes up the StyleSheet
-
-//			var text:String;
-//			
-//			if (textField.htmlText)
-//			{
-//				text = textField.htmlText;
-//				textField.htmlText = null;
-//			}
-
-
 			textField.defaultTextFormat = textFormat;
 
 			if (tempStyleSheet)
 			{
 				textField.styleSheet = tempStyleSheet;
 			}
-
-//			if(text)
-//				textField.htmlText = text;
-
 
 		}
 
