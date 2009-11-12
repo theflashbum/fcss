@@ -1,27 +1,24 @@
 package com.flashartofwar.fcss.stylesheets
 {
+	import org.flexunit.Assert;
+
 	import com.flashartofwar.fcss.styles.Style;
 	import com.flashartofwar.fcss.utils.CSSTidyUtil;
-	
-	import flexunit.framework.Assert;
 
 	public class StyleSheetCollectionTest
 	{
 
-
-		private var styleSheetA:StyleSheet;
-
-		private var styleSheetB:StyleSheet;
-
-		private var styleSheetCollection:StyleSheetCollection;
+		private var styleSheetA : StyleSheet;
+		private var styleSheetB : StyleSheet;
+		private var styleSheetCollection : StyleSheetCollection;
 
 		public function StyleSheetCollectionTest()
 		{
 		}
 
-		public function get cssTextA():String
+		public function get cssTextA() : String
 		{
-			var xml:XML = <css><![CDATA[/* This is a comment in the CSS file */
+			var xml : XML = <css><![CDATA[/* This is a comment in the CSS file */
 								baseStyle {
 										x: 10;
 										y: 10;
@@ -64,12 +61,11 @@ package com.flashartofwar.fcss.stylesheets
 				</css>;
 
 			return xml.toString();
-
 		}
 
-		public function get cssTextB():String
+		public function get cssTextB() : String
 		{
-			var xml:XML = <css><![CDATA[/* This is a comment in the CSS file */
+			var xml : XML = <css><![CDATA[/* This is a comment in the CSS file */
 								baseStyle {
 									x: 300px;
 									height: 150px;
@@ -85,170 +81,203 @@ package com.flashartofwar.fcss.stylesheets
 			return xml.toString();
 		}
 
-		[Before(ui)]
-		public function runBeforeEachTest():void
-		{
+		[Before]
 
+		public function runBeforeEveryTest() : void 
+		{
 			styleSheetCollection = new StyleSheetCollection();
 			styleSheetA = new StyleSheet();
 			styleSheetA.parseCSS(cssTextA);
 
 			styleSheetB = new StyleSheet();
 			styleSheetB.parseCSS(cssTextB);
-
 		}
-		
-		[Test]
-		public function testAddStyleSheet():void
+
+		[After]
+
+		public function runAfterEveryTest() : void 
 		{
-			var createdSheet:IStyleSheet = styleSheetCollection.addStyleSheet("test", styleSheetA);
+			styleSheetCollection.clear();			styleSheetCollection = null;
+			styleSheetA = null;
+			styleSheetB = null; 
+		}
+
+		[Test]
+
+		public function testAddStyleSheet() : void
+		{
+			var createdSheet : IStyleSheet = styleSheetCollection.addStyleSheet("test", styleSheetA);
 
 			Assert.assertNotNull(createdSheet);
 		}
-		
+
 		[Test]
-		public function testClear():void
+
+		public function testClear() : void
 		{
 			styleSheetCollection.clear();
 			Assert.assertEquals(styleSheetCollection.totalStyleSheets, 0);
 		}
-		
-		protected function addBothStyleSheets():void
+
+		protected function addBothStyleSheets() : void
 		{
 			styleSheetCollection.addStyleSheet("sheetA", styleSheetA);
 			styleSheetCollection.addStyleSheet("sheetB", styleSheetB);
 		}
-		
+
 		[Test]
-		public function testGetStyle():void
+
+		public function testGetStyle() : void
 		{
 			addBothStyleSheets();
 		}
-		
+
 		[Test]
-		public function testStyleToStringFromSheet():void
+
+		public function testStyleToStringFromSheet() : void
 		{
 			addBothStyleSheets();
 			
-			var style:Style = styleSheetCollection.getStyle("baseStyle");
-			var output:String = "baseStyle{styleName:baseStyle;x:300px;y:10;width:100;height:150px;padding:5;margin:0;}";
+			var style : Style = styleSheetCollection.getStyle("baseStyle");
+			var output : String = "baseStyle{styleName:baseStyle;x:300px;y:10;width:100;height:150px;padding:5;margin:0;}";
 			Assert.assertEquals(style.toString(), output);
 		}
-		
+
 		[Test]
-		public function testDynamicStyleToString():void
+
+		public function testDynamicStyleToString() : void
 		{
 
-			var style:Style = new Style();
+			var style : Style = new Style();
 			style.styleName = "propTest";
 			style.propA = "a";
 			style.propB = "b";
 			style.propC = "c";
-			var output:String = "propTest{styleName:propTest;propA:a;propB:b;propC:c;}";
+			var output : String = "propTest{styleName:propTest;propA:a;propB:b;propC:c;}";
 			Assert.assertEquals(style.toString(), output);
 		}
-		
+
 		[Test]
-		public function testGetStyleStyleName():void
+
+		public function testGetStyleStyleName() : void
 		{
 			addBothStyleSheets();
 
-			var style:Style = styleSheetCollection.getStyle("baseStyle");
+			var style : Style = styleSheetCollection.getStyle("baseStyle");
 			Assert.assertEquals(style.styleName, "baseStyle");
 		}
-		
+
 		[Test]
-		public function testGetStylePropTestA():void
+
+		public function testGetStylePropTestA() : void
 		{
 			addBothStyleSheets();
 
-			var style:Style = styleSheetCollection.getStyle("baseStyle");
+			var style : Style = styleSheetCollection.getStyle("baseStyle");
 			Assert.assertEquals(style.y, "10");
 		}
-		
+
 		[Test]
-		public function testGetStylePropTestB():void
+
+		public function testGetStylePropTestB() : void
 		{
 			addBothStyleSheets();
 
-			var style:Style = styleSheetCollection.getStyle("baseStyle");
+			var style : Style = styleSheetCollection.getStyle("baseStyle");
 			Assert.assertEquals(style.width, "100");
 		}
-		
+
 		[Test]
-		public function testGetStylePropTestC():void
+
+		public function testGetStylePropTestC() : void
 		{
 			addBothStyleSheets();
 
-			var style:Style = styleSheetCollection.getStyle("baseStyle");
+			var style : Style = styleSheetCollection.getStyle("baseStyle");
 			Assert.assertEquals(style.padding, "5");
 		}
-		
+
 		[Test]
-		public function testGetStylePropTestD():void
+
+		public function testGetStylePropTestD() : void
 		{
 			addBothStyleSheets();
 
-			var style:Style = styleSheetCollection.getStyle("baseStyle");
+			var style : Style = styleSheetCollection.getStyle("baseStyle");
 			Assert.assertEquals(style.x, "300px");
 		}
-		
+
 		[Test]
-		public function testGetStyleSheet():void
+
+		public function testGetStyleSheet() : void
 		{
 			styleSheetCollection.addStyleSheet("test", styleSheetA);
 
 			Assert.assertNotNull(styleSheetCollection.getStyleSheet("test"));
 		}
-		
+
 		[Test]
-		public function testGet_styleNames():void
+
+		public function testGet_styleNames() : void
 		{
 			addBothStyleSheets();
-			var styles:Array = styleSheetCollection.styleNames;
+			var styles : Array = styleSheetCollection.styleNames;
 
 			Assert.assertEquals(styles.length, 8);
 		}
-		
+
 		[Test]
-		public function testNewstyle():void
+
+		public function testNewstyle() : void
 		{
-			var style:Style = new Style();
+			var style : Style = new Style();
 			style.styleName = "Teststyle";
 
 			styleSheetCollection.newStyle("Teststyle", style);
 			Assert.assertEquals(styleSheetCollection.getStyle("Teststyle").styleName, "Teststyle");
 		}
-		
+
 		[Test]
-		public function testParseCSS():void
+
+		public function testParseCSS() : void
 		{
-			var tidyCSS:String = CSSTidyUtil.tidy(cssTextA);
+			var tidyCSS : String = CSSTidyUtil.tidy(cssTextA);
 
 			styleSheetCollection.parseCSS(cssTextA);
-			var sheet:IStyleSheet = styleSheetCollection.baseStyleSheet;
+			var sheet : IStyleSheet = styleSheetCollection.baseStyleSheet;
 
 			Assert.assertEquals(sheet.toString(), tidyCSS);
 		}
-		
+
 		[Test]
-		public function testRemoveStyleSheet():void
+
+		public function testRemoveStyleSheet() : void
 		{
 			addBothStyleSheets();
 			styleSheetCollection.removeStyleSheet("sheetB");
 
 			Assert.assertNull(styleSheetCollection.getStyleSheet("sheetB"));
 		}
-		
+
 		[Test]
-		public function testGetStyleNamesReturnsCleanArray():void
+
+		public function testGetStyleNamesReturnsCleanArray() : void
 		{
 			addBothStyleSheets();
 
-			var styleNames:Array = styleSheetCollection.styleNames;
+			var styleNames : Array = styleSheetCollection.styleNames;
 
 			styleNames.length = 0;
 			Assert.assertEquals(styleSheetCollection.styleNames.length, 8);
+		}
+
+		[Test]
+
+		public function testGetStyleSheetFromParse() : void
+		{
+			addBothStyleSheets();
+			var sheet : IStyleSheet = styleSheetCollection.parseCSS("sheetB");
+			Assert.assertEquals("Should find " + sheet.name, sheet.name, StyleSheetCollection.defaultSheetName + "3");
 		}
 	}
 }

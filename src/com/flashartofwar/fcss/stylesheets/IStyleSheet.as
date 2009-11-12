@@ -36,7 +36,11 @@ package com.flashartofwar.fcss.stylesheets
 	public interface IStyleSheet
 	{
 
-		function parseCSS(CSSText:String, compressText:Boolean = true):void;
+		function get name() : String;
+		
+		function set name(name : String) : void;
+		
+		function parseCSS(CSSText:String, compressText:Boolean = true):IStyleSheet;
 
 		function clear():void;
 
