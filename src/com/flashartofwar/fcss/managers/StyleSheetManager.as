@@ -32,6 +32,7 @@
 package com.flashartofwar.fcss.managers {
 	import com.flashartofwar.fcss.stylesheets.IStyleSheetCollection;
 	import com.flashartofwar.fcss.stylesheets.StyleSheetCollection;
+
 	/**
 	 * @author jessefreeman
 	 */
@@ -40,28 +41,28 @@ package com.flashartofwar.fcss.managers {
 
 		public static const INIT:String = "init";
 
-		private static var __instance:IStyleSheetCollection;
+		private static var __styleSheetCollection : IStyleSheetCollection;
 
 		/**
 		 *
 		 * @return
 		 */
-		public static function get instance():IStyleSheetCollection
+		public static function get collection():IStyleSheetCollection
 		{
-			if (StyleSheetManager.__instance == null)
+			if (StyleSheetManager.__styleSheetCollection == null)
 			{
-				StyleSheetManager.__instance = createStyleSheetCollection();
+				StyleSheetManager.__styleSheetCollection = createStyleSheetCollection();
 			}
-			return StyleSheetManager.__instance;
+			return StyleSheetManager.__styleSheetCollection;
 		}
 
 		/**
 		 *
 		 * @param collection
 		 */
-		public static function set styleSheetCollection(collection:IStyleSheetCollection):void
+		public static function set collection(styleSheetCollection:IStyleSheetCollection):void
 		{
-			__instance = collection;	
+			__styleSheetCollection = styleSheetCollection;	
 		}
 
 		private static function createStyleSheetCollection():IStyleSheetCollection

@@ -1,8 +1,8 @@
 package com.flashartofwar.fcss.factories {
-	import flexunit.framework.Assert;
-
 	import com.flashartofwar.fcss.managers.StyleSheetManager;
 	import com.flashartofwar.fcss.utils.TypeHelperUtil;
+
+	import org.flexunit.Assert;
 
 	import flash.text.TextField;
 	import flash.text.TextFormat;
@@ -80,7 +80,7 @@ package com.flashartofwar.fcss.factories {
 		[Before(ui)]
 		public function runBeforeEachTest():void
 		{
-			StyleSheetManager.instance.parseCSS(cssText);
+			StyleSheetManager.collection.parseCSS(cssText);
 			
 			var tff:TextFieldFactory = new TextFieldFactory();
 			
@@ -150,7 +150,7 @@ package com.flashartofwar.fcss.factories {
 		public function testGet_defaultTextFormat():void
 		{
 			// Add your test logic here
-			Assert.assertNotUndefined(textField.defaultTextFormat);
+			Assert.assertNotNull(textField.defaultTextFormat);
 		}
 		
 		[Test]
@@ -213,7 +213,7 @@ package com.flashartofwar.fcss.factories {
 		[Test] 		public function testGet_styleSheet():void
 		{
 			// Add your test logic here
-			Assert.assertNotUndefined(textField.styleSheet);
+			Assert.assertNotNull(textField.styleSheet);
 		}
 		
 		[Test] 		public function testGet_textColor():void

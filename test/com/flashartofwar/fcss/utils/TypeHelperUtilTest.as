@@ -1,8 +1,7 @@
-package com.flashartofwar.fcss.utils
-{
+package com.flashartofwar.fcss.utils {
+	import org.flexunit.Assert;
+
 	import flash.net.URLRequest;
-	
-	import flexunit.framework.Assert;
 
 	public class TypeHelperUtilTest
 	{

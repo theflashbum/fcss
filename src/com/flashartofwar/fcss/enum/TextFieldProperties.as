@@ -29,8 +29,7 @@
  *
  */
 
-package com.flashartofwar.fcss.enum 
-{
+package com.flashartofwar.fcss.enum {
 	import com.flashartofwar.fcss.utils.TypeHelperUtil;
 
 	/**

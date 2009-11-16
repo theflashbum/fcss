@@ -1,6 +1,5 @@
-package com.flashartofwar.fcss.styles
-{
-	import flexunit.framework.Assert;
+package com.flashartofwar.fcss.styles {
+	import org.flexunit.Assert;
 
 	public class StyleTest
 	{

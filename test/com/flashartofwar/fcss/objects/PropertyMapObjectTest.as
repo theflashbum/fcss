@@ -1,5 +1,5 @@
 package com.flashartofwar.fcss.objects {
-	import flexunit.framework.Assert;
+	import org.flexunit.Assert;
 
 	public class PropertyMapObjectTest
 	{

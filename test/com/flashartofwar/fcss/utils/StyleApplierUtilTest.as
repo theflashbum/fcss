@@ -1,10 +1,9 @@
-package com.flashartofwar.fcss.utils
-{
+package com.flashartofwar.fcss.utils {
 	import com.flashartofwar.fcss.objects.PropertyMapObject;
 	import com.flashartofwar.fcss.styles.Style;
-	
-	import flexunit.framework.Assert;
-	
+
+	import org.flexunit.Assert;
+
 	public class StyleApplierUtilTest
 	{
 

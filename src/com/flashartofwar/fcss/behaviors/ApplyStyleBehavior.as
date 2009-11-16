@@ -55,7 +55,7 @@ package com.flashartofwar.fcss.behaviors {
 
 		protected var styleID:String;
 
-		protected var styleSheetCollection:IStyleSheetCollection = StyleSheetManager.instance;
+		protected var styleSheetCollection:IStyleSheetCollection = StyleSheetManager.collection;
 
 		/**
 		 * <p>The ApplyStyleBehavior encapsulates the logic needed to find an

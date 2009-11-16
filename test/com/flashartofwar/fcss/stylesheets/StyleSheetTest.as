@@ -1,11 +1,9 @@
-package com.flashartofwar.fcss.stylesheets
-{
+package com.flashartofwar.fcss.stylesheets {
+	import com.flashartofwar.fcss.styles.IStyle;
 	import com.flashartofwar.fcss.styles.Style;
+	import com.flashartofwar.fcss.utils.CSSTidyUtil;
 
 	import org.flexunit.Assert;
-
-	import com.flashartofwar.fcss.styles.IStyle;
-	import com.flashartofwar.fcss.utils.CSSTidyUtil;
 
 	public class StyleSheetTest
 	{

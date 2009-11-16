@@ -1,8 +1,7 @@
-package com.flashartofwar.fcss.behaviors 
-{
-	import flexunit.framework.Assert;
-
+package com.flashartofwar.fcss.behaviors {
 	import com.flashartofwar.fcss.managers.StyleSheetManager;
+
+	import org.flexunit.Assert;
 
 	public class ApplyStyleBehaviorTest
 	{
@@ -39,7 +38,7 @@ package com.flashartofwar.fcss.behaviors
 		[Before(ui)]
 		public function runBeforeEachTest():void
 		{
-			StyleSheetManager.instance.parseCSS(cssText);
+			StyleSheetManager.collection.parseCSS(cssText);
 			
 			dummyClassA = new DummyClass();
 			dummyClassB = new DummyClass("dummyClassB");
@@ -65,7 +64,7 @@ package com.flashartofwar.fcss.behaviors
 		[Test]
 		public function testApplyStyle():void
 		{
-			dummyClassA.applyStyle(StyleSheetManager.instance.getStyle("#testStyle"));
+			dummyClassA.applyStyle(StyleSheetManager.collection.getStyle("#testStyle"));
 			Assert.assertEquals(dummyClassA.x, 350);
 		}
 		

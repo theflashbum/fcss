@@ -29,10 +29,8 @@
  *
  */
 
-package com.flashartofwar.fcss.utils
-{
+package com.flashartofwar.fcss.utils {
 	import com.flashartofwar.fcss.objects.PropertyMapObject;
-	import com.flashartofwar.fcss.styles.Style;
 
 	import flash.utils.Dictionary;
 	import flash.utils.describeType;

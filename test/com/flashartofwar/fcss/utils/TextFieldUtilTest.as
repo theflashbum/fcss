@@ -1,12 +1,11 @@
-package com.flashartofwar.fcss.utils
-{
+package com.flashartofwar.fcss.utils {
 	import com.flashartofwar.fcss.enum.CSSProperties;
 	import com.flashartofwar.fcss.styles.Style;
-	
+
+	import org.flexunit.Assert;
+
 	import flash.text.TextField;
 	import flash.text.TextFormat;
-	
-	import flexunit.framework.Assert;
 
 	public class TextFieldUtilTest
 	{
@@ -135,7 +134,7 @@ package com.flashartofwar.fcss.utils
 		public function testGet_defaultTextFormat():void
 		{
 			// Add your test logic here
-			Assert.assertNotUndefined(textField.defaultTextFormat);
+			Assert.assertNotNull(textField.defaultTextFormat);
 		}
 
 		[Test]
@@ -205,7 +204,7 @@ package com.flashartofwar.fcss.utils
 		public function testGet_styleSheet():void
 		{
 			// Add your test logic here
-			Assert.assertNotUndefined(textField.styleSheet);
+			Assert.assertNotNull(textField.styleSheet);
 		}
 
 		[Test]

@@ -1,8 +1,5 @@
-package com.flashartofwar.fcss.utils
-{
-	import com.flashartofwar.fcss.utils.CSSTidyUtil;
-	
-	import flexunit.framework.Assert;
+package com.flashartofwar.fcss.utils {
+	import org.flexunit.Assert;
 
 	public class CSSTidyUtilTest
 	{

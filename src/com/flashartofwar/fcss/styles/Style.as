@@ -30,8 +30,7 @@
  *
  */
 
-package com.flashartofwar.fcss.styles
-{
+package com.flashartofwar.fcss.styles {
 	import com.flashartofwar.fcss.objects.AbstractOrderedObject;
 
 	import flash.net.registerClassAlias;

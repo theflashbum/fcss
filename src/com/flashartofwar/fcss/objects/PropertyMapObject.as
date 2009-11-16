@@ -29,8 +29,7 @@
  *
  */
 
-package com.flashartofwar.fcss.objects
-{
+package com.flashartofwar.fcss.objects {
 	import flash.net.registerClassAlias;
 	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;

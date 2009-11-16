@@ -29,11 +29,10 @@
  *
  */
 
-package com.flashartofwar.fcss.utils
-{
+package com.flashartofwar.fcss.utils {
 	import com.flashartofwar.fcss.enum.TextFieldProperties;
 	import com.flashartofwar.fcss.enum.TextFormatProperties;
-	import com.flashartofwar.fcss.styles.Style;
+
 	import flash.text.StyleSheet;
 	import flash.text.TextField;
 	import flash.text.TextFormat;

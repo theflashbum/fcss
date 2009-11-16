@@ -29,12 +29,12 @@
  *
  */
 
-package com.flashartofwar.fcss.objects
-{
+package com.flashartofwar.fcss.objects {
 	import flash.errors.IllegalOperationError;
 	import flash.net.registerClassAlias;
 	import flash.utils.Proxy;
 	import flash.utils.flash_proxy;
+
 	/**
 	 * @author jessefreeman
 	 */
