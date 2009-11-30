@@ -29,6 +29,7 @@
  */
 
 package com.flashartofwar.fcss.stylesheets {
+	import com.flashartofwar.fcss.enum.CSSProperties;
 	import com.flashartofwar.fcss.styles.IStyle;
 	import com.flashartofwar.fcss.styles.Style;
 
@@ -40,8 +41,10 @@ package com.flashartofwar.fcss.stylesheets {
 
 		public static const baseStyleSheetName : String = "StyleSheet1";
 		public static const defaultSheetName : String = "StyleSheet";
-		protected var styleSheets : Array = [];
-		protected var _totalSheets : Number = 0;
+		//protected var styleSheets : Array = [];
+		protected var styleSheetInstances:Array = [];
+		protected var styleSheetNames:Array = [];
+		//protected var _totalSheets : Number = 0;
 		protected var _name : String;
 
 		/**
@@ -59,11 +62,12 @@ package com.flashartofwar.fcss.stylesheets {
 		 * @param sheet
 		 *
 		 */
-		public function addStyleSheet(id : String, sheet : IStyleSheet) : IStyleSheet
+		public function addStyleSheet(name : String, sheet : IStyleSheet) : IStyleSheet
 		{
-			styleSheets[id] = sheet;
-			_totalSheets ++;
-			return styleSheets[id];
+			styleSheetInstances.push(sheet);
+			styleSheetNames.push(name);
+			//_totalSheets ++;
+			return sheet;
 		}
 
 		/**
@@ -72,10 +76,10 @@ package com.flashartofwar.fcss.stylesheets {
 		 */
 		public function get baseStyleSheet() : IStyleSheet
 		{
-			if (! styleSheets[baseStyleSheetName])
-				addStyleSheet(baseStyleSheetName, new FStyleSheet());
-
-			return styleSheets[baseStyleSheetName];
+			if (!styleSheetInstances[0])
+				return addStyleSheet(baseStyleSheetName, new FStyleSheet());
+			else
+				return styleSheetInstances[0] as IStyleSheet;
 		}
 
 		/**
@@ -83,8 +87,8 @@ package com.flashartofwar.fcss.stylesheets {
 		 */
 		public function clear() : void
 		{
-			styleSheets.length = 0;
-			_totalSheets = 0;
+			styleSheetInstances.length = 0;
+			styleSheetNames.length = 0;
 		}
 
 		/**
@@ -97,7 +101,7 @@ package com.flashartofwar.fcss.stylesheets {
 		{
 			var tempProperties : IStyle = createEmptyStyle();
 
-			for each (var styleSheet:IStyleSheet in styleSheets)
+			for each (var styleSheet:IStyleSheet in styleSheetInstances)
 			{
 				var sheetProperties : IStyle = styleSheet.getStyle.apply(null, styleNames);
 				if (sheetProperties.styleName != "EmptyProperties")
@@ -116,9 +120,10 @@ package com.flashartofwar.fcss.stylesheets {
 		 *
 		 * @param id
 		 */
-		public function getStyleSheet(id : String) : IStyleSheet
+		public function getStyleSheet(name : String) : IStyleSheet
 		{
-			return styleSheets[id];
+			var index:int = styleSheetNames.indexOf(name)
+			return styleSheetInstances[index];
 		}
 
 		/**
@@ -150,7 +155,8 @@ package com.flashartofwar.fcss.stylesheets {
 		{
 			var styleSheet : FStyleSheet = new FStyleSheet();
 			styleSheet.parseCSS(CSSText, compressText);
-			styleSheet.name = defaultSheetName + (totalStyleSheets + 1);
+			var nextID:Number = totalStyleSheets + 1
+			styleSheet.name = defaultSheetName + nextID;
 			addStyleSheet(styleSheet.name, styleSheet);
 			return styleSheet;
 		}
@@ -162,8 +168,21 @@ package com.flashartofwar.fcss.stylesheets {
 		 */
 		public function relatedStyles(name : String) : Array
 		{
-			//TODO This is not implemented
-			return new Array();
+			var related:Array = [];
+			var tempRelated:Array;
+			var styleSheetName:String;
+			
+			var total:int = totalStyleSheets;
+			var i:int;
+			for (i = 0; i < total; i++)
+			{
+				tempRelated = IStyleSheet(styleSheetInstances[i]).relatedStyles(name);
+				related.push.apply(null, tempRelated);
+			}
+			
+			return related;
+			
+			
 		}
 
 		/**
@@ -171,11 +190,16 @@ package com.flashartofwar.fcss.stylesheets {
 		 * @param id
 		 *
 		 */
-		public function removeStyleSheet(id : String) : IStyleSheet
+		public function removeStyleSheet(name : String) : IStyleSheet
 		{
-			var styleSheet : FStyleSheet = styleSheets[id];
-			delete styleSheets[id];
-			_totalSheets --;
+			var index:int = styleNames.indexOf(name);
+			
+			var styleSheet : IStyleSheet = styleSheetInstances[index];
+			
+			// Remove reference to sheets
+			styleSheetInstances.splice(index,1);
+			styleSheetNames.splice(index,1);
+			
 			return styleSheet;
 		}
 
@@ -194,7 +218,7 @@ package com.flashartofwar.fcss.stylesheets {
 			var styleName : String;
 
 			//TODO this may need to be optimized a lot more
-			for each (styleSheet in styleSheets)
+			for each (styleSheet in styleSheetInstances)
 			{
 				styles = styleSheet.styleNames;
 				total = styles.length;
@@ -215,7 +239,7 @@ package com.flashartofwar.fcss.stylesheets {
 		 */
 		public function toString() : String
 		{
-			return styleSheets.join();
+			return styleSheetInstances.join();
 		}
 
 		/**
@@ -224,7 +248,7 @@ package com.flashartofwar.fcss.stylesheets {
 		 */
 		public function get totalStyleSheets() : Number
 		{
-			return _totalSheets;
+			return styleSheetInstances.length;
 		}
 
 		public function get name() : String
@@ -235,6 +259,22 @@ package com.flashartofwar.fcss.stylesheets {
 		public function set name(name : String) : void
 		{
 			_name = name;
+		}
+		
+		public function styleLookup(styleName : String, getRelated:Boolean = true) : IStyle
+		{
+			var baseStyle:IStyle = createEmptyStyle();
+			var tempStyle:IStyle;
+			var styleSheet:IStyleSheet;
+			
+			for each (styleSheet in styleSheetInstances)
+			{
+				tempStyle = styleSheet.styleLookup(styleName, getRelated);
+				if(tempStyle.styleName != CSSProperties.DEFAULT_STYLE_NAME)
+					baseStyle.merge(tempStyle);
+			}
+			
+			return baseStyle;
 		}
 	}
 }

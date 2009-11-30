@@ -2,7 +2,7 @@ package com.flashartofwar.fcss.stylesheets {
 	import com.flashartofwar.fcss.styles.IStyle;
 	import com.flashartofwar.fcss.styles.Style;
 	import com.flashartofwar.fcss.utils.CSSTidyUtil;
-
+	
 	import org.flexunit.Assert;
 
 	public class StyleSheetTest
@@ -283,6 +283,15 @@ package com.flashartofwar.fcss.stylesheets {
 			// Add your test logic here
 			sheet.clear();
 			Assert.assertEquals(sheet.styleNames.length, 0);
+		}
+		
+		[Test]
+		public function styleLookup():void
+		{
+			var style:IStyle = sheet.styleLookup(".SimpleButton", false);
+			var output:String = ".SimpleButton{styleName:.SimpleButton;width:100;height:100;}";
+			Assert.assertEquals(style.toString(), output);
+			
 		}
 	}
 }

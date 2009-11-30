@@ -31,8 +31,9 @@
  */
 
 package com.flashartofwar.fcss.styles {
+	import com.flashartofwar.fcss.enum.CSSProperties;
 	import com.flashartofwar.fcss.objects.AbstractOrderedObject;
-
+	
 	import flash.net.registerClassAlias;
 
 	/**
@@ -41,12 +42,6 @@ package com.flashartofwar.fcss.styles {
 	 */
 	public dynamic class Style extends AbstractOrderedObject implements IStyle
 	{
-
-		/**
-		 *
-		 * @default
-		 */
-		public static const DEFAULT_style_NAME:String = "Emptystyle";
 
 		/**
 		 *
@@ -65,7 +60,7 @@ package com.flashartofwar.fcss.styles {
 			super(this);
 
 			//
-			styleName = DEFAULT_style_NAME;
+			styleName = CSSProperties.DEFAULT_STYLE_NAME;
 			propertiesIndex.push("styleName");
 		}
 
@@ -149,6 +144,7 @@ package com.flashartofwar.fcss.styles {
 				throw new Error("Only strings can be set as properties of a Style.");
 			}
 		}
+
 	}
 }
 

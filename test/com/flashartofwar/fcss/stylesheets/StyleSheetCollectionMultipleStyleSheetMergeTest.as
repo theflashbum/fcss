@@ -1,5 +1,7 @@
 package com.flashartofwar.fcss.stylesheets
 {
+	import com.flashartofwar.fcss.styles.IStyle;
+	
 	import org.flexunit.Assert;
 
 	public class StyleSheetCollectionMultipleStyleSheetMergeTest extends StyleSheetCollection
@@ -66,27 +68,66 @@ package com.flashartofwar.fcss.stylesheets
 		
 		public function runBeforeEveryTest() : void 
 		{
-			parseCSS(cssTextA);
-		}
-		
-		private function parseSheetB():void
-		{
-			parseCSS(cssTextB);
+			styleSheetA = new FStyleSheet();
+			styleSheetA.parseCSS(cssTextA);
+			addStyleSheet("test", styleSheetA);
+			
+			
+			styleSheetB = new FStyleSheet();
+			styleSheetB.parseCSS(cssTextB);
 		}
 		
 		[After]
 		
 		public function runAfterEveryTest() : void 
 		{
-			clear(); 
+			clear();
+			styleSheetA = null;
+			styleSheetB = null; 
 		}
 		
 		[Test]
-		public function requestStyleRelatedSelectorsFromSheetSingleSheet():void
+		public function testTotalNumberOfSheetsIsOne():void
 		{
-			Assert.fail("This is not implemented yet");
+			Assert.assertEquals(totalStyleSheets, 1);
+			Assert.assertEquals(styleSheetInstances.length, 1);
+			Assert.assertEquals(styleSheetNames.length, 1);
+		}
+		
+		[Test]
+		public function testStyleSheetLengthIsOne():void
+		{
+			var total:int = 0;
+			var sheet:String;
+			for (sheet in styleSheetInstances)
+			{
+				total ++;
+			}
+			Assert.assertEquals(total, 1);
+		}
+		
+		[Test]
+		public function testRequestStyleRelatedSelectorsFromSheetA():void
+		{
 			var related:Array = relatedStyles(".SimpleButton");
 			Assert.assertEquals(related.join(),"baseStyle,interactive"); 
+		}
+		
+		[Test]
+		public function testRequestStyleRelatedSelectorsFromSheetAAndB():void
+		{
+			addStyleSheet("test2", styleSheetB);
+			var related:Array = relatedStyles(".SimpleButton");
+			Assert.assertEquals(related.join(),"baseStyle,interactive,border"); 
+		}
+		
+		[Test]
+		public function testGetUnmergedStyleFromSingleSheet():void
+		{
+			var output:String = ".SimpleButton{styleName:.SimpleButton;width:75px;height:30;}";
+			var style:IStyle = styleLookup(".SimpleButton", false);
+			Assert.assertEquals(style.toString(), output);
+
 		}
 
 	}

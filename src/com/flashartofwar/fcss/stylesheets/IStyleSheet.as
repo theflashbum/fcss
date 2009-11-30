@@ -54,6 +54,8 @@ package com.flashartofwar.fcss.stylesheets {
 		function relatedStyles(name:String):Array;
 
 		function toString():String;
+		
+		function styleLookup(styleName : String, getRelated:Boolean = true) : IStyle;
 
 	}
 }

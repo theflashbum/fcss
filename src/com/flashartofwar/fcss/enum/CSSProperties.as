@@ -110,6 +110,8 @@ package com.flashartofwar.fcss.enum
 		public static const CONDENSE_WHITE:String = "condenseWhite";
 
 		public static const CURSOR:String = "cursor";
+		
+		public static const DEFAULT_STYLE_NAME:String = "EmptyStyle";
 
 		public static const DISPLAY_AS_PASSWORD:String = "displayAsPassword";
 
