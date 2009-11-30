@@ -180,7 +180,7 @@ package com.flashartofwar.fcss.stylesheets {
 
 		public function testRelatedStyle() : void
 		{
-			var totalRelated : int = sheet.relatedStyle(".SimpleButton").length;
+			var totalRelated : int = sheet.relatedStyles(".SimpleButton").length;
 			Assert.assertEquals(totalRelated, 2);
 		}
 

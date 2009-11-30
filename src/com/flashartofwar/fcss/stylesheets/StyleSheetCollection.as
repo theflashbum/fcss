@@ -160,7 +160,7 @@ package com.flashartofwar.fcss.stylesheets {
 		 * @param name
 		 * @return
 		 */
-		public function relatedStyle(name : String) : Array
+		public function relatedStyles(name : String) : Array
 		{
 			//TODO This is not implemented
 			return new Array();

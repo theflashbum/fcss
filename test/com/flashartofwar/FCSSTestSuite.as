@@ -3,6 +3,7 @@ package com.flashartofwar {
 	import com.flashartofwar.fcss.factories.TextFieldFactoryTest;
 	import com.flashartofwar.fcss.objects.PropertyMapObjectTest;
 	import com.flashartofwar.fcss.styles.StyleTest;
+	import com.flashartofwar.fcss.stylesheets.StyleSheetCollectionMultipleStyleSheetMergeTest;
 	import com.flashartofwar.fcss.stylesheets.StyleSheetCollectionTest;
 	import com.flashartofwar.fcss.stylesheets.StyleSheetTest;
 	import com.flashartofwar.fcss.utils.CSSTidyUtilTest;
@@ -24,5 +25,6 @@ package com.flashartofwar {
 		public var test8:StyleApplierUtilTest;
 		public var test9:TextFieldFactoryTest;
 		public var test10:TypeHelperUtilTest;		public var test11:TextFieldUtilTest;
+		public var test12:StyleSheetCollectionMultipleStyleSheetMergeTest;
 	}
 }

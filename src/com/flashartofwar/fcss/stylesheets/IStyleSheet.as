@@ -51,7 +51,7 @@ package com.flashartofwar.fcss.stylesheets {
 
 		function hasStyle(name:String):Boolean;
 
-		function relatedStyle(name:String):Array;
+		function relatedStyles(name:String):Array;
 
 		function toString():String;
 
