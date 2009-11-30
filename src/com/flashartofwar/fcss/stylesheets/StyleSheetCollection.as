@@ -99,16 +99,33 @@ package com.flashartofwar.fcss.stylesheets {
 		 */
 		public function getStyle(... styleNames) : IStyle
 		{
-			var tempProperties : IStyle = createEmptyStyle();
+			var baseStyle : IStyle = createEmptyStyle();
+			var styleName:String;
+			var mergedStyle:IStyle;
+			var tempStyle:IStyle;
 
-			for each (var styleSheet:IStyleSheet in styleSheetInstances)
+			var i:int;
+			var totalStyles:int = styleNames.length;
+			
+			var j:int;
+			var totalSheets:int = totalStyleSheets;
+			var tempStyleSheet:IStyleSheet;
+			
+			for (i = 0; i < totalStyles; i ++)
 			{
-				var sheetProperties : IStyle = styleSheet.getStyle.apply(null, styleNames);
-				if (sheetProperties.styleName != "EmptyProperties")
-					tempProperties.merge(sheetProperties);
+				styleName = styleNames[i];
+				mergedStyle = createEmptyStyle();
+				
+				for (j = 0; j < totalSheets; j ++)
+				{
+					tempStyle = IStyleSheet(styleSheetInstances[j]).styleLookup(styleName, false);
+					mergedStyle.merge(tempStyle);
+				}
+				
+				baseStyle.merge(mergedStyle);
+			
 			}
-
-			return tempProperties;
+			return baseStyle;
 		}
 		
 		protected function createEmptyStyle() : IStyle

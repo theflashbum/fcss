@@ -154,7 +154,7 @@ package com.flashartofwar.fcss.stylesheets
 			addStyleSheet("test2", styleSheetB);
 			var chain:Array = styleInheritanceChain(".SimpleButton");
 			var style:IStyle = getStyle.apply(null, chain);
-			var expected:String = ".SimpleButton{styleName:.SimpleButton;x:300px;y:10;width:75px;height:150px;padding:5;margin:0;cursor:hand;border:1px solid black;debug:true;}";
+			var expected:String = ".SimpleButton{styleName:.SimpleButton;x:300px;y:10;width:75px;height:30;padding:5;margin:0;cursor:hand;border:1px solid black;debug:true;}";
 			Assert.assertEquals(style.toString(), expected);
 		}
 
