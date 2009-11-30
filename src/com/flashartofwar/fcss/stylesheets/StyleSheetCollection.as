@@ -276,6 +276,25 @@ package com.flashartofwar.fcss.stylesheets {
 			
 			return baseStyle;
 		}
+		
+		protected function styleInheritanceChain(styleName:String):Array
+		{
+			
+			var chain:Array = [];
+			
+			var styleSheet:IStyleSheet;
+			var tempRelated:Array;
+			
+			for each (styleSheet in styleSheetInstances)
+			{
+				tempRelated = styleSheet.relatedStyles(styleName);
+				chain.push.apply(null, tempRelated);
+			}
+			
+			chain.push(styleName);
+			
+			return chain;
+		}
 	}
 }
 

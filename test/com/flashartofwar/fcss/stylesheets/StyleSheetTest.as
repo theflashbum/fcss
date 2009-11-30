@@ -286,12 +286,17 @@ package com.flashartofwar.fcss.stylesheets {
 		}
 		
 		[Test]
-		public function styleLookup():void
+		public function testStyleLookup():void
 		{
 			var style:IStyle = sheet.styleLookup(".SimpleButton", false);
 			var output:String = ".SimpleButton{styleName:.SimpleButton;width:100;height:100;}";
 			Assert.assertEquals(style.toString(), output);
-			
+		}
+		
+		[Test]
+		public function testRelatedStylesReturnEmptyErrorForUndefinedStyle():void
+		{
+			Assert.assertNotNull(sheet.relatedStyles("FooBar"));
 		}
 	}
 }

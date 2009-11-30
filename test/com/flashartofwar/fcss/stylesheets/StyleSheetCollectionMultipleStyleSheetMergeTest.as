@@ -122,12 +122,40 @@ package com.flashartofwar.fcss.stylesheets
 		}
 		
 		[Test]
-		public function testGetUnmergedStyleFromSingleSheet():void
+		public function testGetUnmergedStyleFromSheetA():void
 		{
 			var output:String = ".SimpleButton{styleName:.SimpleButton;width:75px;height:30;}";
 			var style:IStyle = styleLookup(".SimpleButton", false);
 			Assert.assertEquals(style.toString(), output);
 
+		}
+		
+		[Test]
+		public function testGetUnmergedStyleFromSheetAAndB():void
+		{
+			addStyleSheet("test2", styleSheetB);
+			var output:String = ".SimpleButton{styleName:.SimpleButton;width:75px;height:30;debug:true;}";
+			var style:IStyle = styleLookup(".SimpleButton", false);
+			Assert.assertEquals(style.toString(), output);
+		}
+		
+		[Test]
+		public function testStyleInheritanceChain():void
+		{
+			addStyleSheet("test2", styleSheetB);
+			var chain:Array = styleInheritanceChain(".SimpleButton");
+			var expected:String = "baseStyle,interactive,border,.SimpleButton";
+			Assert.assertEquals(chain, expected);
+		}
+		
+		[Test]
+		public function testGetStyleFromSheetAAndBUsingInheritanceChain():void
+		{
+			addStyleSheet("test2", styleSheetB);
+			var chain:Array = styleInheritanceChain(".SimpleButton");
+			var style:IStyle = getStyle.apply(null, chain);
+			var expected:String = ".SimpleButton{styleName:.SimpleButton;x:300px;y:10;width:75px;height:150px;padding:5;margin:0;cursor:hand;border:1px solid black;debug:true;}";
+			Assert.assertEquals(style.toString(), expected);
 		}
 
 	}
