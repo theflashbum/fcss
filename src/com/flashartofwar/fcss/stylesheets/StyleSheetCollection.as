@@ -149,8 +149,9 @@ package com.flashartofwar.fcss.stylesheets {
 		 * @return
 		 */
 		public function hasStyle(name : String) : Boolean
-		{
-			return false;
+		{			
+			var index:Number = styleNames.indexOf(name);
+			return (index == -1) ? false : true;
 		}
 
 		/**

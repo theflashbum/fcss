@@ -1,7 +1,7 @@
 package com.flashartofwar.fcss.stylesheets {
 	import com.flashartofwar.fcss.styles.Style;
 	import com.flashartofwar.fcss.utils.CSSTidyUtil;
-
+	
 	import org.flexunit.Assert;
 
 	public class StyleSheetCollectionTest
@@ -277,6 +277,20 @@ package com.flashartofwar.fcss.stylesheets {
 			addBothStyleSheets();
 			var sheet : IStyleSheet = styleSheetCollection.parseCSS("sheetB");
 			Assert.assertEquals("Should find " + sheet.name, sheet.name, StyleSheetCollection.defaultSheetName + "3");
+		}
+		
+		[Test]
+		public function testHasStyle():void
+		{
+			addBothStyleSheets();
+			Assert.assertTrue(styleSheetCollection.hasStyle("baseStyle"));
+		}
+		
+		[Test]
+		public function testDoesNotHaveStyle():void
+		{
+			addBothStyleSheets();
+			Assert.assertFalse(styleSheetCollection.hasStyle("FooBar"));
 		}
 	}
 }
