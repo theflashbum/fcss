@@ -43,7 +43,7 @@ package com.flashartofwar.fcss.stylesheets {
 		public static const defaultSheetName : String = "StyleSheet";
 		//protected var styleSheets : Array = [];
 		protected var styleSheetInstances:Array = [];
-		protected var styleSheetNames:Array = [];
+		protected var _styleSheetNames:Array = [];
 		//protected var _totalSheets : Number = 0;
 		protected var _name : String;
 
@@ -55,18 +55,34 @@ package com.flashartofwar.fcss.stylesheets {
 		public function StyleSheetCollection()
 		{
 		}
-
+		
+		public function get styleSheetNames():Array
+		{
+			return _styleSheetNames.slice();	
+		}
+		
 		/**
 		 *
 		 * @param id
 		 * @param sheet
 		 *
 		 */
-		public function addStyleSheet(name : String, sheet : IStyleSheet) : IStyleSheet
+		public function addStyleSheet(sheet : IStyleSheet, name : String = null) : IStyleSheet
 		{
-			styleSheetInstances.push(sheet);
-			styleSheetNames.push(name);
-			//_totalSheets ++;
+			// Force the name of the sheet to be the name associated in the collection.
+			if(name == null)
+				name = sheet.name;
+			
+			var index:int = _styleSheetNames.indexOf(name);
+			if(index == -1)
+			{
+				styleSheetInstances.push(sheet);
+				_styleSheetNames.push(name);
+			}
+			else
+			{
+				styleSheetInstances[index] = sheet;
+			}
 			return sheet;
 		}
 
@@ -77,7 +93,7 @@ package com.flashartofwar.fcss.stylesheets {
 		public function get baseStyleSheet() : IStyleSheet
 		{
 			if (!styleSheetInstances[0])
-				return addStyleSheet(baseStyleSheetName, new FStyleSheet());
+				return addStyleSheet(new FStyleSheet(), baseStyleSheetName);
 			else
 				return styleSheetInstances[0] as IStyleSheet;
 		}
@@ -88,7 +104,7 @@ package com.flashartofwar.fcss.stylesheets {
 		public function clear() : void
 		{
 			styleSheetInstances.length = 0;
-			styleSheetNames.length = 0;
+			_styleSheetNames.length = 0;
 		}
 
 		/**
@@ -139,7 +155,7 @@ package com.flashartofwar.fcss.stylesheets {
 		 */
 		public function getStyleSheet(name : String) : IStyleSheet
 		{
-			var index:int = styleSheetNames.indexOf(name)
+			var index:int = _styleSheetNames.indexOf(name)
 			return styleSheetInstances[index];
 		}
 
@@ -175,7 +191,7 @@ package com.flashartofwar.fcss.stylesheets {
 			styleSheet.parseCSS(CSSText, compressText);
 			var nextID:Number = totalStyleSheets + 1
 			styleSheet.name = defaultSheetName + nextID;
-			addStyleSheet(styleSheet.name, styleSheet);
+			addStyleSheet(styleSheet, styleSheet.name);
 			return styleSheet;
 		}
 
@@ -210,13 +226,13 @@ package com.flashartofwar.fcss.stylesheets {
 		 */
 		public function removeStyleSheet(name : String) : IStyleSheet
 		{
-			var index:int = styleNames.indexOf(name);
+			var index:Number = _styleSheetNames.indexOf(name);
 			
 			var styleSheet : IStyleSheet = styleSheetInstances[index];
 			
 			// Remove reference to sheets
 			styleSheetInstances.splice(index,1);
-			styleSheetNames.splice(index,1);
+			_styleSheetNames.splice(index,1);
 			
 			return styleSheet;
 		}

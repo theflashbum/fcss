@@ -85,10 +85,10 @@ package com.flashartofwar.fcss.stylesheets {
 		public function runBeforeEveryTest() : void 
 		{
 			styleSheetCollection = new StyleSheetCollection();
-			styleSheetA = new FStyleSheet();
+			styleSheetA = new FStyleSheet("sheetA");
 			styleSheetA.parseCSS(cssTextA);
 
-			styleSheetB = new FStyleSheet();
+			styleSheetB = new FStyleSheet("sheetB");
 			styleSheetB.parseCSS(cssTextB);
 		}
 
@@ -105,7 +105,7 @@ package com.flashartofwar.fcss.stylesheets {
 
 		public function testAddStyleSheet() : void
 		{
-			var createdSheet : IStyleSheet = styleSheetCollection.addStyleSheet("test", styleSheetA);
+			var createdSheet : IStyleSheet = styleSheetCollection.addStyleSheet(styleSheetA, "test");
 
 			Assert.assertNotNull(createdSheet);
 		}
@@ -120,8 +120,8 @@ package com.flashartofwar.fcss.stylesheets {
 
 		protected function addBothStyleSheets() : void
 		{
-			styleSheetCollection.addStyleSheet("sheetA", styleSheetA);
-			styleSheetCollection.addStyleSheet("sheetB", styleSheetB);
+			styleSheetCollection.addStyleSheet(styleSheetA, "sheetA");
+			styleSheetCollection.addStyleSheet(styleSheetB, "sheetB");
 		}
 
 		[Test]
@@ -210,7 +210,7 @@ package com.flashartofwar.fcss.stylesheets {
 
 		public function testGetStyleSheet() : void
 		{
-			styleSheetCollection.addStyleSheet("test", styleSheetA);
+			styleSheetCollection.addStyleSheet(styleSheetA, "test");
 
 			Assert.assertNotNull(styleSheetCollection.getStyleSheet("test"));
 		}
@@ -291,6 +291,31 @@ package com.flashartofwar.fcss.stylesheets {
 		{
 			addBothStyleSheets();
 			Assert.assertFalse(styleSheetCollection.hasStyle("FooBar"));
+		}
+		
+		[Test]
+		public function testRemoveBaseStyleSheet():void
+		{
+			addBothStyleSheets();
+			styleSheetCollection.removeStyleSheet("sheetA");
+			var styleSheet:IStyleSheet = styleSheetCollection.baseStyleSheet;
+			Assert.assertEquals(styleSheet.name, "sheetB");
+		}
+		
+		[Test]
+		public function testAddingStyleSheetWithSameNameOverrides():void
+		{
+			addBothStyleSheets();
+			styleSheetCollection.addStyleSheet(styleSheetA, "sheetA");
+			Assert.assertEquals(styleSheetCollection.styleSheetNames.join(), "sheetA,sheetB"); 
+		}
+		
+		[Test]
+		public function testReternCopyOfStyleSheetNamesAndNotAReference():void{
+			var total:int = styleSheetCollection.styleSheetNames.length;
+			var names:Array = styleSheetCollection.styleSheetNames;
+			names.push("foobar");
+			Assert.assertEquals(styleSheetCollection.styleSheetNames.length, total);
 		}
 	}
 }

@@ -39,7 +39,7 @@ package com.flashartofwar.fcss.stylesheets {
 
 		function getStyleSheet(name : String) : IStyleSheet;
 
-		function addStyleSheet(name : String, sheet : IStyleSheet) : IStyleSheet;
+		function addStyleSheet(sheet : IStyleSheet, name : String = null) : IStyleSheet;
 
 		function removeStyleSheet(name : String) : IStyleSheet;
 

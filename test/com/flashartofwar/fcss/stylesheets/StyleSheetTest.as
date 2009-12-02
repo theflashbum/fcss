@@ -18,7 +18,7 @@ package com.flashartofwar.fcss.stylesheets {
 
 		public function runBeforeEveryTest() : void 
 		{
-			sheet = new FStyleSheet();
+			sheet = new FStyleSheet("sheetA");
 			sheet.parseCSS(cssTextA);
 		}
 
@@ -254,7 +254,7 @@ package com.flashartofwar.fcss.stylesheets {
 
 		public function testSetStyleSheetName() : void 
 		{
-			sheet.name = "DemoStyleSHeet";
+			sheet.name = "DemoStyleSheet";
 			var returnedStyleSheet : FStyleSheet = sheet.parseCSS(cssTextB) as FStyleSheet;
 			
 			Assert.assertEquals(sheet.name, returnedStyleSheet.name);
@@ -264,10 +264,8 @@ package com.flashartofwar.fcss.stylesheets {
 
 		public function testDefaultStyleSheetName() : void
 		{
-			Assert.assertEquals(sheet.name, FStyleSheet.DEFAULT_STYLE_SHEET_NAME);
+			Assert.assertEquals(sheet.name, "sheetA");
 		}
-
-		[Test]
 
 		public function testClear() : void
 		{

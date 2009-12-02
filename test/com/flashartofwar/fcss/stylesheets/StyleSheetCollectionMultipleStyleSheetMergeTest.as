@@ -70,8 +70,7 @@ package com.flashartofwar.fcss.stylesheets
 		{
 			styleSheetA = new FStyleSheet();
 			styleSheetA.parseCSS(cssTextA);
-			addStyleSheet("test", styleSheetA);
-			
+			addStyleSheet(styleSheetA, "sheetA");
 			
 			styleSheetB = new FStyleSheet();
 			styleSheetB.parseCSS(cssTextB);
@@ -116,7 +115,7 @@ package com.flashartofwar.fcss.stylesheets
 		[Test]
 		public function testRequestStyleRelatedSelectorsFromSheetAAndB():void
 		{
-			addStyleSheet("test2", styleSheetB);
+			addStyleSheet(styleSheetB, "sheetB");
 			var related:Array = relatedStyles(".SimpleButton");
 			Assert.assertEquals(related.join(),"baseStyle,interactive,border"); 
 		}
@@ -133,7 +132,7 @@ package com.flashartofwar.fcss.stylesheets
 		[Test]
 		public function testGetUnmergedStyleFromSheetAAndB():void
 		{
-			addStyleSheet("test2", styleSheetB);
+			addStyleSheet(styleSheetB, "sheetB");
 			var output:String = ".SimpleButton{styleName:.SimpleButton;width:75px;height:30;debug:true;}";
 			var style:IStyle = styleLookup(".SimpleButton", false);
 			Assert.assertEquals(style.toString(), output);
@@ -142,7 +141,7 @@ package com.flashartofwar.fcss.stylesheets
 		[Test]
 		public function testStyleInheritanceChain():void
 		{
-			addStyleSheet("test2", styleSheetB);
+			addStyleSheet(styleSheetB, "sheetB");
 			var chain:Array = styleInheritanceChain(".SimpleButton");
 			var expected:String = "baseStyle,interactive,border,.SimpleButton";
 			Assert.assertEquals(chain, expected);
@@ -151,10 +150,30 @@ package com.flashartofwar.fcss.stylesheets
 		[Test]
 		public function testGetStyleFromSheetAAndBUsingInheritanceChain():void
 		{
-			addStyleSheet("test2", styleSheetB);
+			addStyleSheet(styleSheetB, "sheetB");
 			var chain:Array = styleInheritanceChain(".SimpleButton");
 			var style:IStyle = getStyle.apply(null, chain);
 			var expected:String = ".SimpleButton{styleName:.SimpleButton;x:300px;y:10;width:75px;height:30;padding:5;margin:0;cursor:hand;border:1px solid black;debug:true;}";
+			Assert.assertEquals(style.toString(), expected);
+		}
+		
+		[Test]
+		public function testNoneDestructiveAddThenRemovalOfStyleSheet():void
+		{
+			addStyleSheet(styleSheetB, "sheetB");
+			removeStyleSheet("sheetB");
+			var style:IStyle = getStyle("baseStyle");
+			var expected:String = "baseStyle{styleName:baseStyle;x:10;y:10;width:100;height:100;padding:5;margin:10;}"
+			Assert.assertEquals(style.toString(), expected);
+		}
+		
+		[Test]
+		public function testNoneDestructiveAddThenRemovalOfBaseStyleSheet():void
+		{
+			addStyleSheet(styleSheetB, "sheetB");
+			removeStyleSheet("sheetA");
+			var style:IStyle = getStyle("baseStyle");
+			var expected:String = "baseStyle{styleName:baseStyle;x:300px;height:150px;margin:0;}"
 			Assert.assertEquals(style.toString(), expected);
 		}
 
