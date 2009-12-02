@@ -20,11 +20,11 @@ package com.flashartofwar {
 		public var test3:PropertyMapObjectTest;
 		public var test4:StyleTest;
 		public var test5:StyleSheetCollectionTest;
-		public var test6:StyleSheetTest;
-		public var test7:CSSTidyUtilTest;
-		public var test8:StyleApplierUtilTest;
-		public var test9:TextFieldFactoryTest;
-		public var test10:TypeHelperUtilTest;		public var test11:TextFieldUtilTest;
-		public var test12:StyleSheetCollectionMultipleStyleSheetMergeTest;
+		public var test6:StyleSheetCollectionMultipleStyleSheetMergeTest;
+		public var test7:StyleSheetTest;
+		public var test8:CSSTidyUtilTest;
+		public var test9:StyleApplierUtilTest;
+		public var test10:TextFieldFactoryTest;
+		public var test11:TypeHelperUtilTest;		public var test12:TextFieldUtilTest;
 	}
 }

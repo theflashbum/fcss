@@ -13,13 +13,17 @@ package com.flashartofwar.fcss.behaviors {
 		public function get cssText():String
 		{
 			var xml:XML = <css><![CDATA[/* This is a comment in the CSS file */
-								.DummyClass {
+								DummyClass {
 									name: DummyClass;
 									x:50;
 									y:50;
 									visible:false;
 								}
-								
+								.CustomDummyClassName
+								{
+									z:300;
+								}
+				
 								#dummyClassB{
 									y:100;
 									visible: true;
@@ -41,7 +45,7 @@ package com.flashartofwar.fcss.behaviors {
 			StyleSheetManager.collection.parseCSS(cssText);
 			
 			dummyClassA = new DummyClass();
-			dummyClassB = new DummyClass("dummyClassB");
+			dummyClassB = new DummyClass("dummyClassB", "CustomDummyClassName");
 		}
 		
 		[After(ui)]
@@ -69,34 +73,47 @@ package com.flashartofwar.fcss.behaviors {
 		}
 		
 		[Test]
-		public function testGet_className():void
+		public function testGetClassName():void
 		{
 			// Add your test logic here
 			Assert.assertEquals(dummyClassA.className, "DummyClass");
 		}
 		
 		[Test]
-		public function testGet_id():void
+		public function testGetId():void
 		{
 			// Add your test logic here
 			Assert.assertEquals(dummyClassB.id, "dummyClassB");
 		}
+		
+		[Test]
+		public function testGetZ():void
+		{
+			Assert.assertEquals(dummyClassB.z, 300);
+		}
+		
+		[Test]
+		public function getDefaultStyleNames():void
+		{
+			Assert.assertEquals(dummyClassB.defaultStyleNames.join(), "DummyClass,.CustomDummyClassName,#dummyClassB");
+		}
 	}
 }
 
-import com.flashartofwar.fcss.behaviors.ApplyStyleBehavior;
 import com.flashartofwar.fcss.styles.IStyle;
+import com.flashartofwar.fcss.behaviors.IApplyStyleBehavior;
+import com.flashartofwar.fcss.behaviors.ApplyStyleBehavior;
 
 import flash.display.Sprite;
 
 class DummyClass extends Sprite
 {
 	
-	private var styleBehavior:ApplyStyleBehavior;
+	private var styleBehavior:IApplyStyleBehavior;
 	
-	public function DummyClass(id:String = "dummyClass")
+	public function DummyClass(id:String = "dummyClass", styleClass:String = null)
 	{
-		createStyleBehavior(id);
+		styleBehavior = createStyleBehavior(this, id, styleClass);
 	}
 	
 	public function applyStyle(style:IStyle):void
@@ -114,8 +131,13 @@ class DummyClass extends Sprite
 		return styleBehavior.id;	
 	}
 	
-	private function createStyleBehavior(id:String):void
+	public function get defaultStyleNames():Array
 	{
-		styleBehavior = new ApplyStyleBehavior(id, this);
+		return styleBehavior.defaultStyleNames;
+	}
+	
+	private function createStyleBehavior(target:Object, styleID:String, styleClass:String = null):IApplyStyleBehavior
+	{
+		return new ApplyStyleBehavior(this, styleID, styleClass);
 	}
 }

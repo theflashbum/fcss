@@ -33,14 +33,14 @@ package com.flashartofwar.fcss.behaviors {
 	import com.flashartofwar.fcss.styles.IStyle;
 	import com.flashartofwar.fcss.stylesheets.IStyleSheetCollection;
 	import com.flashartofwar.fcss.utils.StyleApplierUtil;
-
+	
 	import flash.events.EventDispatcher;
 	import flash.utils.getQualifiedClassName;
 
 	/**
 	 * @author jessefreeman
 	 */
-	public class ApplyStyleBehavior extends EventDispatcher
+	public class ApplyStyleBehavior extends EventDispatcher implements IApplyStyleBehavior
 	{
 
 		protected static const ID_DELIMITER:String = " ";
@@ -51,9 +51,7 @@ package com.flashartofwar.fcss.behaviors {
 
 		protected var target:Object;
 
-		protected var defaultstyleNames:Array;
-
-		protected var styleID:String;
+		private var _defaultStyleNames:Array;
 
 		protected var styleSheetCollection:IStyleSheetCollection = StyleSheetManager.collection;
 
@@ -75,20 +73,30 @@ package com.flashartofwar.fcss.behaviors {
 		 * @param target Instance that will be used to apply styles onto and
 		 * also to find it's class name.
 		 */
-		public function ApplyStyleBehavior(styleID:String, target:Object)
+		public function ApplyStyleBehavior(target:Object, styleID:String, styleClass:String = null)
 		{
-			this.styleID = styleID;
 			this.target = target;
-			parseStyleNames(styleID);
+			parseStyleNames(styleID, styleClass);
 			applyDefaultStyle();
 		}
 
 		/**
 		 *	<p>This will reapply the default styles the class started with.</p>
 		 */
+
+		public function get defaultStyleNames():Array
+		{
+			return _defaultStyleNames.slice();
+		}
+
+		public function set defaultStyleNames(value:Array):void
+		{
+			_defaultStyleNames = value;
+		}
+
 		public function applyDefaultStyle():void
 		{
-			var style:IStyle = styleSheetCollection.getStyle.apply(null, defaultstyleNames);
+			var style:IStyle = styleSheetCollection.getStyle.apply(null, defaultStyleNames);
 			applyStyle(style);
 		}
 
@@ -141,14 +149,24 @@ package com.flashartofwar.fcss.behaviors {
 		 *
 		 * @param id
 		 */
-		protected function parseStyleNames(id:String):void
+		protected function parseStyleNames(styleID:String, styleClass:String = null):void
 		{
-			defaultstyleNames = id.split(ID_DELIMITER);
-			_id = defaultstyleNames.pop();
-
+			
+			if(styleClass != null)
+			{
+				_defaultStyleNames = styleClass.replace(/ /g," .").split(" ");
+				_defaultStyleNames[0] = "."+_defaultStyleNames[0];
+			}
+			else
+			{
+				_defaultStyleNames = [];
+			}
+			
 			// clean up styles
-			defaultstyleNames.unshift("." + className);
-			defaultstyleNames.push("#" + this.id);
+			_defaultStyleNames.unshift(className);
+			
+			_id = styleID;
+			_defaultStyleNames.push("#" + _id);
 		}
 	}
 }
