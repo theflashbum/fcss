@@ -24,7 +24,7 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/>
- *		1.0  Initial version Aug 28, 2009</p>
+ *		1.0  Initial version Dec 03, 2009</p>
  *
  */
 
@@ -41,10 +41,8 @@ package com.flashartofwar.fcss.stylesheets {
 
 		public static const baseStyleSheetName : String = "StyleSheet1";
 		public static const defaultSheetName : String = "StyleSheet";
-		//protected var styleSheets : Array = [];
 		protected var styleSheetInstances:Array = [];
 		protected var _styleSheetNames:Array = [];
-		//protected var _totalSheets : Number = 0;
 		protected var _name : String;
 
 		/**

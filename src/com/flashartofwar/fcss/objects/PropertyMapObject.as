@@ -1,7 +1,7 @@
 
 /**
  * <p>Original Author:  jessefreeman</p>
- * <p>Class File: PropertyMap.as</p>
+ * <p>Class File: PropertyMapObject.as</p>
  *
  * <p>Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,7 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/>
- *		1.0  Initial version Aug 28, 2009</p>
+ *		1.0  Initial version Dec 03, 2009</p>
  *
  */
 
