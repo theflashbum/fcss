@@ -1,151 +1,149 @@
 <?xml version="1.0"?>
-<project name="FlashTDDProject" basedir="." default="compile-swc">
-	<!-- This is 60% ripped off from RobotLegs - http://github.com/darscan/robotlegs-framework.
-   I am working on making my own but this one is so damn good I couldn't help myself. -->
+<project name="fcss-build" basedir="." default="compile-swc">
+    <!-- This is 60% ripped off from RobotLegs - http://github.com/darscan/robotlegs-framework.
+I am working on making my own but this one is so damn good I couldn't help myself. -->
 
-	<!-- identify properties file -->
-	<property file="build.properties" />
+    <!-- identify properties file -->
+    <property file="build.properties"/>
 
-	<!-- Set up FlexUnit Ant tasks -->
-	<taskdef resource="flexUnitTasks.tasks" classpath="${lib.loc}/flexUnitTasks.jar" />
+    <!-- Set up FlexUnit Ant tasks -->
+    <taskdef resource="flexUnitTasks.tasks" classpath="${lib.loc}/flexUnitTasks.jar"/>
 
-	<target name="usage">
-		<echo message="" />
-		<echo message="${project.name} Build Usage" />
-		<echo message="-----------------------------------" />
-		<echo message="" />
-		<echo message="Main targets are:" />
-		<echo message="compile-swc   --> Build ${project.name} SWC, asdoc, test" />
-		<echo message="" />
-		<echo message="Additonal targets are:" />
-		<echo message="asdoc         --> Build ${project.name} test and generate asdocs" />
-		<echo message="test          --> Build ${project.name} runs unit tests" />
-		<echo message="clean         --> Remove all folders created by build script" />
-		<echo message="init          --> Clean and create build folders" />
-		<echo message="" />
-	</target>
-	
-	<target name="disconnect">
-		<delete dir="${basedir}/.git"/>
-		<delete file="${basedir}/.gitignore"/>
-	</target>
-	
-	<!-- Clean Build and Report files -->
-	<target name="clean">
-		<!-- Remove all directories created during the build process -->
-		<echo>[clean] Removing Build and Report directories</echo>
-		<delete includeemptydirs="true" failonerror="false">
-			<fileset dir="${report.loc}" defaultexcludes="false">
-				<include name="**/*" />
-			</fileset>
-			<fileset dir="${dist.loc}" defaultexcludes="false">
-				<include name="**/*" />
-			</fileset>
-		</delete>
-		<echo>[clean] Build and Report directories removed</echo>
-	</target>
+    <target name="usage">
+        <echo message=""/>
+        <echo message="${project.name} Build Usage"/>
+        <echo message="-----------------------------------"/>
+        <echo message=""/>
+        <echo message="Main targets are:"/>
+        <echo message="compile-swc   --> Build ${project.name} SWC, asdoc, test"/>
+        <echo message=""/>
+        <echo message="Additonal targets are:"/>
+        <echo message="asdoc         --> Build ${project.name} test and generate asdocs"/>
+        <echo message="test          --> Build ${project.name} runs unit tests"/>
+        <echo message="clean         --> Remove all folders created by build script"/>
+        <echo message="init          --> Clean and create build folders"/>
+        <echo message=""/>
+    </target>
 
-	<!-- Create directories needed for the build process -->
-	<target name="init" depends="clean">
-		<echo>[init] Creating Bin and Report directories</echo>
-		<mkdir dir="${bin.loc}" />
+    <target name="disconnect">
+        <delete dir="${basedir}/.git"/>
+        <delete file="${basedir}/.gitignore"/>
+    </target>
 
-		<echo>[init] Bin and Report directories created</echo>
-	</target>
+    <!-- Clean Build and Report files -->
+    <target name="clean">
+        <!-- Remove all directories created during the build process -->
+        <echo>[clean] Removing Build and Report directories</echo>
+        <delete includeemptydirs="true" failonerror="false">
+            <fileset dir="${report.loc}" defaultexcludes="false">
+                <include name="**/*"/>
+            </fileset>
+        </delete>
+        <echo>[clean] Build and Report directories removed</echo>
+    </target>
 
-	<!-- Run Unit Tests -->
-	<target name="test" depends="init" if="run.test">
-		<echo>[test] Running Unit Tests</echo>
-		<!-- Compile TestRunner.mxml as a SWF -->
+    <!-- Create directories needed for the build process -->
+    <target name="init" depends="clean">
+        <echo>[init] Creating Bin and Report directories</echo>
+        <mkdir dir="${bin.loc}"/>
 
-		<mkdir dir="${report.loc}" />
+        <echo>[init] Bin and Report directories created</echo>
+    </target>
 
-		<java jar="${FLEX_HOME}/lib/mxmlc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
-			<arg value="${test.src.loc}/${project.name}TestApp.mxml" />
-			<arg value="-source-path=${main.src.loc}" />
+    <!-- Run Unit Tests -->
+    <target name="test" depends="init" if="run.test">
+        <echo>[test] Running Unit Tests</echo>
+        <!-- Compile TestRunner.mxml as a SWF -->
 
-			<arg value="-output=${bin.loc}/TestRunner.swf" />
-			<arg value="-default-size=148,148" />
-			<arg value="-default-background-color=0x320401" />
+        <mkdir dir="${report.loc}"/>
 
-			<!-- Include classes from SWCs in this folder, but only the ones we use. -->
-			<arg value="-library-path+=${lib.loc}" />
+        <java jar="${FLEX_HOME}/lib/mxmlc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
+            <arg value="${test.src.loc}/${project.name}TestApp.mxml"/>
+            <arg value="-source-path=${main.src.loc}"/>
 
-			<!-- So true. -->
-			<arg value="-incremental=true" />
-			<arg value="-verbose-stacktraces=true" />
-			<arg value="-headless-server=true" />
-		</java>
+            <arg value="-output=${bin.loc}/TestRunner.swf"/>
+            <arg value="-default-size=148,148"/>
+            <arg value="-default-background-color=0x320401"/>
 
-		<!-- Execute TestRunner.swf as FlexUnit tests and publish reports -->
-		<flexunit swf="bin/TestRunner.swf" toDir="${report.loc}" haltonfailure="false" verbose="true" localTrusted="true" failureproperty="flexunit.failed" />
-		<!-- Generate readable JUnit-style reports -->
-		<junitreport todir="${report.loc}">
-			<fileset dir="${report.loc}">
-				<include name="TEST-*.xml" />
-			</fileset>
-			<report format="frames" todir="${report.loc}/html" />
-		</junitreport>
+            <!-- Include classes from SWCs in this folder, but only the ones we use. -->
+            <arg value="-library-path+=${lib.loc}"/>
 
-		<echo>[test] Finished running Unit Tests</echo>
-	</target>
+            <!-- So true. -->
+            <arg value="-incremental=true"/>
+            <arg value="-verbose-stacktraces=true"/>
+            <arg value="-headless-server=true"/>
+        </java>
 
-	<!-- Opens JUnit Report when test fails -->
-	<target name="junitreport" depends="test" if="flexunit.failed">
-		<exec executable="open">
-			<arg line="-a ${browser} ${report.url}" />
-		</exec>
-		<fail>Unit Tests Failed</fail>
-	</target>
+        <!-- Execute TestRunner.swf as FlexUnit tests and publish reports -->
+        <flexunit swf="bin/TestRunner.swf" toDir="${report.loc}" haltonfailure="false" verbose="true"
+                  localTrusted="true" failureproperty="flexunit.failed"/>
+        <!-- Generate readable JUnit-style reports -->
+        <junitreport todir="${report.loc}">
+            <fileset dir="${report.loc}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${report.loc}/html"/>
+        </junitreport>
 
-	<!-- Build Documentation -->
-	<target name="asdoc" depends="junitreport" if="run.asdoc">
-		<echo>[create-docs] Generating ASDOC documentation</echo>
-		<tstamp>
-			<format property="docgen.time" pattern="MM/dd/yyyy hh:mm aa" unit="hour" />
-		</tstamp>
+        <echo>[test] Finished running Unit Tests</echo>
+    </target>
 
-		<java jar="${FLEX_HOME}/lib/asdoc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
-			<arg line="-external-library-path ${lib.loc}" />
-			<arg line="-doc-sources ${main.src.loc}" />
-			<arg line="-source-path ${main.src.loc}" />
-			<arg line="-output ${doc.loc}" />
-			<arg line="-window-title '${project.name}'" />
-			<arg line="-main-title '${project.name}'" />
-			<arg line="-footer '${project.name} - Documentation generated at: ${docgen.time}'" />
-		</java>
+    <!-- Opens JUnit Report when test fails -->
+    <target name="junitreport" depends="test" if="flexunit.failed">
+        <exec executable="open">
+            <arg line="-a ${browser} ${report.url}"/>
+        </exec>
+        <fail>Unit Tests Failed</fail>
+    </target>
 
-		<echo>[create-docs] ASDOC documentation generated successfully</echo>
-	</target>
+    <!-- Build Documentation -->
+    <target name="asdoc" depends="junitreport" if="run.asdoc">
+        <echo>[create-docs] Generating ASDOC documentation</echo>
+        <tstamp>
+            <format property="docgen.time" pattern="MM/dd/yyyy hh:mm aa" unit="hour"/>
+        </tstamp>
 
-	<!-- Compile Release SWC -->
-	<target name="compile-swc" depends="asdoc">
-		<echo>[compile] Compiling release SWC</echo>
-		<echo>[compile] Using Flex SDK at: ${FLEX_HOME}</echo>
+        <java jar="${FLEX_HOME}/lib/asdoc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
+            <arg line="-external-library-path ${lib.loc}"/>
+            <arg line="-doc-sources ${main.src.loc}"/>
+            <arg line="-source-path ${main.src.loc}"/>
+            <arg line="-output ${doc.loc}"/>
+            <arg line="-window-title '${project.name}'"/>
+            <arg line="-main-title '${project.name}'"/>
+            <arg line="-footer '${project.name} - Documentation generated at: ${docgen.time}'"/>
+        </java>
 
-		<java jar="${FLEX_HOME}/lib/compc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
-			<!-- Build our SWC with a versioned name. -->
-			<arg value="-output=${bin.loc}/${project.name.versioned}.swc" />
+        <echo>[create-docs] ASDOC documentation generated successfully</echo>
+    </target>
 
-			<!-- We want all the org package classes in the SWC being built. -->
-			<arg value="-include-sources=${main.src.loc}/" />
-			
-			<!-- <arg value="-directory=true" /> -->
-			
-			<!-- Include classes from SWCs in this folder, but only the ones we use. -->
-			<arg value="-library-path+=${lib.loc}" />
+    <!-- Compile Release SWC -->
+    <target name="compile-swc" depends="asdoc">
+        <echo>[compile] Compiling release SWC</echo>
+        <echo>[compile] Using Flex SDK at: ${FLEX_HOME}</echo>
 
-			<!-- Keep the magic alive. -->
-			<arg value="-keep-as3-metadata+=Inject" />
+        <java jar="${FLEX_HOME}/lib/compc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
+            <!-- Build our SWC with a versioned name. -->
+            <arg value="-output=${bin.loc}/${project.name.versioned}.swc"/>
 
-			<!-- Boolean mosh pit! -->
-			<arg value="-incremental=true" />
-			<arg value="-static-link-runtime-shared-libraries=true" />
-			<arg value="-verbose-stacktraces=true" />
-			<arg value="-headless-server=true" />
-		</java>
+            <!-- We want all the org package classes in the SWC being built. -->
+            <arg value="-include-sources=${main.src.loc}/"/>
 
-		<echo>[compile] Release SWC ${project.name.versioned}.swc created successfully</echo>
-	</target>
+            <!-- <arg value="-directory=true" /> -->
+
+            <!-- Include classes from SWCs in this folder, but only the ones we use. -->
+            <arg value="-library-path+=${lib.loc}"/>
+
+            <!-- Keep the magic alive. -->
+            <arg value="-keep-as3-metadata+=Inject"/>
+
+            <!-- Boolean mosh pit! -->
+            <arg value="-incremental=true"/>
+            <arg value="-static-link-runtime-shared-libraries=true"/>
+            <arg value="-verbose-stacktraces=true"/>
+            <arg value="-headless-server=true"/>
+        </java>
+
+        <echo>[compile] Release SWC ${project.name.versioned}.swc created successfully</echo>
+    </target>
 
 </project>

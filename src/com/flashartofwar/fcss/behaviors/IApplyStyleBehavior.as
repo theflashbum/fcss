@@ -24,22 +24,26 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/>
- *		1.0  Initial version Dec 03, 2009</p>
+ *        1.0  Initial version Dec 03, 2009</p>
  *
  */
 
 package com.flashartofwar.fcss.behaviors
 {
-	import com.flashartofwar.fcss.styles.IStyle;
-	
-	import flash.events.IEventDispatcher;
+import com.flashartofwar.fcss.styles.IStyle;
 
-	public interface IApplyStyleBehavior extends IEventDispatcher
-	{
-		function applyDefaultStyle():void;
-		function applyStyle(style:IStyle):void;
-		function get className():String;
-		function get id():String;
-		function get defaultStyleNames():Array;
-	}
+import flash.events.IEventDispatcher;
+
+public interface IApplyStyleBehavior extends IEventDispatcher
+{
+    function applyDefaultStyle(pseudoSelector:String = null):void;
+
+    function applyStyle(style:IStyle):void;
+
+    function get className():String;
+
+    function get id():String;
+
+    function get defaultStyleNames():Array;
+}
 }
