@@ -45,5 +45,7 @@ public interface IApplyStyleBehavior extends IEventDispatcher
     function get id():String;
 
     function get defaultStyleNames():Array;
+
+    function getPseudoSelector(state:String):IStyle;
 }
 }

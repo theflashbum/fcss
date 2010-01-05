@@ -36,6 +36,7 @@ import com.flashartofwar.fcss.stylesheets.IStyleSheetCollection;
 import com.flashartofwar.fcss.utils.StyleApplierUtil;
 
 import flash.events.EventDispatcher;
+import flash.utils.Dictionary;
 import flash.utils.getQualifiedClassName;
 
 /**
@@ -43,6 +44,9 @@ import flash.utils.getQualifiedClassName;
  */
 public class ApplyStyleBehavior extends EventDispatcher implements IApplyStyleBehavior
 {
+    public static const DEFAULT:String = "default";
+
+    public static const UP:String = "up";
 
     protected static const ID_DELIMITER:String = " ";
 
@@ -55,6 +59,11 @@ public class ApplyStyleBehavior extends EventDispatcher implements IApplyStyleBe
     private var _defaultStyleNames:Array;
 
     protected var styleSheetCollection:IStyleSheetCollection = StyleSheetManager.collection;
+
+    protected var stateSelectorCache:Array = new Array();
+
+    protected var cachedProperties:Dictionary = new Dictionary(true);
+
 
     /**
      * <p>The ApplyStyleBehavior encapsulates the logic needed to find an
@@ -98,19 +107,33 @@ public class ApplyStyleBehavior extends EventDispatcher implements IApplyStyleBe
     public function applyDefaultStyle(pseudoSelector:String = null):void
     {
 
-        var styleNames:Array = defaultStyleNames;
+        var style:IStyle;
+
         if (pseudoSelector != null)
         {
-            var pseudoSelectorName:String = "#" + id + ":" + pseudoSelector;
-            if (styleSheetCollection.hasStyle(pseudoSelectorName))
-                styleNames[styleNames.length - 1] = "#" + id + ":" + pseudoSelector;
+            style = getPseudoSelector(pseudoSelector);
+        }
+        else
+        {
+            style = styleSheetCollection.getStyle.apply(null, defaultStyleNames);
         }
 
-        var style:IStyle = styleSheetCollection.getStyle.apply(null, styleNames);
         if (style.styleName != CSSProperties.DEFAULT_STYLE_NAME)
             applyStyle(style);
-        else
-            trace("Style was empty.");
+
+        /*var styleNames:Array = defaultStyleNames;
+         if (pseudoSelector != null)
+         {
+         var pseudoSelectorName:String = "#" + id + ":" + pseudoSelector;
+         if (styleSheetCollection.hasStyle(pseudoSelectorName))
+         styleNames[styleNames.length - 1] = "#" + id + ":" + pseudoSelector;
+         }
+
+         var style:IStyle = styleSheetCollection.getStyle.apply(null, styleNames);
+         if (style.styleName != CSSProperties.DEFAULT_STYLE_NAME)
+         applyStyle(style);
+         else
+         trace("Style was empty.");*/
 
     }
 
@@ -182,6 +205,51 @@ public class ApplyStyleBehavior extends EventDispatcher implements IApplyStyleBe
         _id = styleID;
         _defaultStyleNames.push("#" + _id);
     }
+
+    public function getPseudoSelector(state:String):IStyle
+    {
+
+        if (! stateSelectorCache[state])
+        {
+            var pseudoSelector:String = "";
+
+            // Just restore default style if no state is provided
+            if ((state != UP) && (state != DEFAULT))
+            {
+                pseudoSelector = ":" + state;
+            }
+
+            var selectorNames:Array = defaultStyleNames;
+
+            var total:Number = selectorNames.length;
+
+            for (var i:int = 0; i < total; i ++)
+            {
+                selectorNames[i] = selectorNames[i] += pseudoSelector;
+            }
+
+            // Cache Selector names
+            stateSelectorCache[state] = selectorNames;
+        }
+
+        // create unique id for selector name
+        var selectorNamesID:String = stateSelectorCache[state].toString();
+        var tempStyle:IStyle;
+
+        if (cachedProperties[selectorNamesID])
+        {
+            tempStyle = cachedProperties[selectorNamesID].clone();
+        }
+        else
+        {
+            tempStyle = styleSheetCollection.getStyle.apply(null, stateSelectorCache[state]);
+            cachedProperties[selectorNamesID] = tempStyle;
+        }
+
+        return tempStyle;
+    }
+
+
 }
 }
 
