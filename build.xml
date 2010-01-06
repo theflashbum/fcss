@@ -146,4 +146,32 @@ I am working on making my own but this one is so damn good I couldn't help mysel
         <echo>[compile] Release SWC ${project.name.versioned}.swc created successfully</echo>
     </target>
 
+    <target name="convert-swc-to-swf" depends="compile-swc">
+        <sequential>
+        <unzip src="${bin.loc}/${project.name.versioned}.swc"
+                 dest="${bin.loc}" >
+              <patternset>
+                      <include name="library.swf" />
+              </patternset>
+       </unzip>
+
+       <move file="${bin.loc}/library.swf" tofile="${bin.loc}/${project.name.versioned}.swf"/>
+
+       <antcall target="optimize-swf-lib"/>
+       <antcall target="deploy-swf-lib"/>
+
+       <delete file="${bin.loc}/library.swf"/>
+       </sequential>
+    </target>
+
+    <target name="optimize-swf-lib" if="run.swflib.otimize">
+        <java jar="${FLEX_HOME}/lib/optimizer.jar" fork="true" failonerror="true">
+              <jvmarg line="-ea -DAS3 -DAVMPLUS -Dflexlib=${FLEX_HOME}/frameworks -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false"/>
+              <arg line="'${bin.loc}/${project.name.versioned}.swf' --output '${bin.loc}/${project.name.versioned}.swf' "/>
+       </java>
+    </target>
+    
+    <target name="deploy-swf-lib" if="run.swflib.deploy">
+        <move file="${bin.loc}/${project.name.versioned}.swf" tofile="${lib.deploy.dir}/${project.name.versioned}.swf"/>
+    </target>
 </project>
