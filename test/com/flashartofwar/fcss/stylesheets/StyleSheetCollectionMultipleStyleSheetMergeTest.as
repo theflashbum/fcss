@@ -59,6 +59,12 @@ package com.flashartofwar.fcss.stylesheets
 								{
 									debug: true;
 								}
+								
+								baseStyle #thickBorder
+								{
+									x: 0;
+									border: 10px solid green;
+								}
 							]]>
 				</css>;
 			return xml.toString();
@@ -174,6 +180,15 @@ package com.flashartofwar.fcss.stylesheets
 			removeStyleSheet("sheetA");
 			var style:IStyle = getStyle("baseStyle");
 			var expected:String = "baseStyle{styleName:baseStyle;x:300px;height:150px;margin:0;}"
+			Assert.assertEquals(style.toString(), expected);
+		}
+		
+		[Test]
+		public function testLocalStyleInheritanceSheetB():void
+		{
+			addStyleSheet(styleSheetB, "sheetB");
+			var style:IStyle = getStyle("#thickBorder");
+			var expected:String = "#thickBorder{styleName:#thickBorder;x:0;height:150px;margin:0;border:10px solid green;}";
 			Assert.assertEquals(style.toString(), expected);
 		}
 
