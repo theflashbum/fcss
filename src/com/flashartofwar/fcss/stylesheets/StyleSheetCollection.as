@@ -117,13 +117,16 @@ public class StyleSheetCollection implements IStyleSheetCollection
         var styleName:String;
         var mergedStyle:IStyle;
         var tempStyle:IStyle;
-
+        var nextStyleName:String;
+        
         var i:int;
         var totalStyles:int = styleNames.length;
 
         var j:int;
         var totalSheets:int = totalStyleSheets;
-        var tempStyleSheet:IStyleSheet;
+        
+        var k:int;
+        var totalInChain:int;
 
         for (i = 0; i < totalStyles; i ++)
         {
@@ -131,16 +134,24 @@ public class StyleSheetCollection implements IStyleSheetCollection
 
             if (hasStyle(styleName))
             {
-                mergedStyle = createEmptyStyle();
+                var chain:Array = styleInheritanceChain(styleName);
 
-                for (j = 0; j < totalSheets; j ++)
+                totalInChain = chain.length;
+                mergedStyle = createEmptyStyle();
+                                    
+                for(j = 0; j < totalInChain; j ++)
                 {
-                    tempStyle = IStyleSheet(styleSheetInstances[j]).styleLookup(styleName, false);
-                    mergedStyle.merge(tempStyle);
-                    mergedStyle.styleName = styleName;
+                    nextStyleName = chain[j];
+                    for (k = 0; k < totalSheets; k ++)
+                    {
+                        tempStyle = IStyleSheet(styleSheetInstances[k]).styleLookup(nextStyleName, false);
+                        mergedStyle.merge(tempStyle);
+                    }
                 }
 
                 baseStyle.merge(mergedStyle);
+
+                baseStyle.styleName = styleName;
             }
 
         }

@@ -188,7 +188,7 @@ package com.flashartofwar.fcss.stylesheets
 		{
 			addStyleSheet(styleSheetB, "sheetB");
 			var style:IStyle = getStyle("#thickBorder");
-			var expected:String = "#thickBorder{styleName:#thickBorder;x:0;height:150px;margin:0;border:10px solid green;}";
+			var expected:String = "#thickBorder{styleName:#thickBorder;x:0;y:10;width:100;height:150px;padding:5;margin:0;border:10px solid green;}";
 			Assert.assertEquals(style.toString(), expected);
 		}
 
