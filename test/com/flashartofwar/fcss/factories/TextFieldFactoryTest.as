@@ -82,7 +82,7 @@ package com.flashartofwar.fcss.factories {
 		{
 			StyleSheetManager.collection.parseCSS(cssText);
 			
-			var tff:TextFieldFactory = new TextFieldFactory();
+			var tff:TextFieldFactory = new TextFieldFactory(StyleSheetManager.collection);
 			
 			textField = tff.createTextField("DemoTextField");
 			textField.htmlText = "Hello World!";

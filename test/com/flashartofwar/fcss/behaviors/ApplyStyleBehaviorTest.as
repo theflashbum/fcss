@@ -104,7 +104,8 @@ public class ApplyStyleBehaviorTest
                 }
                 }
 
-                import com.flashartofwar.fcss.styles.IStyle;
+import com.flashartofwar.fcss.managers.StyleSheetManager;
+import com.flashartofwar.fcss.styles.IStyle;
                 import com.flashartofwar.fcss.behaviors.IApplyStyleBehavior;
                 import com.flashartofwar.fcss.behaviors.ApplyStyleBehavior;
 
@@ -142,7 +143,7 @@ public class ApplyStyleBehaviorTest
 
                 private function createStyleBehavior(target:Object, styleID:String, styleClass:String = null):IApplyStyleBehavior
                 {
-                        return new ApplyStyleBehavior(this, styleID, styleClass);
+                        return new ApplyStyleBehavior(this, StyleSheetManager.collection, styleID, styleClass);
                         }
 
                 public function applyDefaultStyle(pseudoSelector:String = null):void
