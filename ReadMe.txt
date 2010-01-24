@@ -92,11 +92,14 @@ styleSheetCollection.addStyleSheet(styleSheet, "defaultSheet");
 trace(styleSheetCollection.getSelector("demoStyle"));
 
 ** TextFieldFactory **
-// In order to have the TextFieldFactory work you must have at least 1 StyleSheet
-in the StyleSheetManager.
+// This assumes you are using the StyleSheetManager. If not you will have to
+// create a new FStyleSheet, parse css data then pass that into the factory.
+
+// Create a new factory and pass in a reference to a IStyleSheet
+var tff:TextFieldFactory = new TextFieldFactory(StyleSheetManager.collection);
 
 // The first param is the id. It will add # to the string to provide like HTML/CSS
-var textField:TextField = TextFieldFactory.createTextField("demoStyle", "TextField");
+var textField:TextField = tff.createTextField("demoStyle", "TextField");
 
 ** Apply Style to any object **
 
