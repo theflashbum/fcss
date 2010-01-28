@@ -31,12 +31,12 @@
  */
 
 package com.flashartofwar.fcss.styles {
-	import com.flashartofwar.fcss.enum.CSSProperties;
-	import com.flashartofwar.fcss.objects.AbstractOrderedObject;
-	
-	import flash.net.registerClassAlias;
+import com.flashartofwar.fcss.enum.CSSProperties;
+import com.flashartofwar.fcss.objects.AbstractOrderedObject;
 
-	/**
+import flash.net.registerClassAlias;
+
+/**
 	 *
 	 * @author jessefreeman
 	 */

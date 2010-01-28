@@ -30,9 +30,9 @@
  */
 
 package com.flashartofwar.fcss.enum {
-	import com.flashartofwar.fcss.utils.TypeHelperUtil;
+import com.flashartofwar.fcss.utils.TypeHelperUtil;
 
-	/**
+/**
 	 * @author jessefreeman
 	 */
 	public class TextFieldProperties 

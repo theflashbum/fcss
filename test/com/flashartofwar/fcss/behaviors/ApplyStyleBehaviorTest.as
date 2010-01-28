@@ -1,6 +1,8 @@
 package com.flashartofwar.fcss.behaviors {
-import com.flashartofwar.fcss.managers.StyleSheetManager;
+import com.flashartofwar.fcss.managers.SingletonManager;
 import com.flashartofwar.fcss.styles.IStyle;
+import com.flashartofwar.fcss.stylesheets.IStyleSheetCollection;
+import com.flashartofwar.fcss.stylesheets.StyleSheetCollection;
 
 import org.flexunit.Assert;
 
@@ -11,11 +13,12 @@ public class ApplyStyleBehaviorTest
 
     private var dummyClassB:DummyClass;
 
+    private var collection:IStyleSheetCollection = SingletonManager.getClassReference(StyleSheetCollection) as IStyleSheetCollection;
 
     [Before(ui)]
     public function runBeforeEachTest():void
     {
-        StyleSheetManager.collection.parseCSS(ApplyStyleBehaviorTestCSSData.cssText);
+        collection.parseCSS(ApplyStyleBehaviorTestCSSData.cssText);
 
         dummyClassA = new DummyClass();
         dummyClassB = new DummyClass("dummyClassB", "CustomDummyClassName");
@@ -41,7 +44,7 @@ public class ApplyStyleBehaviorTest
     [Test]
     public function testApplyStyle():void
     {
-        dummyClassA.applyStyle(StyleSheetManager.collection.getStyle("#testStyle"));
+        dummyClassA.applyStyle(collection.getStyle("#testStyle"));
         Assert.assertEquals(dummyClassA.x, 350);
     }
 
@@ -96,62 +99,66 @@ public class ApplyStyleBehaviorTest
     [Test]
     public function testForEmptyStyle():void
     {
-        var style:IStyle = StyleSheetManager.collection.getStyle("DummyClass", "#dummyClassB", "bla");
+        var style:IStyle = collection.getStyle("DummyClass", "#dummyClassB", "bla");
         Assert.assertEquals(style.styleName, "#dummyClassB");
     }
 
-    
-                }
-                }
 
-import com.flashartofwar.fcss.managers.StyleSheetManager;
+}
+}
+
+
+import com.flashartofwar.fcss.applicators.StyleApplicator;
+import com.flashartofwar.fcss.behaviors.ApplyStyleBehavior;
+import com.flashartofwar.fcss.behaviors.IApplyStyleBehavior;
+import com.flashartofwar.fcss.managers.SingletonManager;
 import com.flashartofwar.fcss.styles.IStyle;
-                import com.flashartofwar.fcss.behaviors.IApplyStyleBehavior;
-                import com.flashartofwar.fcss.behaviors.ApplyStyleBehavior;
+import com.flashartofwar.fcss.stylesheets.IStyleSheetCollection;
+import com.flashartofwar.fcss.stylesheets.StyleSheetCollection;
 
-                import flash.display.Sprite;
+import flash.display.Sprite;
 
-                class DummyClass extends Sprite implements IApplyStyleBehavior
-                {
+class DummyClass extends Sprite implements IApplyStyleBehavior
+{
 
-                        private var styleBehavior:IApplyStyleBehavior;
+    private var styleBehavior:IApplyStyleBehavior;
 
-                        public function DummyClass(id:String = "dummyClass", styleClass:String = null)
-                        {
-                        styleBehavior = createStyleBehavior(this, id, styleClass);
-                        }
+    public function DummyClass(id:String = "dummyClass", styleClass:String = null)
+    {
+        styleBehavior = createStyleBehavior(this, id, styleClass);
+    }
 
-                public function applyStyle(style:IStyle):void
-                {
-                        styleBehavior.applyStyle(style);
-                        }
+    public function applyStyle(style:IStyle):void
+    {
+        styleBehavior.applyStyle(style);
+    }
 
-                public function get className():String
-                {
-                        return styleBehavior.className;
-                        }
+    public function get className():String
+    {
+        return styleBehavior.className;
+    }
 
-                public function get id():String
-                {
-                        return styleBehavior.id;
-                        }
+    public function get id():String
+    {
+        return styleBehavior.id;
+    }
 
-                public function get defaultStyleNames():Array
-                {
-                        return styleBehavior.defaultStyleNames;
-                        }
+    public function get defaultStyleNames():Array
+    {
+        return styleBehavior.defaultStyleNames;
+    }
 
-                private function createStyleBehavior(target:Object, styleID:String, styleClass:String = null):IApplyStyleBehavior
-                {
-                        return new ApplyStyleBehavior(this, StyleSheetManager.collection, styleID, styleClass);
-                        }
+    private function createStyleBehavior(target:Object, styleID:String, styleClass:String = null):IApplyStyleBehavior
+    {
+        return new ApplyStyleBehavior(this, new StyleApplicator(), SingletonManager.getClassReference(StyleSheetCollection) as IStyleSheetCollection, styleID, styleClass);
+    }
 
-                public function applyDefaultStyle(pseudoSelector:String = null):void
-                {
-                        styleBehavior.applyDefaultStyle(pseudoSelector);
-                        }
+    public function applyDefaultStyle(pseudoSelector:String = null):void
+    {
+        styleBehavior.applyDefaultStyle(pseudoSelector);
+    }
 
-                    public function getPseudoSelector(state:String):IStyle {
-                        return styleBehavior.getPseudoSelector(state);
-                    }
-                }
+    public function getPseudoSelector(state:String):IStyle {
+        return styleBehavior.getPseudoSelector(state);
+    }
+}

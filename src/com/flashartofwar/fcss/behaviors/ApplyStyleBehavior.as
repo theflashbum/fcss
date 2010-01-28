@@ -30,10 +30,10 @@
 
 package com.flashartofwar.fcss.behaviors
 {
+import com.flashartofwar.fcss.applicators.IApplicator;
 import com.flashartofwar.fcss.enum.CSSProperties;
 import com.flashartofwar.fcss.styles.IStyle;
 import com.flashartofwar.fcss.stylesheets.IStyleSheet;
-import com.flashartofwar.fcss.utils.StyleApplierUtil;
 
 import flash.events.EventDispatcher;
 import flash.utils.Dictionary;
@@ -64,6 +64,7 @@ public class ApplyStyleBehavior extends EventDispatcher implements IApplyStyleBe
 
     protected var cachedProperties:Dictionary = new Dictionary(true);
 
+    protected var _applicator:IApplicator;
 
     /**
      * <p>The ApplyStyleBehavior encapsulates the logic needed to find an
@@ -83,9 +84,11 @@ public class ApplyStyleBehavior extends EventDispatcher implements IApplyStyleBe
      * @param target Instance that will be used to apply styles onto and
      * also to find it's class name.
      */
-    public function ApplyStyleBehavior(target:Object, styleSheet:IStyleSheet, styleID:String, styleClass:String = null)
+
+    public function ApplyStyleBehavior(target:Object, applicator:IApplicator, styleSheet:IStyleSheet, styleID:String, styleClass:String = null)
     {
         this.target = target;
+        _applicator = applicator;
         _styleSheet = styleSheet;
         parseStyleNames(styleID, styleClass);
         applyDefaultStyle();
@@ -115,6 +118,15 @@ public class ApplyStyleBehavior extends EventDispatcher implements IApplyStyleBe
         _styleSheet = value;
     }
 
+
+    public function get applicator():IApplicator {
+        return _applicator;
+    }
+
+    public function set applicator(value:IApplicator):void {
+        _applicator = value;
+    }
+    
     public function applyDefaultStyle(pseudoSelector:String = null):void
     {
 
@@ -146,7 +158,7 @@ public class ApplyStyleBehavior extends EventDispatcher implements IApplyStyleBe
      */
     public function applyStyle(style:IStyle):void
     {
-        StyleApplierUtil.applyProperties(target, style);
+        _applicator.applyStyle(target, style);
     }
 
     /**

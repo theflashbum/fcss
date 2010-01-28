@@ -30,13 +30,10 @@
  */
 
 package com.flashartofwar.fcss.applicators {
-    import com.flashartofwar.fcss.utils.*;
-	import com.flashartofwar.fcss.objects.PropertyMapObject;
+import com.flashartofwar.fcss.objects.PropertyMapObject;
+import com.flashartofwar.fcss.utils.*;
 
-	import flash.utils.Dictionary;
-	import flash.utils.describeType;
-
-	/**
+/**
 	 * @author jessefreeman
 	 */
 	public class StyleApplicator implements IApplicator

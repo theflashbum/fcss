@@ -30,11 +30,11 @@
  */
 
 package com.flashartofwar.fcss.objects {
-	import flash.net.registerClassAlias;
-	import flash.utils.ByteArray;
-	import flash.utils.Dictionary;
+import flash.net.registerClassAlias;
+import flash.utils.ByteArray;
+import flash.utils.Dictionary;
 
-	/**
+/**
 	 * @author jessefreeman
 	 */
 	public dynamic class PropertyMapObject extends AbstractOrderedObject

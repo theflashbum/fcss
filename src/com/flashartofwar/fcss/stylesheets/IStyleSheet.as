@@ -30,9 +30,9 @@
  */
 
 package com.flashartofwar.fcss.stylesheets {
-	import com.flashartofwar.fcss.styles.IStyle;
+import com.flashartofwar.fcss.styles.IStyle;
 
-	public interface IStyleSheet
+public interface IStyleSheet
 	{
 
 		function get name() : String;

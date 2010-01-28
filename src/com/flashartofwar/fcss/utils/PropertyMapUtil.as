@@ -33,6 +33,7 @@ package com.flashartofwar.fcss.utils
 {
 
 import com.flashartofwar.fcss.objects.PropertyMapObject;
+
 import flash.utils.Dictionary;
 import flash.utils.describeType;
 

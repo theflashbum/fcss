@@ -31,8 +31,6 @@
 
 package com.flashartofwar.fcss.applicators
 {
-import com.flashartofwar.fcss.styles.IStyle;
-
 public interface IApplicator
 {
     function applyStyle(target:Object, style:Object):void;

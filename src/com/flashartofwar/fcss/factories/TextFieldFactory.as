@@ -30,11 +30,11 @@
  */
 
 package com.flashartofwar.fcss.factories {
-    import com.flashartofwar.fcss.applicators.IApplicator;
-    import com.flashartofwar.fcss.styles.IStyle;
-    import com.flashartofwar.fcss.stylesheets.IStyleSheet;
+import com.flashartofwar.fcss.applicators.IApplicator;
+import com.flashartofwar.fcss.styles.IStyle;
+import com.flashartofwar.fcss.stylesheets.IStyleSheet;
 
-    import flash.text.TextField;
+import flash.text.TextField;
 
 /**
 	 * @author Jesse Freeman

@@ -30,16 +30,15 @@
  */
 
 package com.flashartofwar.fcss.applicators {
-	import com.flashartofwar.fcss.enum.TextFieldProperties;
-	import com.flashartofwar.fcss.enum.TextFormatProperties;
-
+import com.flashartofwar.fcss.enum.TextFieldProperties;
+import com.flashartofwar.fcss.enum.TextFormatProperties;
 import com.flashartofwar.fcss.utils.CSSTidyUtil;
 
 import flash.text.StyleSheet;
-	import flash.text.TextField;
-	import flash.text.TextFormat;
+import flash.text.TextField;
+import flash.text.TextFormat;
 
-	public class TextFieldApplicator implements IApplicator
+public class TextFieldApplicator implements IApplicator
 	{
 
 		private static const STYLE_SHEET:String = "styleSheet";

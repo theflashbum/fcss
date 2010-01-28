@@ -32,12 +32,10 @@
 package com.flashartofwar.fcss.utils {
 import com.flashartofwar.fcss.applicators.IApplicator;
 import com.flashartofwar.fcss.applicators.StyleApplicator;
-import com.flashartofwar.fcss.objects.PropertyMapObject;
 
-	import flash.utils.Dictionary;
-	import flash.utils.describeType;
+import flash.utils.Dictionary;
 
-	/**
+/**
 	 * @author jessefreeman
 	 */
 	[Deprecated("This class will be removed in the final 1.0 release. Please use an Applicator in com.flashartofwar.fcss.applicators instead.")]

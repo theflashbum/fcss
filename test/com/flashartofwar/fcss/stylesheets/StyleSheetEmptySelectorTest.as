@@ -1,10 +1,13 @@
 package com.flashartofwar.fcss.stylesheets {
-import com.flashartofwar.fcss.managers.StyleSheetManager;
+import com.flashartofwar.fcss.managers.SingletonManager;
 import com.flashartofwar.fcss.styles.IStyle;
 
 import org.flexunit.Assert;
 
 public class StyleSheetEmptySelectorTest {
+    
+    private var collection:IStyleSheetCollection = SingletonManager.getClassReference(StyleSheetCollection) as IStyleSheetCollection;
+    
     [Before(ui)]
     public function runBeforeEachTest():void
     {
@@ -14,8 +17,8 @@ public class StyleSheetEmptySelectorTest {
     [Test]
     public function testForEmptyStyle():void
     {
-        StyleSheetManager.collection.parseCSS(cssText);
-        var style:IStyle = StyleSheetManager.collection.getStyle("DummyClass", "#dummyClassB", "bla");
+        collection.parseCSS(cssText);
+        var style:IStyle = collection.getStyle("DummyClass", "#dummyClassB", "bla");
         Assert.assertEquals(style.styleName, "#dummyClassB");
     }
 

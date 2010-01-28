@@ -1,6 +1,7 @@
 
 /**
- * <p>Original Author:  Justin Akin & jessefreeman</p>
+ * <p>Original Author:  jessefreeman</p>
+ * <p>Based on a SingletonManger class by Justin Akin</p>
  * <p>Class File: SingletonManager.as</p>
  *
  * <p>Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -31,9 +32,9 @@
 
 package com.flashartofwar.fcss.managers
 {
-	import flash.utils.Dictionary;
-	
-	public class SingletonManager 
+import flash.utils.Dictionary;
+
+public class SingletonManager
     {
 		private static var _instance:SingletonManager;
         
