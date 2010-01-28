@@ -1,7 +1,7 @@
 
 /**
  * <p>Original Author:  jessefreeman</p>
- * <p>Class File: StyleApplierUtil.as</p>
+ * <p>Class File: StyleApplicator.as</p>
  *
  * <p>Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,10 +29,9 @@
  *
  */
 
-package com.flashartofwar.fcss.utils {
-import com.flashartofwar.fcss.applicators.IApplicator;
-import com.flashartofwar.fcss.applicators.StyleApplicator;
-import com.flashartofwar.fcss.objects.PropertyMapObject;
+package com.flashartofwar.fcss.applicators {
+    import com.flashartofwar.fcss.utils.*;
+	import com.flashartofwar.fcss.objects.PropertyMapObject;
 
 	import flash.utils.Dictionary;
 	import flash.utils.describeType;
@@ -40,11 +39,13 @@ import com.flashartofwar.fcss.objects.PropertyMapObject;
 	/**
 	 * @author jessefreeman
 	 */
-	[Deprecated("This class will be removed in the final 1.0 release. Please use an Applicator in com.flashartofwar.fcss.applicators instead.")]
-    public class StyleApplierUtil
+	public class StyleApplicator implements IApplicator
 	{
 
-		protected static var cachedPropertyMaps:Dictionary = new Dictionary(true);
+        public function StyleApplicator()
+        {
+            
+        }
 
 		/**
 		 * <p>This method will loop through the properties of a Style and attempt
@@ -54,12 +55,24 @@ import com.flashartofwar.fcss.objects.PropertyMapObject;
 		 * @param target
 		 * @param style
 		 */
-		public static function applyProperties(target:Object, styleObject:Object):void
+		public function applyStyle(target:Object, styleObject:Object):void
 		{
-			var applicator:IApplicator = new StyleApplicator();
-            applicator.applyStyle(target, styleObject);
+			var propMap:PropertyMapObject = PropertyMapUtil.propertyMap(target);
+
+			for (var prop:String in styleObject)
+			{
+
+				if (target.hasOwnProperty(prop))
+				{
+
+					var type:String = propMap[prop];
+					var cleanedUpValue:* = TypeHelperUtil.getType(styleObject[prop], type);
+
+					target[prop] = cleanedUpValue;
+				}
+			}
 		}
 
-	}
+    }
 }
 

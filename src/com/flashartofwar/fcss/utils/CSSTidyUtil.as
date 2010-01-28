@@ -60,6 +60,34 @@ package com.flashartofwar.fcss.utils
 		{
 			return cssText.replace(COMPRESS_CSS, "$1");
 		}
+
+        /**
+		 * <p>Returns given lowercaseandunderscoreword as a camelCased word.</p>
+		 *
+		 * @param string lowercaseandunderscoreword Word to camelize
+		 * @return string Camelized word. likeThis.
+		 */
+		public static function camelize(lowercaseandunderscoreword:String, deimiter:String = "-"):String
+		{
+			var tarray:Array = lowercaseandunderscoreword.split(deimiter);
+
+			for (var i:int = 1; i < tarray.length; i++)
+			{
+				tarray[i] = ucfirst(tarray[i] as String);
+			}
+			var replace:String = tarray.join("");
+			return replace;
+		}
+
+		/**
+		 * <p>Make first character of word upper case</p>
+		 * @param	word
+		 * @return string
+		 */
+		public static function ucfirst(word:String):String
+		{
+			return word.substr(0, 1).toUpperCase() + word.substr(1);
+		}
 	}
 }
 

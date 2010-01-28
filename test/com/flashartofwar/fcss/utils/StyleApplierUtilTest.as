@@ -29,13 +29,6 @@ package com.flashartofwar.fcss.utils {
 
 		}
 		
-		[Test]
-		public function testPropertyMapObject():void
-		{
-			var propertyMap:PropertyMapObject = StyleApplierUtil.propertyMap(DummyClass);
-			var pass:Boolean = ((propertyMap.name == "string") && (propertyMap.speed == "number") && (propertyMap.items == "array"));
-			Assert.assertTrue(pass);
-		}
 	}
 }
 

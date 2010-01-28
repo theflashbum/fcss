@@ -30,22 +30,24 @@
  */
 
 package com.flashartofwar.fcss.factories {
-	import com.flashartofwar.fcss.styles.IStyle;
+    import com.flashartofwar.fcss.applicators.IApplicator;
+    import com.flashartofwar.fcss.styles.IStyle;
     import com.flashartofwar.fcss.stylesheets.IStyleSheet;
-    import com.flashartofwar.fcss.utils.TextFieldUtil;
 
-	import flash.text.TextField;
+    import flash.text.TextField;
 
-	/**
+/**
 	 * @author Jesse Freeman
 	 */
 	public class TextFieldFactory
 	{
         protected var _styleSheet:IStyleSheet;
+        protected var _applicator:IApplicator;
 
-        public function TextFieldFactory(styleSheet:IStyleSheet)
+        public function TextFieldFactory(styleSheet:IStyleSheet, applicator:IApplicator)
         {
             _styleSheet = styleSheet;
+            _applicator = applicator;
         }
 
         public function get styleSheet():IStyleSheet
@@ -57,7 +59,17 @@ package com.flashartofwar.fcss.factories {
         {
             _styleSheet = value;
         }
-        
+
+        public function get applicator():IApplicator
+        {
+            return _applicator;
+        }
+
+        public function set applicator(value:IApplicator):void
+        {
+            _applicator = value;
+        }
+
         /**
 		 *
 		 * @param id
@@ -70,11 +82,10 @@ package com.flashartofwar.fcss.factories {
 
 			var style:IStyle = _styleSheet.getStyle("." + className, "#" + id);
 
-			TextFieldUtil.applyStyle(textField, style);
+			_applicator.applyStyle(textField, style);
 
 			return textField;
 		}
-
 
     }
 }

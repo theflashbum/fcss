@@ -36,7 +36,8 @@ package com.flashartofwar.fcss.managers {
 	/**
 	 * @author jessefreeman
 	 */
-	public class StyleSheetManager
+	[Deprecated(replacement="This class will be removed in the final 1.0 release. Please use the SingletonManager instead.", since="v1.0.0 RC3")]
+    public class StyleSheetManager
 	{
 
 		public static const INIT:String = "init";

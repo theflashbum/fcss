@@ -64,6 +64,7 @@ I am working on making my own but this one is so damn good I couldn't help mysel
             <arg value="-output=${bin.loc}/TestRunner.swf"/>
             <arg value="-default-size=148,148"/>
             <arg value="-default-background-color=0x320401"/>
+            <arg value="-show-deprecation-warnings=true"/>
 
             <!-- Include classes from SWCs in this folder, but only the ones we use. -->
             <arg value="-library-path+=${lib.loc}"/>
@@ -135,7 +136,8 @@ I am working on making my own but this one is so damn good I couldn't help mysel
 
             <!-- Keep the magic alive. -->
             <arg value="-keep-as3-metadata+=Inject"/>
-
+            <arg value="-show-deprecation-warnings=true"/>
+            
             <!-- Boolean mosh pit! -->
             <arg value="-incremental=true"/>
             <arg value="-static-link-runtime-shared-libraries=true"/>

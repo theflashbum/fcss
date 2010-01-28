@@ -30,13 +30,12 @@
  */
 
 package com.flashartofwar.fcss.utils {
-	import com.flashartofwar.fcss.enum.TextFieldProperties;
-	import com.flashartofwar.fcss.enum.TextFormatProperties;
+import com.flashartofwar.fcss.applicators.IApplicator;
+import com.flashartofwar.fcss.applicators.TextFieldApplicator;
 
-	import flash.text.StyleSheet;
-	import flash.text.TextField;
-	import flash.text.TextFormat;
+import flash.text.TextField;
 
+[Deprecated("This class will be removed in the final 1.0 release. Please use an Applicator in com.flashartofwar.fcss.applicators instead.")]
 	public class TextFieldUtil
 	{
 
@@ -49,80 +48,10 @@ package com.flashartofwar.fcss.utils {
 		 */
 		public static function applyStyle(textField:TextField, styleObject:Object):void
 		{
-
-			var textFormat:TextFormat = new TextFormat();
-			var camelCasePropName:String;
-			var prop:String;
-			var value:String;
-
-			for (prop in styleObject)
-			{
-
-				camelCasePropName = camelize(prop, "-");
-				value = styleObject[prop];
-				//trace("Value", value);
-				if (TextFieldProperties.isSupported(camelCasePropName))
-				{
-					textField[camelCasePropName] = TextFieldProperties.cleanupProp(camelCasePropName, value);
-				}
-				else if (TextFormatProperties.isSupported(camelCasePropName))
-				{
-					textFormat[TextFormatProperties.convertProp(camelCasePropName)] = TextFormatProperties.cleanupProp(camelCasePropName, value);
-				}
-				else if (camelCasePropName == STYLE_SHEET)
-				{
-					if (value)
-					{
-						var tempStyleSheet:StyleSheet = new StyleSheet();
-						tempStyleSheet.parseCSS(TextFieldProperties.cleanupProp(camelCasePropName, value));
-					}
-					else
-					{
-						// There was no CSS to parse
-					}
-				}
-				else
-				{
-					// prop is not supported;
-				}
-			}
-
-			textField.defaultTextFormat = textFormat;
-
-			if (tempStyleSheet)
-			{
-				textField.styleSheet = tempStyleSheet;
-			}
-
+            var applicator:IApplicator = new TextFieldApplicator();
+            applicator.applyStyle(textField, styleObject);
 		}
 
-		/**
-		 * <p>Returns given lowercaseandunderscoreword as a camelCased word.</p>
-		 *
-		 * @param string lowercaseandunderscoreword Word to camelize
-		 * @return string Camelized word. likeThis.
-		 */
-		private static function camelize(lowercaseandunderscoreword:String, deimiter:String = "-"):String
-		{
-			var tarray:Array = lowercaseandunderscoreword.split(deimiter);
-
-			for (var i:int = 1; i < tarray.length; i++)
-			{
-				tarray[i] = ucfirst(tarray[i] as String);
-			}
-			var replace:String = tarray.join("");
-			return replace;
-		}
-
-		/**
-		 * <p>Make first character of word upper case</p>
-		 * @param	word
-		 * @return string
-		 */
-		private static function ucfirst(word:String):String
-		{
-			return word.substr(0, 1).toUpperCase() + word.substr(1);
-		}
 	}
 }
 

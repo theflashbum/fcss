@@ -120,8 +120,9 @@ trace("style", style);
 // Create a TextField
 var tf:TextField = new TextField();
 
-// Use TextFieldUtility to apply the style to the TextField
-TextFieldUtil.applyStyle(tf, style);
+// Use a TextFieldApplicator to apply the style to the TextField
+var tfApplicator:TextFieldApplicator = new TextFieldApplicator();
+tfApplicator.applyStyle(tf, style);
 
 // Use TextField like you would normally
 tf.htmlText = "F*CSS - Hello World";
@@ -144,7 +145,7 @@ trace("style2 (Merged .TextField + #demoStyle2)", style2);
 var tf2:TextField = new TextField();
 
 // Use TextFieldUtility to apply the style to the TextField
-TextFieldUtil.applyStyle(tf2, style2);
+tfApplicator.applyStyle(tf2, style2);
 
 // Use TextField like you would normally
 tf2.htmlText = "F*CSS Demo 2 - Hello World";
@@ -157,7 +158,7 @@ addChild(tf2);
 // StyleSheetManager/StyleSheetCollection
 
 // Get a reference of the StyleSheetCollection from the StyleSheetManager
-var styleSheetCollection:IStyleSheetCollection = StyleSheetManager.collection;
+var styleSheetCollection:IStyleSheetCollection = SingletonManager.getClassReference(StyleSheetCollection) as IStyleSheetCollection;
 
 // Register style sheet with the Collection.
 styleSheetCollection.addStyleSheet(styleSheet, "defaultSheet");
@@ -165,11 +166,11 @@ styleSheetCollection.addStyleSheet(styleSheet, "defaultSheet");
 
 /** How To Use The TextFieldFactory **/
 
-// This assumes you are using the StyleSheetManager. If not, you will have to
+// This assumes you are have created a StyleSheetCollection. If not, you will have to
 // create a new FStyleSheet, parse css data then pass that into the factory.
 
-// Create a new factory and pass in a reference to a IStyleSheet
-var tff:TextFieldFactory = new TextFieldFactory(StyleSheetManager.collection);
+// Create a new factory and pass in a reference to a IStyleSheet and an IApplicator
+var tff:TextFieldFactory = new TextFieldFactory(styleSheetCollection, tfApplicator);
 
 // The first param is the id and the second is the calls. It will
 // automatically add # and . to the string to "emulate" how
@@ -204,8 +205,9 @@ shape.graphics.endFill();
 addChild(shape);
 
 // Get a Style
-var shapeStyle:IStyle = StyleSheetManager.collection.getStyle("#demoShapeStyle");
+var shapeStyle:IStyle = styleSheetCollection.getStyle("#demoShapeStyle");
 
 // Now you can apply the style to any object, lets use the
 // shape as our target.
-StyleApplierUtil.applyProperties(shape,shapeStyle);
+var styleAppliactor:StyleApplicator = new StyleApplicator();
+styleAppliactor.applyStyle(shape,shapeStyle);

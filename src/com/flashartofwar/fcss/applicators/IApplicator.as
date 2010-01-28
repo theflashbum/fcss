@@ -1,7 +1,7 @@
 
 /**
  * <p>Original Author:  jessefreeman</p>
- * <p>Class File: StyleApplierUtil.as</p>
+ * <p>Class File: IApplicator.as</p>
  *
  * <p>Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,37 +29,12 @@
  *
  */
 
-package com.flashartofwar.fcss.utils {
-import com.flashartofwar.fcss.applicators.IApplicator;
-import com.flashartofwar.fcss.applicators.StyleApplicator;
-import com.flashartofwar.fcss.objects.PropertyMapObject;
+package com.flashartofwar.fcss.applicators
+{
+import com.flashartofwar.fcss.styles.IStyle;
 
-	import flash.utils.Dictionary;
-	import flash.utils.describeType;
-
-	/**
-	 * @author jessefreeman
-	 */
-	[Deprecated("This class will be removed in the final 1.0 release. Please use an Applicator in com.flashartofwar.fcss.applicators instead.")]
-    public class StyleApplierUtil
-	{
-
-		protected static var cachedPropertyMaps:Dictionary = new Dictionary(true);
-
-		/**
-		 * <p>This method will loop through the properties of a Style and attempt
-		 * to apply them to the target object. There is a lot going on under the
-		 * hood to make this process as fast as possible.</p>
-		 *
-		 * @param target
-		 * @param style
-		 */
-		public static function applyProperties(target:Object, styleObject:Object):void
-		{
-			var applicator:IApplicator = new StyleApplicator();
-            applicator.applyStyle(target, styleObject);
-		}
-
-	}
+public interface IApplicator
+{
+    function applyStyle(target:Object, style:Object):void;
 }
-
+}

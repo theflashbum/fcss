@@ -1,13 +1,17 @@
 package com.flashartofwar.fcss.factories {
-	import com.flashartofwar.fcss.managers.StyleSheetManager;
-	import com.flashartofwar.fcss.utils.TypeHelperUtil;
+import com.flashartofwar.fcss.applicators.IApplicator;
+import com.flashartofwar.fcss.applicators.TextFieldApplicator;
+import com.flashartofwar.fcss.managers.SingletonManager;
+import com.flashartofwar.fcss.stylesheets.IStyleSheetCollection;
+import com.flashartofwar.fcss.stylesheets.StyleSheetCollection;
+import com.flashartofwar.fcss.utils.TypeHelperUtil;
 
-	import org.flexunit.Assert;
+import flash.text.TextField;
+import flash.text.TextFormat;
 
-	import flash.text.TextField;
-	import flash.text.TextFormat;
+import org.flexunit.Assert;
 
-	public class TextFieldFactoryTest
+public class TextFieldFactoryTest
 	{
 		private var textField:TextField;
 		private var tfx:TextFormat;
@@ -80,9 +84,11 @@ package com.flashartofwar.fcss.factories {
 		[Before(ui)]
 		public function runBeforeEachTest():void
 		{
-			StyleSheetManager.collection.parseCSS(cssText);
+			var collection:IStyleSheetCollection = SingletonManager.getClassReference(StyleSheetCollection) as IStyleSheetCollection;
+
+            collection.parseCSS(cssText);
 			
-			var tff:TextFieldFactory = new TextFieldFactory(StyleSheetManager.collection);
+			var tff:TextFieldFactory = new TextFieldFactory(collection, SingletonManager.getClassReference(TextFieldApplicator) as IApplicator);
 			
 			textField = tff.createTextField("DemoTextField");
 			textField.htmlText = "Hello World!";
