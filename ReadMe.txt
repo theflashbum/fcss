@@ -209,5 +209,5 @@ var shapeStyle:IStyle = styleSheetCollection.getStyle("#demoShapeStyle");
 
 // Now you can apply the style to any object, lets use the
 // shape as our target.
-var styleAppliactor:StyleApplicator = new StyleApplicator();
+var styleApplicator:StyleApplicator = new StyleApplicator();
 styleAppliactor.applyStyle(shape,shapeStyle);
