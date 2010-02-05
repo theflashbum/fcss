@@ -35,7 +35,7 @@ import com.flashartofwar.fcss.applicators.TextFieldApplicator;
 
 import flash.text.TextField;
 
-[Deprecated("This class will be removed in the final 1.0 release. Please use an Applicator in com.flashartofwar.fcss.applicators instead.")]
+	[Deprecated("This class will be removed in the final 1.0 release. Please use an Applicator in com.flashartofwar.fcss.applicators instead.")]
 	public class TextFieldUtil
 	{
 
