@@ -170,7 +170,7 @@ styleSheetCollection.addStyleSheet(styleSheet, "defaultSheet");
 // create a new FStyleSheet, parse css data then pass that into the factory.
 
 // Create a new factory and pass in a reference to a IStyleSheet and an IApplicator
-var tff:TextFieldFactory = new TextFieldFactory(styleSheetCollection, tfApplicator);
+var tff:TextFieldFactory = new TextFieldFactory(tfApplicator, styleSheetCollection);
 
 // The first param is the id and the second is the calls. It will
 // automatically add # and . to the string to "emulate" how
@@ -210,4 +210,4 @@ var shapeStyle:IStyle = styleSheetCollection.getStyle("#demoShapeStyle");
 // Now you can apply the style to any object, lets use the
 // shape as our target.
 var styleApplicator:StyleApplicator = new StyleApplicator();
-styleAppliactor.applyStyle(shape,shapeStyle);
+styleApplicator.applyStyle(shape,shapeStyle);
