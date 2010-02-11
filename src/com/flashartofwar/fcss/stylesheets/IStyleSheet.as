@@ -1,4 +1,3 @@
-
 /**
  * <p>Original Author:  jessefreeman</p>
  * <p>Class File: IStyleSheet.as</p>
@@ -25,38 +24,39 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/>
- *		1.0  Initial version Dec 03, 2009</p>
+ *        1.0  Initial version Dec 03, 2009</p>
  *
  */
 
-package com.flashartofwar.fcss.stylesheets {
-import com.flashartofwar.fcss.styles.IStyle;
+package com.flashartofwar.fcss.stylesheets
+{
+    import com.flashartofwar.fcss.styles.IStyle;
 
-public interface IStyleSheet
-	{
+    public interface IStyleSheet
+    {
 
-		function get name() : String;
-		
-		function set name(name : String) : void;
-		
-		function parseCSS(CSSText:String, compressText:Boolean = true):IStyleSheet;
+        function get name():String;
 
-		function clear():void;
+        function set name(name:String):void;
 
-		function get styleNames():Array;
+        function parseCSS(CSSText:String):IStyleSheet;
 
-		function newStyle(name:String, style:IStyle):void;
+        function clear():void;
 
-		function getStyle(... styleName):IStyle;
+        function get styleNames():Array;
 
-		function hasStyle(name:String):Boolean;
+        function newStyle(name:String, style:IStyle):void;
 
-		function relatedStyles(name:String):Array;
+        function getStyle(... styleName):IStyle;
 
-		function toString():String;
-		
-		function styleLookup(styleName : String, getRelated:Boolean = true) : IStyle;
+        function hasStyle(name:String):Boolean;
 
-	}
+        function relatedStyles(name:String):Array;
+
+        function toString():String;
+
+        function styleLookup(styleName:String, getRelated:Boolean = true):IStyle;
+
+    }
 }
 

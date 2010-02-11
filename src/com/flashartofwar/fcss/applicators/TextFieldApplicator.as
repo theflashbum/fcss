@@ -1,4 +1,3 @@
-
 /**
  * <p>Original Author:  jessefreeman</p>
  * <p>Class File: TextFieldApplicator.as</p>
@@ -25,33 +24,34 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/>
- *		1.0  Initial version Dec 03, 2009</p>
+ *        1.0  Initial version Dec 03, 2009</p>
  *
  */
 
-package com.flashartofwar.fcss.applicators {
-import com.flashartofwar.fcss.enum.TextFieldProperties;
-import com.flashartofwar.fcss.enum.TextFormatProperties;
-import com.flashartofwar.fcss.utils.CSSTidyUtil;
+package com.flashartofwar.fcss.applicators
+{
+    import com.flashartofwar.fcss.enum.TextFieldProperties;
+    import com.flashartofwar.fcss.enum.TextFormatProperties;
 
-import flash.text.StyleSheet;
-import flash.text.TextField;
-import flash.text.TextFormat;
+    import flash.text.StyleSheet;
+    import flash.text.TextField;
+    import flash.text.TextFormat;
 
-public class TextFieldApplicator implements IApplicator
-	{
+    public class TextFieldApplicator implements IApplicator
+    {
 
-		private static const STYLE_SHEET:String = "styleSheet";
+        private static const STYLE_SHEET:String = "styleSheet";
 
-		/**
-		 * This utility helps apply Styles to TextFields. Pass in a TextField
-		 * and a Style and the utility will handle everything for you. The method
-		 * will parse out props for TextField, TextFormat, and native StyleSheet.
-		 */
-		public function applyStyle(target:Object, styleObject:Object):void
-		{
+        /**
+         * This utility helps apply Styles to TextFields. Pass in a TextField
+         * and a Style and the utility will handle everything for you. The method
+         * will parse out props for TextField, TextFormat, and native StyleSheet.
+         */
 
-            if(target is TextField)
+        public function applyStyle(target:Object, styleObject:Object):void
+        {
+
+            if (target is TextField)
             {
 
                 var textFormat:TextFormat = new TextFormat();
@@ -63,18 +63,18 @@ public class TextFieldApplicator implements IApplicator
                 {
 
                     //TODO this should be removed or put in a prefilter.
-                    camelCasePropName = CSSTidyUtil.camelize(prop, "-");
+                    //camelCasePropName = CSSTidyUtil.camelize(prop, "-");
+                    camelCasePropName = propFilter(prop);
+
                     value = styleObject[prop];
                     //trace("Value", value);
                     if (TextFieldProperties.isSupported(camelCasePropName))
                     {
                         target[camelCasePropName] = TextFieldProperties.cleanupProp(camelCasePropName, value);
-                    }
-                    else if (TextFormatProperties.isSupported(camelCasePropName))
+                    } else if (TextFormatProperties.isSupported(camelCasePropName))
                     {
                         textFormat[TextFormatProperties.convertProp(camelCasePropName)] = TextFormatProperties.cleanupProp(camelCasePropName, value);
-                    }
-                    else if (camelCasePropName == STYLE_SHEET)
+                    } else if (camelCasePropName == STYLE_SHEET)
                     {
                         if (value)
                         {
@@ -105,8 +105,13 @@ public class TextFieldApplicator implements IApplicator
                 throw new Error("The supplied target was not a TextField.");
             }
 
-		}
+        }
 
-	}
+        protected function propFilter(prop:String):String
+        {
+            return prop;
+        }
+
+    }
 }
 

@@ -10,9 +10,84 @@ package com.flashartofwar.fcss.stylesheets
     {
 
         private var sheet:FStyleSheet;
-    
+
         public function StyleSheetTest()
         {
+        }
+
+        public static function get cssTextA():String
+        {
+            var xml:XML = <css>
+                <![CDATA[/* This is a comment in the CSS file */
+            @variables
+            {
+                    defaultColor: #333333;
+                    }
+
+            baseStyle {
+                    x: 10;
+                    y: 10;
+                    width: 100px;
+                    height: 100%;
+                    padding: 5;
+                    margin: 10;
+                    }
+
+            baseStyle .Button{
+                    x: 0px;
+                    y: 0px;
+                    background-color: #000000;
+                    }
+
+            #playButton {
+                    background-color: #FFFFFF;
+                    background-image: url('/images/play_button_background.jpg');
+                    }
+
+            #playButton:over {
+                    background-color: var(defaultColor);
+                    }
+
+            interactive {
+                    cursor: hand;
+                    }
+
+            baseStyle interactive .SimpleButton
+            {
+                    width: 100;
+                    height: 100;
+                    }
+            ]]>
+            </css>;
+
+            return xml.toString();
+        }
+
+
+        public static function get cssTextB():String
+        {
+            var xml:XML = <css><![CDATA[/* This is a comment in the CSS file */
+
+                                        @variables
+                                        {
+                                                test2: FooBar;
+                                                }
+
+                                baseStyle {
+                                        x: 300;
+                                        height: 150px;
+                                        margin: 0;
+                                        }
+
+                                extraStyle
+                                {
+                                        debug: true;
+                                        }
+
+
+                                ]]>
+            </css>;
+            return xml.toString();
         }
 
         [Before]
@@ -20,7 +95,7 @@ package com.flashartofwar.fcss.stylesheets
         public function runBeforeEveryTest():void
         {
             sheet = new FStyleSheet("sheetA");
-            sheet.parseCSS(StyleSheetTextCSSData.cssTextA);
+            sheet.parseCSS(new CSSTidyUtil(cssTextA).toString());
         }
 
         [After]
@@ -33,7 +108,7 @@ package com.flashartofwar.fcss.stylesheets
 
         protected function praseSecondCSSSheet():void
         {
-            sheet.parseCSS(StyleSheetTextCSSData.cssTextB);
+            sheet.parseCSS(new CSSTidyUtil(cssTextB).toString());
         }
 
         [Test]
@@ -101,7 +176,7 @@ package com.flashartofwar.fcss.stylesheets
 
         public function testToString():void
         {
-            Assert.assertEquals(sheet.toString(), CSSTidyUtil.tidy(StyleSheetTextCSSData.cssTextA));
+            Assert.assertEquals(sheet.toString(), new CSSTidyUtil(cssTextA).toString());
         }
 
         [Test]
@@ -133,7 +208,7 @@ package com.flashartofwar.fcss.stylesheets
 
         public function testVaribleMerge():void
         {
-            sheet.parseCSS(StyleSheetTextCSSData.cssTextB);
+            sheet.parseCSS(new CSSTidyUtil(cssTextB).toString());
             Assert.assertEquals(sheet.getStyle("@variables").toString(), "@variables{styleName:@variables;defaultColor:#333333;test2:FooBar;}");
         }
 
@@ -174,7 +249,7 @@ package com.flashartofwar.fcss.stylesheets
         public function testStyleSheetReturnFromParse():void
         {
             var newSheet:FStyleSheet = new FStyleSheet();
-            var returnedStyleSheet:FStyleSheet = newSheet.parseCSS(StyleSheetTextCSSData.cssTextA) as FStyleSheet;
+            var returnedStyleSheet:FStyleSheet = newSheet.parseCSS(new CSSTidyUtil(cssTextA).toString()) as FStyleSheet;
             Assert.assertEquals(newSheet, returnedStyleSheet);
         }
 
@@ -183,7 +258,7 @@ package com.flashartofwar.fcss.stylesheets
         public function testSetStyleSheetName():void
         {
             sheet.name = "DemoStyleSheet";
-            var returnedStyleSheet:FStyleSheet = sheet.parseCSS(StyleSheetTextCSSData.cssTextB) as FStyleSheet;
+            var returnedStyleSheet:FStyleSheet = sheet.parseCSS(new CSSTidyUtil(cssTextB).toString()) as FStyleSheet;
 
             Assert.assertEquals(sheet.name, returnedStyleSheet.name);
         }

@@ -1,20 +1,21 @@
 package com.flashartofwar.fcss.managers
 {
-import com.flashartofwar.fcss.styles.IStyle;
-import com.flashartofwar.fcss.stylesheets.FStyleSheet;
-import com.flashartofwar.fcss.stylesheets.IStyleSheet;
+    import com.flashartofwar.fcss.styles.IStyle;
+    import com.flashartofwar.fcss.stylesheets.FStyleSheet;
+    import com.flashartofwar.fcss.stylesheets.IStyleSheet;
+    import com.flashartofwar.fcss.utils.CSSTidyUtil;
 
-import org.flexunit.Assert;
+    import org.flexunit.Assert;
 
-/**
- * @author jessefreeman
- */
-public class SingletonManagerTest
-{
-
-    public function get cssText():String
+    /**
+     * @author jessefreeman
+     */
+    public class SingletonManagerTest
     {
-        var xml:XML = <css><![CDATA[/* This is a comment in the CSS file */
+
+        public function get cssText():String
+        {
+            var xml:XML = <css><![CDATA[/* This is a comment in the CSS file */
 								.TextField
 								{
 									alwaysShowSelection: true;
@@ -68,22 +69,22 @@ public class SingletonManagerTest
 								a{color:#ff0000}
 
 							]]>
-        </css>;
-        return xml.toString();
+            </css>;
+            return xml.toString();
+        }
+
+        [Test]
+        public function testSingleton():void
+        {
+            var sheet:IStyleSheet = SingletonManager.getClassReference(FStyleSheet) as IStyleSheet;
+            sheet.parseCSS(new CSSTidyUtil(cssText).toString());
+
+            var sheet2:IStyleSheet = SingletonManager.getClassReference(FStyleSheet) as IStyleSheet;
+
+
+            var style:IStyle = sheet2.getStyle("a");
+
+            Assert.assertEquals(style.toString(), "a{styleName:a;color:#ff0000;}");
+        }
     }
-
-    [Test]
-    public function testSingleton():void
-    {
-        var sheet:IStyleSheet = SingletonManager.getClassReference(FStyleSheet) as IStyleSheet;
-        sheet.parseCSS(cssText);
-
-        var sheet2:IStyleSheet = SingletonManager.getClassReference(FStyleSheet) as IStyleSheet;
-
-
-        var style:IStyle = sheet2.getStyle("a");
-
-        Assert.assertEquals(style.toString(), "a{styleName:a;color:#ff0000;}");
-    }
-}
 }

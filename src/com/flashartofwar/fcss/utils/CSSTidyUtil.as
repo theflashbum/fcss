@@ -1,4 +1,3 @@
-
 /**
  * <p>Original Author:  jessefreeman</p>
  * <p>Class File: CSSTidyUtil.as</p>
@@ -25,69 +24,83 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/>
- *		1.0  Initial version Dec 03, 2009</p>
+ *        1.0  Initial version Dec 03, 2009</p>
  *
  */
 
 package com.flashartofwar.fcss.utils
 {
 
-	/**
-	 * <p>CSSTidyUtil uses regex to remove spaces, breaks, "px" and other items
-	 * that the F*CSS's parser doesn't know how to handle. This also shrinks
-	 * the CSS filesize substatually to help speed up parsing.</p>
-	 *
-	 * <p>In most cases it is better to do this on the server then in Flash at
-	 * run time. You can simply take this regex and run it through php or some
-	 * other server side language.</p>
-	 *
-	 * @author jessefreeman
-	 */
-	public class CSSTidyUtil
-	{
+    /**
+     * <p>CSSTidyUtil uses regex to remove spaces, breaks, "px" and other items
+     * that the F*CSS's parser doesn't know how to handle. This also shrinks
+     * the CSS filesize substatually to help speed up parsing.</p>
+     *
+     * <p>In most cases it is better to do this on the server then in Flash at
+     * run time. You can simply take this regex and run it through php or some
+     * other server side language.</p>
+     *
+     * @author jessefreeman
+     */
+    public class CSSTidyUtil
+    {
 
-		protected static const COMPRESS_CSS:RegExp = /\s*([@{}:;,]|\)\s|\s\()\s*|\/\*([^*\\\\]|\*(?!\/))+\*\/|[\n\r\t]/g;
+        private const COMPRESS_CSS:RegExp = /\s*([@{}:;,]|\)\s|\s\()\s*|\/\*([^*\\\\]|\*(?!\/))+\*\/|[\n\r\t]/g;
 
-		/**
-		 * <p>This uses regex to remove spaces, breaks, "px" and other items
-		 * that the F*CSS's parser doesn't know how to handle and returns a clean
-		 * string.</p>
-		 *
-		 * @param cssText
-		 * @return
-		 */
-		public static function tidy(cssText:String):String
-		{
-			return cssText.replace(COMPRESS_CSS, "$1");
-		}
+        private var cssText:String;
+
+        public function CSSTidyUtil(cssText:String)
+        {
+            this.cssText = cssText;
+        }
 
         /**
-		 * <p>Returns given lowercaseandunderscoreword as a camelCased word.</p>
-		 *
-		 * @param string lowercaseandunderscoreword Word to camelize
-		 * @return string Camelized word. likeThis.
-		 */
-		public static function camelize(lowercaseandunderscoreword:String, deimiter:String = "-"):String
-		{
-			var tarray:Array = lowercaseandunderscoreword.split(deimiter);
+         * <p>This uses regex to remove spaces, breaks, "px" and other items
+         * that the F*CSS's parser doesn't know how to handle and returns a clean
+         * string.</p>
+         *
+         * @param cssText
+         * @return
+         */
+        public function tidy(cssText:String):String
+        {
+            return cssText.replace(COMPRESS_CSS, "$1");
+        }
 
-			for (var i:int = 1; i < tarray.length; i++)
-			{
-				tarray[i] = ucfirst(tarray[i] as String);
-			}
-			var replace:String = tarray.join("");
-			return replace;
-		}
+        /**
+         * <p>Returns given lowercaseandunderscoreword as a camelCased word.</p>
+         *
+         * @param string lowercaseandunderscoreword Word to camelize
+         * @return string Camelized word. likeThis.
+         */
+        protected function camelize(lowercaseandunderscoreword:String, deimiter:String = "-"):String
+        {
+            var tarray:Array = lowercaseandunderscoreword.split(deimiter);
 
-		/**
-		 * <p>Make first character of word upper case</p>
-		 * @param	word
-		 * @return string
-		 */
-		public static function ucfirst(word:String):String
-		{
-			return word.substr(0, 1).toUpperCase() + word.substr(1);
-		}
-	}
+            for (var i:int = 1; i < tarray.length; i++)
+            {
+                tarray[i] = ucfirst(tarray[i] as String);
+            }
+            var replace:String = tarray.join("");
+            return replace;
+        }
+
+        /**
+         * <p>Make first character of word upper case</p>
+         * @param    word
+         * @return string
+         */
+        protected function ucfirst(word:String):String
+        {
+            return word.substr(0, 1).toUpperCase() + word.substr(1);
+        }
+
+        public function toString():String
+        {
+            return tidy(cssText);
+        }
+
+
+    }
 }
 
