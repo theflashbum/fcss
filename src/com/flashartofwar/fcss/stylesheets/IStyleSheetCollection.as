@@ -24,27 +24,29 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/>
- *		1.0  Initial version Dec 03, 2009</p>
+ *        1.0.0  Initial version Feb 11, 2010</p>
  *
  */
 
-package com.flashartofwar.fcss.stylesheets {
+package com.flashartofwar.fcss.stylesheets
+{
 
-	/**
-	 * @author jessefreeman
-	 */
-	public interface IStyleSheetCollection extends IStyleSheet {
+    /**
+     * @author jessefreeman
+     */
+    public interface IStyleSheetCollection extends IStyleSheet
+    {
 
-		function get baseStyleSheet() : IStyleSheet;
+        function get baseStyleSheet():IStyleSheet;
 
-		function getStyleSheet(name : String) : IStyleSheet;
+        function getStyleSheet(name:String):IStyleSheet;
 
-		function addStyleSheet(sheet : IStyleSheet, name : String = null) : IStyleSheet;
+        function addStyleSheet(sheet:IStyleSheet, name:String = null):IStyleSheet;
 
-		function removeStyleSheet(name : String) : IStyleSheet;
+        function removeStyleSheet(name:String):IStyleSheet;
 
-		function get totalStyleSheets() : Number;
-	}
+        function get totalStyleSheets():Number;
+    }
 }
 
 

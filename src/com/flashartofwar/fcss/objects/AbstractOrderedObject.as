@@ -1,4 +1,3 @@
-
 /**
  * <p>Original Author:  jessefreeman</p>
  * <p>Class File: AbstractOrderedObject.as</p>
@@ -25,226 +24,227 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/>
- *		1.0  Initial version Dec 03, 2009</p>
+ *        1.0.0  Initial version Feb 11, 2010</p>
  *
  */
 
-package com.flashartofwar.fcss.objects {
-import flash.errors.IllegalOperationError;
-import flash.net.registerClassAlias;
-import flash.utils.Proxy;
-import flash.utils.flash_proxy;
+package com.flashartofwar.fcss.objects
+{
+    import flash.errors.IllegalOperationError;
+    import flash.net.registerClassAlias;
+    import flash.utils.Proxy;
+    import flash.utils.flash_proxy;
 
-/**
-	 * @author jessefreeman
-	 */
-	public dynamic class AbstractOrderedObject extends Proxy
-	{
+    /**
+     * @author jessefreeman
+     */
+    public dynamic class AbstractOrderedObject extends Proxy
+    {
 
-		protected var properties:Object = new Object();
+        protected var properties:Object = new Object();
 
-		protected var propertiesIndex:Array = new Array();
+        protected var propertiesIndex:Array = new Array();
 
-		/**
-		 *
-		 * <p>AbstractOrderedObject is a special object that keeps an ordered
-		 * list of each property added to it to allow ordered looping through
-		 * it's values. This assures that the order of the values set will be
-		 * correctly returned in the order expected.</p>
-		 *
-		 * @param properties
-		 * @param propertiesIndex
-		 *
-		 */
-		public function AbstractOrderedObject(self:AbstractOrderedObject)
-		{
-			if (self != this)
-			{
-				//only a subclass can pass a valid reference to self
-				throw new IllegalOperationError("Abstract class did not receive reference to self. AbstractOrderedObject cannot be instantiated directly.");
-			}
-			else
-			{
-				registerClass();
-			}
-		}
+        /**
+         *
+         * <p>AbstractOrderedObject is a special object that keeps an ordered
+         * list of each property added to it to allow ordered looping through
+         * it's values. This assures that the order of the values set will be
+         * correctly returned in the order expected.</p>
+         *
+         * @param properties
+         * @param propertiesIndex
+         *
+         */
+        public function AbstractOrderedObject(self:AbstractOrderedObject)
+        {
+            if (self != this)
+            {
+                //only a subclass can pass a valid reference to self
+                throw new IllegalOperationError("Abstract class did not receive reference to self. AbstractOrderedObject cannot be instantiated directly.");
+            }
+            else
+            {
+                registerClass();
+            }
+        }
 
-		/**
-		 *
-		 * <p>Merges the properties of one group of properties with the current
-		 * instances values. The supplied properties have a higher importance and
-		 * will override any properties with the same name.</p>
-		 *
-		 * <p>It is important to note that this is a 1 to 1 copy so Arrays, Object
-		 * and other "complex" property values will not be cleanly copied over.
-		 * This is meant to be used when you know a merge is ok to have references
-		 * to the actualy object getting merged in.</p>
-		 *
-		 * @param style
-		 *
-		 */
-		public function merge(object:Object):void
-		{
-			for (var prop:String in object)
-			{
-				this[prop] = object[prop];
-			}
-		}
+        /**
+         *
+         * <p>Merges the properties of one group of properties with the current
+         * instances values. The supplied properties have a higher importance and
+         * will override any properties with the same name.</p>
+         *
+         * <p>It is important to note that this is a 1 to 1 copy so Arrays, Object
+         * and other "complex" property values will not be cleanly copied over.
+         * This is meant to be used when you know a merge is ok to have references
+         * to the actualy object getting merged in.</p>
+         *
+         * @param style
+         *
+         */
+        public function merge(object:Object):void
+        {
+            for (var prop:String in object)
+            {
+                this[prop] = object[prop];
+            }
+        }
 
-		/**
-		 * @private
-		 */
-		public function toString():String
-		{
-			var styleString:String = "{";
-			var i:int;
-			var total:int = propertiesIndex.length;
-			var prop:String;
-			for (i = 0; i < total; i++)
-			{
-				prop = propertiesIndex[i];
-				styleString = styleString.concat(prop, ":", properties[prop].toString(), ";");
-			}
+        /**
+         * @private
+         */
+        public function toString():String
+        {
+            var styleString:String = "{";
+            var i:int;
+            var total:int = propertiesIndex.length;
+            var prop:String;
+            for (i = 0; i < total; i++)
+            {
+                prop = propertiesIndex[i];
+                styleString = styleString.concat(prop, ":", properties[prop].toString(), ";");
+            }
 
-			styleString = styleString.concat("}");
+            styleString = styleString.concat("}");
 
-			return styleString;
-		}
+            return styleString;
+        }
 
-		/**
-		 * @private
-		 */
-		protected function $deleteProperty(name:*):Boolean
-		{
-			var wasDeleted:Boolean = delete properties[name];
-			if (wasDeleted)
-			{
-				propertiesIndex.splice(propertiesIndex.indexOf(name), 1);
-			}
-			return wasDeleted;
-		}
+        /**
+         * @private
+         */
+        protected function $deleteProperty(name:*):Boolean
+        {
+            var wasDeleted:Boolean = delete properties[name];
+            if (wasDeleted)
+            {
+                propertiesIndex.splice(propertiesIndex.indexOf(name), 1);
+            }
+            return wasDeleted;
+        }
 
-		/**
-		 * @private
-		 *
-		 * @return
-		 *
-		 */
-		protected function $setProperty(name:*, value:*):void
-		{
-			if(!properties.hasOwnProperty(name))
-			{
-				propertiesIndex.push(name.toString());
-			}
+        /**
+         * @private
+         *
+         * @return
+         *
+         */
+        protected function $setProperty(name:*, value:*):void
+        {
+            if (!properties.hasOwnProperty(name))
+            {
+                propertiesIndex.push(name.toString());
+            }
 
-			properties[name] = value;
+            properties[name] = value;
 
-		}
+        }
 
-		/**
-		 * @private
-		 *
-		 * <p>It is important to override this class so that the correct Class
-		 * Alias is registered when doing a clone.</p>
-		 */
-		protected function registerClass():void
-		{
-			registerClassAlias("com.flashartofwar.fcss.styles.AbstractProperties", AbstractOrderedObject);
-		}
+        /**
+         * @private
+         *
+         * <p>It is important to override this class so that the correct Class
+         * Alias is registered when doing a clone.</p>
+         */
+        protected function registerClass():void
+        {
+            registerClassAlias("com.flashartofwar.fcss.styles.AbstractProperties", AbstractOrderedObject);
+        }
 
-		/**
-		 *
-		 * @private
-		 *
-		 * @param name
-		 * @return
-		 *
-		 */
-		flash_proxy override function deleteProperty(name:*):Boolean
-		{
-			return $deleteProperty(name);
-		}
+        /**
+         *
+         * @private
+         *
+         * @param name
+         * @return
+         *
+         */
+        flash_proxy override function deleteProperty(name:*):Boolean
+        {
+            return $deleteProperty(name);
+        }
 
-		/**
-		 *
-		 * @private
-		 *
-		 * @param name
-		 * @return
-		 *
-		 */
-		flash_proxy override function getProperty(name:*):*
-		{
-			return properties[name];
-		}
+        /**
+         *
+         * @private
+         *
+         * @param name
+         * @return
+         *
+         */
+        flash_proxy override function getProperty(name:*):*
+        {
+            return properties[name];
+        }
 
-		/**
-		 *
-		 * @private
-		 *
-		 * @param name
-		 * @return
-		 *
-		 */
-		flash_proxy override function hasProperty(name:*):Boolean
-		{
-			return properties.hasOwnProperty(name);
-		}
+        /**
+         *
+         * @private
+         *
+         * @param name
+         * @return
+         *
+         */
+        flash_proxy override function hasProperty(name:*):Boolean
+        {
+            return properties.hasOwnProperty(name);
+        }
 
-		/**
-		 *
-		 * @private
-		 *
-		 * @param index
-		 * @return
-		 *
-		 */
-		flash_proxy override function nextName(index:int):String
-		{
-			return propertiesIndex[index - 1];
-		}
+        /**
+         *
+         * @private
+         *
+         * @param index
+         * @return
+         *
+         */
+        flash_proxy override function nextName(index:int):String
+        {
+            return propertiesIndex[index - 1];
+        }
 
-		/**
-		 *
-		 * @private
-		 *
-		 * @param index
-		 * @return
-		 *
-		 */
-		flash_proxy override function nextNameIndex(index:int):int
-		{
-			if (index < propertiesIndex.length)
-				return index + 1;
-			else
-				return 0;
-		}
+        /**
+         *
+         * @private
+         *
+         * @param index
+         * @return
+         *
+         */
+        flash_proxy override function nextNameIndex(index:int):int
+        {
+            if (index < propertiesIndex.length)
+                return index + 1;
+            else
+                return 0;
+        }
 
-		/**
-		 *
-		 * @private
-		 *
-		 * @param index
-		 * @return
-		 *
-		 */
-		flash_proxy override function nextValue(index:int):*
-		{
-			return properties[propertiesIndex[index - 1]];
-		}
+        /**
+         *
+         * @private
+         *
+         * @param index
+         * @return
+         *
+         */
+        flash_proxy override function nextValue(index:int):*
+        {
+            return properties[propertiesIndex[index - 1]];
+        }
 
-		/**
-		 *
-		 * @private
-		 *
-		 * @param name
-		 * @param value
-		 *
-		 */
-		flash_proxy override function setProperty(name:*, value:*):void
-		{
-			$setProperty(name, value);
-		}
-	}
+        /**
+         *
+         * @private
+         *
+         * @param name
+         * @param value
+         *
+         */
+        flash_proxy override function setProperty(name:*, value:*):void
+        {
+            $setProperty(name, value);
+        }
+    }
 }
 

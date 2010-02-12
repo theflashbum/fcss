@@ -1,4 +1,3 @@
-
 /**
  * <p>Original Author:  jessefreeman</p>
  * <p>Based on a SingletonManger class by Justin Akin</p>
@@ -26,61 +25,61 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/>
- *		1.0  Initial version Jan 28, 2010</p>
+ *        1.0.0  Initial version Feb 11, 2010</p>
  *
  */
 
 package com.flashartofwar.fcss.managers
 {
-import flash.utils.Dictionary;
+    import flash.utils.Dictionary;
 
-public class SingletonManager
+    public class SingletonManager
     {
-		private static var _instance:SingletonManager;
-        
+        private static var _instance:SingletonManager;
+
         private var singletons:Dictionary = new Dictionary();
 
         /**
          * @param enforcer
          */
-        public function SingletonManager( enforcer:SingletonEnforcer ) 
+        public function SingletonManager(enforcer:SingletonEnforcer)
         {
-			if ( enforcer == null ) throw new Error( "Error: Instantiation failed: Use SingletonManager.instance instead." );
+            if (enforcer == null) throw new Error("Error: Instantiation failed: Use SingletonManager.instance instead.");
         }
-        
-        public static function getClassReference( classReference:Class ):*
-        {       	
-        	return instance.getClassReference( classReference );
-        }
-        
-        public function getClassReference( classReference:Class ):*
+
+        public static function getClassReference(classReference:Class):*
         {
-        	var singleton:* = singletons[ classReference ];
-        	
-        	if( !singleton )
-        	{
-				singleton = new classReference();
-        		singletons[ classReference ] = singleton;
-        	}
-        	
-        	return singleton;
+            return instance.getClassReference(classReference);
+        }
+
+        public function getClassReference(classReference:Class):*
+        {
+            var singleton:* = singletons[ classReference ];
+
+            if (!singleton)
+            {
+                singleton = new classReference();
+                singletons[ classReference ] = singleton;
+            }
+
+            return singleton;
         }
 
         /**
-         * @return 
-         */             
-        private static function get instance():SingletonManager 
+         * @return
+         */
+        private static function get instance():SingletonManager
         {
-        	if( !_instance ) 
-			{
-				_instance = new SingletonManager( new SingletonEnforcer() );
-			}
-			
-			return _instance;
+            if (!_instance)
+            {
+                _instance = new SingletonManager(new SingletonEnforcer());
+            }
+
+            return _instance;
         }
     }
 }
 
-internal class SingletonEnforcer 
+internal class SingletonEnforcer
 {
 }

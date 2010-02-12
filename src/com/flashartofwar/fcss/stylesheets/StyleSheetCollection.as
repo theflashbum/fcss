@@ -24,325 +24,326 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/>
- *        1.0  Initial version Dec 03, 2009</p>
+ *        1.0.0  Initial version Feb 11, 2010</p>
  *
  */
 
-package com.flashartofwar.fcss.stylesheets {
-import com.flashartofwar.fcss.enum.CSSProperties;
-import com.flashartofwar.fcss.styles.IStyle;
-import com.flashartofwar.fcss.styles.Style;
-
-/**
- * @author jessefreeman
- */
-public class StyleSheetCollection implements IStyleSheetCollection
+package com.flashartofwar.fcss.stylesheets
 {
-
-    public static const baseStyleSheetName:String = "StyleSheet1";
-    public static const defaultSheetName:String = "StyleSheet";
-    protected var styleSheetInstances:Array = [];
-    protected var _styleSheetNames:Array = [];
-    protected var _name:String;
+    import com.flashartofwar.fcss.enum.CSSProperties;
+    import com.flashartofwar.fcss.styles.IStyle;
+    import com.flashartofwar.fcss.styles.Style;
 
     /**
-     *
-     * @param enforcer
-     *
+     * @author jessefreeman
      */
-    public function StyleSheetCollection()
+    public class StyleSheetCollection implements IStyleSheetCollection
     {
-    }
 
-    public function get styleSheetNames():Array
-    {
-        return _styleSheetNames.slice();
-    }
+        public static const baseStyleSheetName:String = "StyleSheet1";
+        public static const defaultSheetName:String = "StyleSheet";
+        protected var styleSheetInstances:Array = [];
+        protected var _styleSheetNames:Array = [];
+        protected var _name:String;
 
-    /**
-     *
-     * @param id
-     * @param sheet
-     *
-     */
-    public function addStyleSheet(sheet:IStyleSheet, name:String = null):IStyleSheet
-    {
-        // Force the name of the sheet to be the name associated in the collection.
-        if (name == null)
-            name = sheet.name;
-
-        var index:int = _styleSheetNames.indexOf(name);
-        if (index == -1)
+        /**
+         *
+         * @param enforcer
+         *
+         */
+        public function StyleSheetCollection()
         {
-            styleSheetInstances.push(sheet);
-            _styleSheetNames.push(name);
         }
-        else
+
+        public function get styleSheetNames():Array
         {
-            styleSheetInstances[index] = sheet;
+            return _styleSheetNames.slice();
         }
-        return sheet;
-    }
 
-    /**
-     *
-     * @return
-     */
-    public function get baseStyleSheet():IStyleSheet
-    {
-        if (!styleSheetInstances[0])
-            return addStyleSheet(new FStyleSheet(), baseStyleSheetName);
-        else
-            return styleSheetInstances[0] as IStyleSheet;
-    }
-
-    /**
-     *
-     */
-    public function clear():void
-    {
-        styleSheetInstances.length = 0;
-        _styleSheetNames.length = 0;
-    }
-
-    /**
-     *
-     * @param styleName
-     * @return
-     *
-     */
-    public function getStyle(... styleNames):IStyle
-    {
-        var baseStyle:IStyle = createEmptyStyle();
-        var styleName:String;
-        var mergedStyle:IStyle;
-        var tempStyle:IStyle;
-        var nextStyleName:String;
-        
-        var i:int;
-        var totalStyles:int = styleNames.length;
-
-        var j:int;
-        var totalSheets:int = totalStyleSheets;
-        
-        var k:int;
-        var totalInChain:int;
-
-        for (i = 0; i < totalStyles; i ++)
+        /**
+         *
+         * @param id
+         * @param sheet
+         *
+         */
+        public function addStyleSheet(sheet:IStyleSheet, name:String = null):IStyleSheet
         {
-            styleName = styleNames[i];
+            // Force the name of the sheet to be the name associated in the collection.
+            if (name == null)
+                name = sheet.name;
 
-            if (hasStyle(styleName))
+            var index:int = _styleSheetNames.indexOf(name);
+            if (index == -1)
             {
-                var chain:Array = styleInheritanceChain(styleName);
+                styleSheetInstances.push(sheet);
+                _styleSheetNames.push(name);
+            }
+            else
+            {
+                styleSheetInstances[index] = sheet;
+            }
+            return sheet;
+        }
 
-                totalInChain = chain.length;
-                mergedStyle = createEmptyStyle();
-                                    
-                for(j = 0; j < totalInChain; j ++)
+        /**
+         *
+         * @return
+         */
+        public function get baseStyleSheet():IStyleSheet
+        {
+            if (!styleSheetInstances[0])
+                return addStyleSheet(new FStyleSheet(), baseStyleSheetName);
+            else
+                return styleSheetInstances[0] as IStyleSheet;
+        }
+
+        /**
+         *
+         */
+        public function clear():void
+        {
+            styleSheetInstances.length = 0;
+            _styleSheetNames.length = 0;
+        }
+
+        /**
+         *
+         * @param styleName
+         * @return
+         *
+         */
+        public function getStyle(... styleNames):IStyle
+        {
+            var baseStyle:IStyle = createEmptyStyle();
+            var styleName:String;
+            var mergedStyle:IStyle;
+            var tempStyle:IStyle;
+            var nextStyleName:String;
+
+            var i:int;
+            var totalStyles:int = styleNames.length;
+
+            var j:int;
+            var totalSheets:int = totalStyleSheets;
+
+            var k:int;
+            var totalInChain:int;
+
+            for (i = 0; i < totalStyles; i ++)
+            {
+                styleName = styleNames[i];
+
+                if (hasStyle(styleName))
                 {
-                    nextStyleName = chain[j];
-                    for (k = 0; k < totalSheets; k ++)
+                    var chain:Array = styleInheritanceChain(styleName);
+
+                    totalInChain = chain.length;
+                    mergedStyle = createEmptyStyle();
+
+                    for (j = 0; j < totalInChain; j ++)
                     {
-                        tempStyle = IStyleSheet(styleSheetInstances[k]).styleLookup(nextStyleName, false);
-                        mergedStyle.merge(tempStyle);
+                        nextStyleName = chain[j];
+                        for (k = 0; k < totalSheets; k ++)
+                        {
+                            tempStyle = IStyleSheet(styleSheetInstances[k]).styleLookup(nextStyleName, false);
+                            mergedStyle.merge(tempStyle);
+                        }
                     }
+
+                    baseStyle.merge(mergedStyle);
+
+                    baseStyle.styleName = styleName;
                 }
 
-                baseStyle.merge(mergedStyle);
-
-                baseStyle.styleName = styleName;
             }
-
-        }
-        return baseStyle;
-    }
-
-    protected function createEmptyStyle():IStyle
-    {
-        return new Style() as IStyle;
-    }
-
-    /**
-     *
-     * @param id
-     */
-    public function getStyleSheet(name:String):IStyleSheet
-    {
-        var index:int = _styleSheetNames.indexOf(name)
-        return styleSheetInstances[index];
-    }
-
-    /**
-     *
-     * @param name
-     * @return
-     */
-    public function hasStyle(name:String):Boolean
-    {
-        var index:Number = styleNames.indexOf(name);
-        return (index == -1) ? false : true;
-    }
-
-    /**
-     *
-     * @param styleName
-     * @param propertystyle
-     */
-    public function newStyle(name:String, style:IStyle):void
-    {
-        baseStyleSheet.newStyle(name, style);
-    }
-
-    /**
-     *
-     * @param CSSText
-     * @param compressText
-     */
-    public function parseCSS(CSSText:String, compressText:Boolean = true):IStyleSheet
-    {
-        var styleSheet:FStyleSheet = new FStyleSheet();
-        styleSheet.parseCSS(CSSText, compressText);
-        var nextID:Number = totalStyleSheets + 1
-        styleSheet.name = defaultSheetName + nextID;
-        addStyleSheet(styleSheet, styleSheet.name);
-        return styleSheet;
-    }
-
-    /**
-     *
-     * @param name
-     * @return
-     */
-    public function relatedStyles(name:String):Array
-    {
-        var related:Array = [];
-        var tempRelated:Array;
-        var styleSheetName:String;
-
-        var total:int = totalStyleSheets;
-        var i:int;
-        for (i = 0; i < total; i++)
-        {
-            tempRelated = IStyleSheet(styleSheetInstances[i]).relatedStyles(name);
-            related.push.apply(null, tempRelated);
+            return baseStyle;
         }
 
-        return related;
-
-
-    }
-
-    /**
-     *
-     * @param id
-     *
-     */
-    public function removeStyleSheet(name:String):IStyleSheet
-    {
-        var index:Number = _styleSheetNames.indexOf(name);
-
-        var styleSheet:IStyleSheet = styleSheetInstances[index];
-
-        // Remove reference to sheets
-        styleSheetInstances.splice(index, 1);
-        _styleSheetNames.splice(index, 1);
-
-        return styleSheet;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public function get styleNames():Array
-    {
-        var styleNames:Array = [];
-
-        var styleSheet:IStyleSheet;
-        var styles:Array;
-        var total:int;
-        var i:int;
-        var styleName:String;
-
-        //TODO this may need to be optimized a lot more
-        for each (styleSheet in styleSheetInstances)
+        protected function createEmptyStyle():IStyle
         {
-            styles = styleSheet.styleNames;
-            total = styles.length;
+            return new Style() as IStyle;
+        }
 
-            for (i = 0; i < total; i ++)
+        /**
+         *
+         * @param id
+         */
+        public function getStyleSheet(name:String):IStyleSheet
+        {
+            var index:int = _styleSheetNames.indexOf(name)
+            return styleSheetInstances[index];
+        }
+
+        /**
+         *
+         * @param name
+         * @return
+         */
+        public function hasStyle(name:String):Boolean
+        {
+            var index:Number = styleNames.indexOf(name);
+            return (index == -1) ? false : true;
+        }
+
+        /**
+         *
+         * @param styleName
+         * @param propertystyle
+         */
+        public function newStyle(name:String, style:IStyle):void
+        {
+            baseStyleSheet.newStyle(name, style);
+        }
+
+        /**
+         *
+         * @param CSSText
+         * @param compressText
+         */
+        public function parseCSS(CSSText:String, compressText:Boolean = true):IStyleSheet
+        {
+            var styleSheet:FStyleSheet = new FStyleSheet();
+            styleSheet.parseCSS(CSSText, compressText);
+            var nextID:Number = totalStyleSheets + 1
+            styleSheet.name = defaultSheetName + nextID;
+            addStyleSheet(styleSheet, styleSheet.name);
+            return styleSheet;
+        }
+
+        /**
+         *
+         * @param name
+         * @return
+         */
+        public function relatedStyles(name:String):Array
+        {
+            var related:Array = [];
+            var tempRelated:Array;
+            var styleSheetName:String;
+
+            var total:int = totalStyleSheets;
+            var i:int;
+            for (i = 0; i < total; i++)
             {
-                styleName = styles[i];
-                if (styleNames.indexOf(styleName) == - 1)
-                    styleNames.push(styleName);
+                tempRelated = IStyleSheet(styleSheetInstances[i]).relatedStyles(name);
+                related.push.apply(null, tempRelated);
             }
+
+            return related;
+
+
         }
-        return styleNames;
-    }
 
-    /**
-     *
-     * @return
-     */
-    public function toString():String
-    {
-        return styleSheetInstances.join();
-    }
-
-    /**
-     *
-     * @return
-     */
-    public function get totalStyleSheets():Number
-    {
-        return styleSheetInstances.length;
-    }
-
-    public function get name():String
-    {
-        return _name;
-    }
-
-    public function set name(name:String):void
-    {
-        _name = name;
-    }
-
-    public function styleLookup(styleName:String, getRelated:Boolean = true):IStyle
-    {
-        var baseStyle:IStyle = createEmptyStyle();
-        var tempStyle:IStyle;
-        var styleSheet:IStyleSheet;
-
-        for each (styleSheet in styleSheetInstances)
+        /**
+         *
+         * @param id
+         *
+         */
+        public function removeStyleSheet(name:String):IStyleSheet
         {
-            tempStyle = styleSheet.styleLookup(styleName, getRelated);
-            if (tempStyle.styleName != CSSProperties.DEFAULT_STYLE_NAME)
-                baseStyle.merge(tempStyle);
+            var index:Number = _styleSheetNames.indexOf(name);
+
+            var styleSheet:IStyleSheet = styleSheetInstances[index];
+
+            // Remove reference to sheets
+            styleSheetInstances.splice(index, 1);
+            _styleSheetNames.splice(index, 1);
+
+            return styleSheet;
         }
 
-        return baseStyle;
-    }
-
-    protected function styleInheritanceChain(styleName:String):Array
-    {
-
-        var chain:Array = [];
-
-        var styleSheet:IStyleSheet;
-        var tempRelated:Array;
-
-        for each (styleSheet in styleSheetInstances)
+        /**
+         *
+         * @return
+         */
+        public function get styleNames():Array
         {
-            tempRelated = styleSheet.relatedStyles(styleName);
-            chain.push.apply(null, tempRelated);
+            var styleNames:Array = [];
+
+            var styleSheet:IStyleSheet;
+            var styles:Array;
+            var total:int;
+            var i:int;
+            var styleName:String;
+
+            //TODO this may need to be optimized a lot more
+            for each (styleSheet in styleSheetInstances)
+            {
+                styles = styleSheet.styleNames;
+                total = styles.length;
+
+                for (i = 0; i < total; i ++)
+                {
+                    styleName = styles[i];
+                    if (styleNames.indexOf(styleName) == - 1)
+                        styleNames.push(styleName);
+                }
+            }
+            return styleNames;
         }
 
-        chain.push(styleName);
+        /**
+         *
+         * @return
+         */
+        public function toString():String
+        {
+            return styleSheetInstances.join();
+        }
 
-        return chain;
+        /**
+         *
+         * @return
+         */
+        public function get totalStyleSheets():Number
+        {
+            return styleSheetInstances.length;
+        }
+
+        public function get name():String
+        {
+            return _name;
+        }
+
+        public function set name(name:String):void
+        {
+            _name = name;
+        }
+
+        public function styleLookup(styleName:String, getRelated:Boolean = true):IStyle
+        {
+            var baseStyle:IStyle = createEmptyStyle();
+            var tempStyle:IStyle;
+            var styleSheet:IStyleSheet;
+
+            for each (styleSheet in styleSheetInstances)
+            {
+                tempStyle = styleSheet.styleLookup(styleName, getRelated);
+                if (tempStyle.styleName != CSSProperties.DEFAULT_STYLE_NAME)
+                    baseStyle.merge(tempStyle);
+            }
+
+            return baseStyle;
+        }
+
+        protected function styleInheritanceChain(styleName:String):Array
+        {
+
+            var chain:Array = [];
+
+            var styleSheet:IStyleSheet;
+            var tempRelated:Array;
+
+            for each (styleSheet in styleSheetInstances)
+            {
+                tempRelated = styleSheet.relatedStyles(styleName);
+                chain.push.apply(null, tempRelated);
+            }
+
+            chain.push(styleName);
+
+            return chain;
+        }
     }
-}
 }
 

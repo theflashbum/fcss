@@ -1,4 +1,3 @@
-
 /**
  * <p>Original Author:  jessefreeman</p>
  *
@@ -26,125 +25,126 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/>
- *		1.0  Initial version Dec 03, 2009</p>
+ *        1.0.0  Initial version Feb 11, 2010</p>
  *
  */
 
-package com.flashartofwar.fcss.styles {
-import com.flashartofwar.fcss.enum.CSSProperties;
-import com.flashartofwar.fcss.objects.AbstractOrderedObject;
+package com.flashartofwar.fcss.styles
+{
+    import com.flashartofwar.fcss.enum.CSSProperties;
+    import com.flashartofwar.fcss.objects.AbstractOrderedObject;
 
-import flash.net.registerClassAlias;
+    import flash.net.registerClassAlias;
 
-/**
-	 *
-	 * @author jessefreeman
-	 */
-	public dynamic class Style extends AbstractOrderedObject implements IStyle
-	{
+    /**
+     *
+     * @author jessefreeman
+     */
+    public dynamic class Style extends AbstractOrderedObject implements IStyle
+    {
 
-		/**
-		 *
-		 * <p>Style is a special object that contains the names and values
-		 * of properties another class can use to configure itself off of. Unlike
-		 * a regular Object, the Style instance keeps an ordered list to
-		 * allow ordered looping through it's values. This assures that the order
-		 * of the values set will be correctly returned in the order expected.</p>
-		 *
-		 * @param properties
-		 * @param propertiesIndex
-		 *
-		 */
-		public function Style()
-		{
-			super(this);
+        /**
+         *
+         * <p>Style is a special object that contains the names and values
+         * of properties another class can use to configure itself off of. Unlike
+         * a regular Object, the Style instance keeps an ordered list to
+         * allow ordered looping through it's values. This assures that the order
+         * of the values set will be correctly returned in the order expected.</p>
+         *
+         * @param properties
+         * @param propertiesIndex
+         *
+         */
+        public function Style()
+        {
+            super(this);
 
-			//
-			styleName = CSSProperties.DEFAULT_STYLE_NAME;
-			propertiesIndex.push("styleName");
-		}
+            //
+            styleName = CSSProperties.DEFAULT_STYLE_NAME;
+            propertiesIndex.push("styleName");
+        }
 
-		/**
-		 *
-		 * @return
-		 *
-		 */
-		public function clone():IStyle
-		{
-			var cloneProp:IStyle = createEmptyStyle();
-			var total:int = propertiesIndex.length;
+        /**
+         *
+         * @return
+         *
+         */
+        public function clone():IStyle
+        {
+            var cloneProp:IStyle = createEmptyStyle();
+            var total:int = propertiesIndex.length;
 
-			for (var i:int = 0; i < total; i++)
-			{
-				var prop:String = propertiesIndex[i];
-				cloneProp[prop] = properties[prop];
-			}
+            for (var i:int = 0; i < total; i++)
+            {
+                var prop:String = propertiesIndex[i];
+                cloneProp[prop] = properties[prop];
+            }
 
-			return cloneProp;
-		}
+            return cloneProp;
+        }
 
-		protected function createEmptyStyle():IStyle
-		{
-			return new Style();
-		}
-		
-		/**
-		 *
-		 * @return
-		 *
-		 */
-		public function get styleName():String
-		{
-			return properties.styleName;
-		}
+        protected function createEmptyStyle():IStyle
+        {
+            return new Style();
+        }
 
-		/**
-		 *
-		 * @param value
-		 *
-		 */
-		public function set styleName(value:String):void
-		{
-			properties.styleName = value;
-		}
+        /**
+         *
+         * @return
+         *
+         */
+        public function get styleName():String
+        {
+            return properties.styleName;
+        }
 
-		/**
-		 *
-		 * @private
-		 *
-		 * @return
-		 *
-		 */
-		override public function toString():String
-		{
-			return this["styleName"].concat(super.toString());
-		}
+        /**
+         *
+         * @param value
+         *
+         */
+        public function set styleName(value:String):void
+        {
+            properties.styleName = value;
+        }
 
-		/**
-		 *
-		 *
-		 */
-		override protected function registerClass():void
-		{
-			registerClassAlias("com.flashartofwar.fcss.styles.Style", Style);
-		}
-		
-		/**
-		 * 
-		 * 
-		 */
-		override protected function $setProperty(name:*, value:*):void
-		{
-			if(value is String)
-			{
-				super.$setProperty(name, value);
-			}
-			else
-			{
-				throw new Error("Only strings can be set as properties of a Style.");
-			}
-		}
+        /**
+         *
+         * @private
+         *
+         * @return
+         *
+         */
+        override public function toString():String
+        {
+            return this["styleName"].concat(super.toString());
+        }
 
-	}
+        /**
+         *
+         *
+         */
+        override protected function registerClass():void
+        {
+            registerClassAlias("com.flashartofwar.fcss.styles.Style", Style);
+        }
+
+        /**
+         *
+         *
+         */
+        override protected function $setProperty(name:*, value:*):void
+        {
+            if (value is String)
+            {
+                super.$setProperty(name, value);
+            }
+            else
+            {
+                throw new Error("Only strings can be set as properties of a Style.");
+            }
+        }
+
+    }
 }
 

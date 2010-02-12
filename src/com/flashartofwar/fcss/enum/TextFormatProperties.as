@@ -1,4 +1,3 @@
-
 /**
  * <p>Original Author:  jessefreeman</p>
  * <p>Class File: TextFormatProperties.as</p>
@@ -25,79 +24,80 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/>
- *		1.0  Initial version Dec 03, 2009</p>
+ *        1.0.0  Initial version Feb 11, 2010</p>
  *
  */
 
-package com.flashartofwar.fcss.enum {
-import com.flashartofwar.fcss.utils.TypeHelperUtil;
+package com.flashartofwar.fcss.enum
+{
+    import com.flashartofwar.fcss.utils.TypeHelperUtil;
 
-/**
-	 * @author jessefreeman
-	 */
-	public class TextFormatProperties 
-	{
+    /**
+     * @author jessefreeman
+     */
+    public class TextFormatProperties
+    {
 
-		/**
-		 *
-		 * @param property
-		 * @return
-		 */
-		public static function isSupported(property:String):Boolean 
-		{
-			return (PROPERTY_TYPES[convertProp( property )]);
-		}
+        /**
+         *
+         * @param property
+         * @return
+         */
+        public static function isSupported(property:String):Boolean
+        {
+            return (PROPERTY_TYPES[convertProp(property)]);
+        }
 
-		/**
-		 *
-		 * @param id
-		 * @param value
-		 * @return
-		 */
-		public static function cleanupProp(id:String,value:String):* 
-		{
-			return TypeHelperUtil.getType( value, PROPERTY_TYPES[convertProp( id )] );
-		}
+        /**
+         *
+         * @param id
+         * @param value
+         * @return
+         */
+        public static function cleanupProp(id:String, value:String):*
+        {
+            return TypeHelperUtil.getType(value, PROPERTY_TYPES[convertProp(id)]);
+        }
 
-		/**
-		 *
-		 * @param prop
-		 * @return
-		 */
-		public static function convertProp(prop:String):String 
-		{
-			return (PROPERTY_MAP[prop]) ? PROPERTY_MAP[prop] : prop;
-		}
+        /**
+         *
+         * @param prop
+         * @return
+         */
+        public static function convertProp(prop:String):String
+        {
+            return (PROPERTY_MAP[prop]) ? PROPERTY_MAP[prop] : prop;
+        }
 
-		private static const PROPERTY_TYPES:Object = new Object( );
-		{
-			PROPERTY_TYPES[CSSProperties.ALIGN] = "string";
-			PROPERTY_TYPES[CSSProperties.BLOCK_INDENT] = "number";
-			PROPERTY_TYPES[CSSProperties.BOLD] = "boolean";
-			PROPERTY_TYPES[CSSProperties.BULLET] = "boolean";
-			PROPERTY_TYPES[CSSProperties.COLOR] = "uint";
-			PROPERTY_TYPES[CSSProperties.FONT] = "string";
-			PROPERTY_TYPES[CSSProperties.INDENT] = "number";
-			PROPERTY_TYPES[CSSProperties.ITALIC] = "boolean";
-			PROPERTY_TYPES[CSSProperties.KERNING] = "boolean";
-			PROPERTY_TYPES[CSSProperties.LEADING] = "number";
-			PROPERTY_TYPES[CSSProperties.LEFT_MARGIN] = "number";
-			PROPERTY_TYPES[CSSProperties.LETTER_SPACING] = "number";
-			PROPERTY_TYPES[CSSProperties.RIGHT_MARGIN] = "number";
-			PROPERTY_TYPES[CSSProperties.SIZE] = "number";
-			PROPERTY_TYPES[CSSProperties.UNDERLINE] = "boolean";
-		}
+        private static const PROPERTY_TYPES:Object = new Object();
+    {
+        PROPERTY_TYPES[CSSProperties.ALIGN] = "string";
+        PROPERTY_TYPES[CSSProperties.BLOCK_INDENT] = "number";
+        PROPERTY_TYPES[CSSProperties.BOLD] = "boolean";
+        PROPERTY_TYPES[CSSProperties.BULLET] = "boolean";
+        PROPERTY_TYPES[CSSProperties.COLOR] = "uint";
+        PROPERTY_TYPES[CSSProperties.FONT] = "string";
+        PROPERTY_TYPES[CSSProperties.INDENT] = "number";
+        PROPERTY_TYPES[CSSProperties.ITALIC] = "boolean";
+        PROPERTY_TYPES[CSSProperties.KERNING] = "boolean";
+        PROPERTY_TYPES[CSSProperties.LEADING] = "number";
+        PROPERTY_TYPES[CSSProperties.LEFT_MARGIN] = "number";
+        PROPERTY_TYPES[CSSProperties.LETTER_SPACING] = "number";
+        PROPERTY_TYPES[CSSProperties.RIGHT_MARGIN] = "number";
+        PROPERTY_TYPES[CSSProperties.SIZE] = "number";
+        PROPERTY_TYPES[CSSProperties.UNDERLINE] = "boolean";
+    }
 
-		private static const PROPERTY_MAP:Object = new Object;
-		{
-			PROPERTY_MAP[CSSProperties.FONT_FACE] = CSSProperties.FONT;
-			PROPERTY_MAP[CSSProperties.TEXT_ALIGN] = CSSProperties.ALIGN;
-			PROPERTY_MAP[CSSProperties.MARGIN_LEFT] = CSSProperties.LEFT_MARGIN;
-			PROPERTY_MAP[CSSProperties.MARGIN_RIGHT] = CSSProperties.RIGHT_MARGIN;
-			PROPERTY_MAP[CSSProperties.FONT_SIZE] = CSSProperties.SIZE;
-		}
+        private static const PROPERTY_MAP:Object = new Object;
+    {
+        PROPERTY_MAP[CSSProperties.FONT_FACE] = CSSProperties.FONT;
+        PROPERTY_MAP[CSSProperties.TEXT_ALIGN] = CSSProperties.ALIGN;
+        PROPERTY_MAP[CSSProperties.MARGIN_LEFT] = CSSProperties.LEFT_MARGIN;
+        PROPERTY_MAP[CSSProperties.MARGIN_RIGHT] = CSSProperties.RIGHT_MARGIN;
+        PROPERTY_MAP[CSSProperties.FONT_SIZE] = CSSProperties.SIZE;
+    }
 
 
-	}
+    }
 }
 

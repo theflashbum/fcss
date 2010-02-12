@@ -1,4 +1,3 @@
-
 /**
  * <p>Original Author:  jessefreeman</p>
  * <p>Class File: StyleApplicator.as</p>
@@ -25,50 +24,51 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/>
- *		1.0  Initial version Dec 03, 2009</p>
+ *        1.0.0  Initial version Feb 11, 2010</p>
  *
  */
 
-package com.flashartofwar.fcss.applicators {
-import com.flashartofwar.fcss.objects.PropertyMapObject;
-import com.flashartofwar.fcss.utils.*;
+package com.flashartofwar.fcss.applicators
+{
+    import com.flashartofwar.fcss.objects.PropertyMapObject;
+    import com.flashartofwar.fcss.utils.*;
 
-/**
-	 * @author jessefreeman
-	 */
-	public class StyleApplicator implements IApplicator
-	{
+    /**
+     * @author jessefreeman
+     */
+    public class StyleApplicator implements IApplicator
+    {
 
         public function StyleApplicator()
         {
-            
+
         }
 
-		/**
-		 * <p>This method will loop through the properties of a Style and attempt
-		 * to apply them to the target object. There is a lot going on under the
-		 * hood to make this process as fast as possible.</p>
-		 *
-		 * @param target
-		 * @param style
-		 */
-		public function applyStyle(target:Object, styleObject:Object):void
-		{
-			var propMap:PropertyMapObject = PropertyMapUtil.propertyMap(target);
+        /**
+         * <p>This method will loop through the properties of a Style and attempt
+         * to apply them to the target object. There is a lot going on under the
+         * hood to make this process as fast as possible.</p>
+         *
+         * @param target
+         * @param style
+         */
+        public function applyStyle(target:Object, styleObject:Object):void
+        {
+            var propMap:PropertyMapObject = PropertyMapUtil.propertyMap(target);
 
-			for (var prop:String in styleObject)
-			{
+            for (var prop:String in styleObject)
+            {
 
-				if (target.hasOwnProperty(prop))
-				{
+                if (target.hasOwnProperty(prop))
+                {
 
-					var type:String = propMap[prop];
-					var cleanedUpValue:* = TypeHelperUtil.getType(styleObject[prop], type);
+                    var type:String = propMap[prop];
+                    var cleanedUpValue:* = TypeHelperUtil.getType(styleObject[prop], type);
 
-					target[prop] = cleanedUpValue;
-				}
-			}
-		}
+                    target[prop] = cleanedUpValue;
+                }
+            }
+        }
 
     }
 }

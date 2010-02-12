@@ -1,4 +1,3 @@
-
 /**
  * <p>Original Author:  jessefreeman</p>
  * <p>Class File: IStyle.as</p>
@@ -25,22 +24,26 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/>
- *		1.0  Initial version Dec 03, 2009</p>
+ *        1.0.0  Initial version Feb 11, 2010</p>
  *
  */
 
-package com.flashartofwar.fcss.styles 
+package com.flashartofwar.fcss.styles
 {
 
-	/**
-	 * @author jessefreeman
-	 */
-	public interface IStyle 
-	{
-		function set styleName(value:String):void;
-		function get styleName():String;
-		function merge(object:Object):void;
-		function toString():String;
-		function clone():IStyle;
-	}
+    /**
+     * @author jessefreeman
+     */
+    public interface IStyle
+    {
+        function set styleName(value:String):void;
+
+        function get styleName():String;
+
+        function merge(object:Object):void;
+
+        function toString():String;
+
+        function clone():IStyle;
+    }
 }

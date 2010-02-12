@@ -24,70 +24,70 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/>
- *        1.0  Initial version Dec 03, 2009</p>
+ *        1.0.0  Initial version Feb 11, 2010</p>
  *
  */
 
 package com.flashartofwar.fcss.factories
 {
-import com.flashartofwar.fcss.applicators.IApplicator;
-import com.flashartofwar.fcss.styles.IStyle;
-import com.flashartofwar.fcss.stylesheets.IStyleSheet;
+    import com.flashartofwar.fcss.applicators.IApplicator;
+    import com.flashartofwar.fcss.styles.IStyle;
+    import com.flashartofwar.fcss.stylesheets.IStyleSheet;
 
-import flash.text.TextField;
-
-/**
- * @author Jesse Freeman
- */
-public class TextFieldFactory
-{
-    protected var _styleSheet:IStyleSheet;
-    protected var _applicator:IApplicator;
-
-    public function TextFieldFactory(applicator:IApplicator, styleSheet:IStyleSheet)
-    {
-        _styleSheet = styleSheet;
-        _applicator = applicator;
-    }
-
-    public function get styleSheet():IStyleSheet
-    {
-        return _styleSheet;
-    }
-
-    public function set styleSheet(value:IStyleSheet):void
-    {
-        _styleSheet = value;
-    }
-
-    public function get applicator():IApplicator
-    {
-        return _applicator;
-    }
-
-    public function set applicator(value:IApplicator):void
-    {
-        _applicator = value;
-    }
+    import flash.text.TextField;
 
     /**
-     *
-     * @param id
-     * @param className
-     * @return
+     * @author Jesse Freeman
      */
-    public function createTextField(id:String = "textField", className:String = "TextField"):TextField
+    public class TextFieldFactory
     {
-        var textField:TextField = new TextField();
+        protected var _styleSheet:IStyleSheet;
+        protected var _applicator:IApplicator;
 
-        var style:IStyle = _styleSheet.getStyle("." + className, "#" + id);
+        public function TextFieldFactory(applicator:IApplicator, styleSheet:IStyleSheet)
+        {
+            _styleSheet = styleSheet;
+            _applicator = applicator;
+        }
 
-        _applicator.applyStyle(textField, style);
+        public function get styleSheet():IStyleSheet
+        {
+            return _styleSheet;
+        }
 
-        return textField;
+        public function set styleSheet(value:IStyleSheet):void
+        {
+            _styleSheet = value;
+        }
+
+        public function get applicator():IApplicator
+        {
+            return _applicator;
+        }
+
+        public function set applicator(value:IApplicator):void
+        {
+            _applicator = value;
+        }
+
+        /**
+         *
+         * @param id
+         * @param className
+         * @return
+         */
+        public function createTextField(id:String = "textField", className:String = "TextField"):TextField
+        {
+            var textField:TextField = new TextField();
+
+            var style:IStyle = _styleSheet.getStyle("." + className, "#" + id);
+
+            _applicator.applyStyle(textField, style);
+
+            return textField;
+        }
+
     }
-
-}
 }
 
 
