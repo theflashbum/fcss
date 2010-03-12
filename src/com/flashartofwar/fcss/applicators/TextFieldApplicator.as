@@ -38,46 +38,52 @@ package com.flashartofwar.fcss.applicators
     import flash.text.TextField;
     import flash.text.TextFormat;
 
-    public class TextFieldApplicator implements IApplicator
+    public class TextFieldApplicator extends AbstractApplicator
     {
 
         private static const STYLE_SHEET:String = "styleSheet";
+
+
+        public function TextFieldApplicator() {
+            super(this);
+        }
 
         /**
          * This utility helps apply Styles to TextFields. Pass in a TextField
          * and a Style and the utility will handle everything for you. The method
          * will parse out props for TextField, TextFormat, and native StyleSheet.
          */
-        public function applyStyle(target:Object, styleObject:Object):void
+        override public function applyStyle(target:Object, styleObject:Object):void
         {
 
             if (target is TextField)
             {
 
                 var textFormat:TextFormat = new TextFormat();
-                var camelCasePropName:String;
+                var filteredProp:String;
                 var prop:String;
                 var value:String;
 
                 for (prop in styleObject)
                 {
 
-                    //TODO this should be removed or put in a prefilter.
-                    camelCasePropName = CSSTidyUtil.camelize(prop, "-");
+                    filteredProp = propertyFilter(prop);
                     value = styleObject[prop];
                     //trace("Value", value);
-                    if (TextFieldProperties.isSupported(camelCasePropName))
+                    if (TextFieldProperties.isSupported(filteredProp))
                     {
-                        target[camelCasePropName] = TextFieldProperties.cleanupProp(camelCasePropName, value);
-                    } else if (TextFormatProperties.isSupported(camelCasePropName))
+                        target[filteredProp] = TextFieldProperties.cleanupProp(filteredProp, value);
+                    }
+                    else if (TextFormatProperties.isSupported(filteredProp))
                     {
-                        textFormat[TextFormatProperties.convertProp(camelCasePropName)] = TextFormatProperties.cleanupProp(camelCasePropName, value);
-                    } else if (camelCasePropName == STYLE_SHEET)
+                        textFormat[TextFormatProperties.convertProp(filteredProp)] = TextFormatProperties.cleanupProp(filteredProp, value);
+                    }
+                    else if (filteredProp == STYLE_SHEET)
                     {
                         if (value)
                         {
                             var tempStyleSheet:StyleSheet = new StyleSheet();
-                            tempStyleSheet.parseCSS(TextFieldProperties.cleanupProp(camelCasePropName, value));
+                            tempStyleSheet.parseCSS(TextFieldProperties.cleanupProp(filteredProp, value));
                         }
                         else
                         {
@@ -86,7 +92,7 @@ package com.flashartofwar.fcss.applicators
                     }
                     else
                     {
-                        // prop is not supported;
+                        propertyNotFound(prop);
                     }
                 }
 
@@ -103,6 +109,11 @@ package com.flashartofwar.fcss.applicators
                 throw new Error("The supplied target was not a TextField.");
             }
 
+        }
+
+        override protected function propertyFilter(value:String):String
+        {
+            return CSSTidyUtil.camelize(value, "-");
         }
 
     }

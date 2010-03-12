@@ -36,12 +36,12 @@ package com.flashartofwar.fcss.applicators
     /**
      * @author jessefreeman
      */
-    public class StyleApplicator implements IApplicator
+    public class StyleApplicator extends AbstractApplicator
     {
 
         public function StyleApplicator()
         {
-
+            super(this);
         }
 
         /**
@@ -52,22 +52,33 @@ package com.flashartofwar.fcss.applicators
          * @param target
          * @param style
          */
-        public function applyStyle(target:Object, styleObject:Object):void
+        override public function applyStyle(target:Object, styleObject:Object):void
         {
             var propMap:PropertyMapObject = PropertyMapUtil.propertyMap(target);
-
-            for (var prop:String in styleObject)
+            var filteredProp:String;
+            var prop:String;
+            
+            for (prop in styleObject)
             {
+                filteredProp = propertyFilter(prop);
 
-                if (target.hasOwnProperty(prop))
+                if (target.hasOwnProperty(filteredProp))
                 {
 
-                    var type:String = propMap[prop];
-                    var cleanedUpValue:* = TypeHelperUtil.getType(styleObject[prop], type);
+                    var type:String = propMap[filteredProp];
 
-                    target[prop] = cleanedUpValue;
+                    target[filteredProp] = valueFilter(styleObject[prop], type);
+                }
+                else
+                {
+                    propertyNotFound(prop);
                 }
             }
+        }
+
+        override protected function valueFilter(value:String, type:String):*
+        {
+            return TypeHelperUtil.getType(value, type);
         }
 
     }
