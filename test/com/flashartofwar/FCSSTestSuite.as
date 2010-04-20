@@ -3,7 +3,6 @@ package com.flashartofwar
 import com.flashartofwar.fcss.applicators.TextFieldApplicatorTest;
 import com.flashartofwar.fcss.behaviors.ApplyStyleBehaviorTest;
 import com.flashartofwar.fcss.factories.TextFieldFactoryTest;
-import com.flashartofwar.fcss.managers.SingletonManagerTest;
 import com.flashartofwar.fcss.objects.PropertyMapObjectTest;
 import com.flashartofwar.fcss.styles.StyleTest;
 import com.flashartofwar.fcss.stylesheets.StyleSheetCollectionMultipleStyleSheetMergeTest;
@@ -26,11 +25,10 @@ public class FCSSTestSuite
     public var test6:StyleSheetCollectionMultipleStyleSheetMergeTest;
     public var test7:StyleSheetTest;
     public var test8:CSSTidyUtilTest;
-    public var test9:SingletonManagerTest;
-    public var test10:TextFieldFactoryTest;
-    public var test11:TypeHelperUtilTest;
-    public var test13:StyleSheetEmptySelectorTest;
-    public var test14:PropertyMapUtilTest;
-    public var test15:TextFieldApplicatorTest;
+    public var test9:TextFieldFactoryTest;
+    public var test10:TypeHelperUtilTest;
+    public var test11:StyleSheetEmptySelectorTest;
+    public var test12:PropertyMapUtilTest;
+    public var test13:TextFieldApplicatorTest;
 }
 }

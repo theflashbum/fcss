@@ -305,9 +305,9 @@ package com.flashartofwar.fcss.stylesheets
             return _name;
         }
 
-        public function set name(name:String):void
+        public function set name(value:String):void
         {
-            _name = name;
+            _name = value;
         }
 
         public function styleLookup(styleName:String, getRelated:Boolean = true):IStyle

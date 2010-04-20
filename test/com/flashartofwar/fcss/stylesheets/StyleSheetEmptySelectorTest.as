@@ -1,12 +1,12 @@
 package com.flashartofwar.fcss.stylesheets {
-import com.flashartofwar.fcss.managers.SingletonManager;
+
 import com.flashartofwar.fcss.styles.IStyle;
 
 import org.flexunit.Assert;
 
 public class StyleSheetEmptySelectorTest {
     
-    private var collection:IStyleSheetCollection = SingletonManager.getClassReference(StyleSheetCollection) as IStyleSheetCollection;
+    private var collection:IStyleSheetCollection = new StyleSheetCollection();
     
     [Before(ui)]
     public function runBeforeEachTest():void

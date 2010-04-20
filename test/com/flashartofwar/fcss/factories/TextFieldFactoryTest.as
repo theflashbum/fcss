@@ -1,8 +1,7 @@
 package com.flashartofwar.fcss.factories
 {
-import com.flashartofwar.fcss.applicators.IApplicator;
+
 import com.flashartofwar.fcss.applicators.TextFieldApplicator;
-import com.flashartofwar.fcss.managers.SingletonManager;
 import com.flashartofwar.fcss.stylesheets.IStyleSheetCollection;
 import com.flashartofwar.fcss.stylesheets.StyleSheetCollection;
 import com.flashartofwar.fcss.utils.TypeHelperUtil;
@@ -85,11 +84,11 @@ public class TextFieldFactoryTest
     [Before(ui)]
     public function runBeforeEachTest():void
     {
-        var collection:IStyleSheetCollection = SingletonManager.getClassReference(StyleSheetCollection) as IStyleSheetCollection;
+        var collection:IStyleSheetCollection = new StyleSheetCollection();
 
         collection.parseCSS(cssText);
 
-        var tff:TextFieldFactory = new TextFieldFactory(SingletonManager.getClassReference(TextFieldApplicator) as IApplicator, collection);
+        var tff:TextFieldFactory = new TextFieldFactory(new TextFieldApplicator(), collection);
 
         textField = tff.createTextField("DemoTextField");
         textField.htmlText = "Hello World!";

@@ -37,7 +37,7 @@ package com.flashartofwar.fcss.stylesheets
 
         function get name():String;
 
-        function set name(name:String):void;
+        function set name(value:String):void;
 
         function parseCSS(CSSText:String, compressText:Boolean = true):IStyleSheet;
 

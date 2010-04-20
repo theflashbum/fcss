@@ -1,5 +1,6 @@
 package com.flashartofwar.fcss.behaviors {
-import com.flashartofwar.fcss.managers.SingletonManager;
+
+
 import com.flashartofwar.fcss.styles.IStyle;
 import com.flashartofwar.fcss.stylesheets.IStyleSheetCollection;
 import com.flashartofwar.fcss.stylesheets.StyleSheetCollection;
@@ -13,15 +14,15 @@ public class ApplyStyleBehaviorTest
 
     private var dummyClassB:DummyClass;
 
-    private var collection:IStyleSheetCollection = SingletonManager.getClassReference(StyleSheetCollection) as IStyleSheetCollection;
+    private var collection:IStyleSheetCollection = new StyleSheetCollection();
 
     [Before(ui)]
     public function runBeforeEachTest():void
     {
         collection.parseCSS(ApplyStyleBehaviorTestCSSData.cssText);
 
-        dummyClassA = new DummyClass();
-        dummyClassB = new DummyClass("dummyClassB", "CustomDummyClassName");
+        dummyClassA = new DummyClass(collection);
+        dummyClassB = new DummyClass(collection, "dummyClassB", "CustomDummyClassName");
     }
 
     [After(ui)]
@@ -111,10 +112,9 @@ public class ApplyStyleBehaviorTest
 import com.flashartofwar.fcss.applicators.StyleApplicator;
 import com.flashartofwar.fcss.behaviors.ApplyStyleBehavior;
 import com.flashartofwar.fcss.behaviors.IApplyStyleBehavior;
-import com.flashartofwar.fcss.managers.SingletonManager;
+
 import com.flashartofwar.fcss.styles.IStyle;
-import com.flashartofwar.fcss.stylesheets.IStyleSheetCollection;
-import com.flashartofwar.fcss.stylesheets.StyleSheetCollection;
+import com.flashartofwar.fcss.stylesheets.IStyleSheet;
 
 import flash.display.Sprite;
 
@@ -123,9 +123,9 @@ class DummyClass extends Sprite implements IApplyStyleBehavior
 
     private var styleBehavior:IApplyStyleBehavior;
 
-    public function DummyClass(id:String = "dummyClass", styleClass:String = null)
+    public function DummyClass(styleSheet:IStyleSheet, id:String = "dummyClass", styleClass:String = null)
     {
-        styleBehavior = createStyleBehavior(this, id, styleClass);
+        styleBehavior = createStyleBehavior(this, styleSheet, id, styleClass);
     }
 
     public function applyStyle(style:IStyle):void
@@ -148,9 +148,9 @@ class DummyClass extends Sprite implements IApplyStyleBehavior
         return styleBehavior.defaultStyleNames;
     }
 
-    private function createStyleBehavior(target:Object, styleID:String, styleClass:String = null):IApplyStyleBehavior
+    private function createStyleBehavior(target:Object, styleSheet:IStyleSheet, styleID:String, styleClass:String = null):IApplyStyleBehavior
     {
-        return new ApplyStyleBehavior(this, new StyleApplicator(), SingletonManager.getClassReference(StyleSheetCollection) as IStyleSheetCollection, styleID, styleClass);
+        return new ApplyStyleBehavior(this, new StyleApplicator(), styleSheet, styleID, styleClass);
     }
 
     public function applyDefaultStyle(pseudoSelector:String = null):void
