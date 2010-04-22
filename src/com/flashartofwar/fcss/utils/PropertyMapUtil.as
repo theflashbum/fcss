@@ -1,3 +1,4 @@
+
 /**
  * <p>Original Author:  jessefreeman</p>
  * <p>Class File: PropertyMapUtil.as</p>
@@ -24,81 +25,61 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/>
- *        1.0.0  Initial version Feb 11, 2010</p>
+ *		1.0  Initial version Jan 28, 2009</p>
  *
  */
-
 package com.flashartofwar.fcss.utils
 {
+	import com.flashartofwar.fcss.objects.PropertyMapObject;
 
-    import com.flashartofwar.fcss.objects.PropertyMapObject;
+	import flash.utils.Dictionary;
+	import flash.utils.describeType;
+	import flash.utils.getQualifiedClassName;
 
-    import flash.utils.Dictionary;
-    import flash.utils.describeType;
+	public class PropertyMapUtil
+	{
+	    protected static var cachedPropertyMaps:Object = {};
 
-    public class PropertyMapUtil
-    {
-        protected static var cachedPropertyMaps:Dictionary = new Dictionary(true);
+	    /**
+	     * @param target
+	     * @return
+	     */
+	    public static function propertyMap( target:Object ):PropertyMapObject
+	    {
+			var className:String = getQualifiedClassName( target );
+	        var propMap:PropertyMapObject;
+	        var classXML:XML
+			var item:XML;
+			var list:XMLList;
+			var access:String;
+			var itemName:String;
 
-        /**
-         *
-         * @param target
-         * @return
-         *
-         */
-        public static function propertyMap(target:Object):PropertyMapObject
-        {
-
-            var propMap:PropertyMapObject = new PropertyMapObject();
-
-            var classXML:XML = scan(target);
-            var className:String = classXML.@name;
-
-            if (!cachedPropertyMaps[className])
+	        if( cachedPropertyMaps[ className ] )
             {
-                var list:XMLList = classXML..*.((name() == "accessor") || (name() == "variable"));
-                ;
-
-                var item:XML;
-                for each (item in list)
-                {
-                    var itemName:String = item.name().toString();
-
-                    switch (itemName)
-                    {
-                        case "variable":
-                            propMap[item.@name.toString()] = item.@type.toString();
-                            break;
-                        case "accessor":
-                            var access:String = item.@access;
-                            if ((access == "readwrite") || (access == "writeonly"))
-                            {
-                                propMap[item.@name.toString()] = item.@type.toString();
-                            }
-                            break;
-                    }
-                    cachedPropertyMaps[className] = propMap;
-                }
+                return cachedPropertyMaps[ className ];
             }
-
             else
-            {
-                propMap = cachedPropertyMaps[className];
-            }
+	        {
+				propMap = new PropertyMapObject();
+				classXML = describeType( target );
+				list = classXML..*.( name() == "accessor" || name() == "variable" );
 
-            return propMap.clone() as PropertyMapObject;
-        }
+	            for each( item in list )
+	            {
+					access = item.@access;
 
-        /**
-         *
-         * @param target
-         * @return
-         *
-         */
-        private static function scan(target:Object):XML
-        {
-            var classXML:XML = describeType(target);
-            return classXML;
-        }
-    }
+					if( access == "readwrite" || access == "writeonly" || access == null )
+					{
+						propMap[ item.@name.toString() ] = item.@type.toString();
+					}
+	            }
+
+				cachedPropertyMaps[ className ] = propMap;
+
+                return propMap;
+	        }
+
+
+	    }
+	}
 }
