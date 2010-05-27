@@ -52,13 +52,13 @@ package com.flashartofwar.fcss.applicators
          * @param target
          * @param style
          */
-        override public function applyStyle(target:Object, styleObject:Object):void
+        override public function applyStyle(target:Object, style:Object):void
         {
             var propMap:PropertyMapObject = PropertyMapUtil.propertyMap(target);
             var filteredProp:String;
             var prop:String;
             
-            for (prop in styleObject)
+            for (prop in style)
             {
                 filteredProp = propertyFilter(prop);
 
@@ -67,7 +67,7 @@ package com.flashartofwar.fcss.applicators
 
                     var type:String = propMap[filteredProp];
 
-                    target[filteredProp] = valueFilter(styleObject[prop], type);
+                    target[filteredProp] = valueFilter(style[prop], type);
                 }
                 else
                 {

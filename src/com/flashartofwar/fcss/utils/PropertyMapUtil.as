@@ -57,7 +57,6 @@ package com.flashartofwar.fcss.utils
             if (!cachedPropertyMaps[className])
             {
                 var list:XMLList = classXML..*.((name() == "accessor") || (name() == "variable"));
-                ;
 
                 var item:XML;
                 for each (item in list)
