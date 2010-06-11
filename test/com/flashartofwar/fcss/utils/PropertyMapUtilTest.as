@@ -1,34 +1,32 @@
-package com.flashartofwar.fcss.utils {
-	import com.flashartofwar.fcss.objects.PropertyMapObject;
-	import com.flashartofwar.fcss.styles.Style;
+package com.flashartofwar.fcss.utils
+{
+    import com.flashartofwar.fcss.objects.PropertyMapObject;
 
-import com.flashartofwar.fcss.utils.PropertyMapUtil;
+    import org.flexunit.Assert;
 
-import org.flexunit.Assert;
+    public class PropertyMapUtilTest
+    {
 
-	public class PropertyMapUtilTest
-	{
-
-		[Test]
+        [Test]
         public function testPropertyMapObject():void
-		{
-			var propertyMap:PropertyMapObject = PropertyMapUtil.propertyMap(DummyClass);
-			var pass:Boolean = ((propertyMap.name == "string") && (propertyMap.speed == "number") && (propertyMap.items == "array"));
-			Assert.assertTrue(pass);
-		}
-	}
+        {
+            var propertyMap:PropertyMapObject = PropertyMapUtil.propertyMap(DummyClass);
+            var pass:Boolean = ((propertyMap.name == "string") && (propertyMap.speed == "number") && (propertyMap.items == "array"));
+            Assert.assertTrue(pass);
+        }
+    }
 }
 
 class DummyClass
 {
 
-	public function DummyClass()
-	{
-		// Does nothing
-	}
+    public function DummyClass()
+    {
+        // Does nothing
+    }
 
-	public var items:Array;
-	public var name:String;
-	public var speed:Number;
+    public var items:Array;
+    public var name:String;
+    public var speed:Number;
 }
 

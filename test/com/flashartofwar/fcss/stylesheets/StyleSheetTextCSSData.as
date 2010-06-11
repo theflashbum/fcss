@@ -1,14 +1,17 @@
-package com.flashartofwar.fcss.stylesheets {
-public class StyleSheetTextCSSData {
-
-
-    public function StyleSheetTextCSSData() {
-    }
-
-    public static function get cssTextA():String
+package com.flashartofwar.fcss.stylesheets
+{
+    public class StyleSheetTextCSSData
     {
-        var xml:XML = <css>
-            <![CDATA[/* This is a comment in the CSS file */
+
+
+        public function StyleSheetTextCSSData()
+        {
+        }
+
+        public static function get cssTextA():String
+        {
+            var xml:XML = <css>
+                <![CDATA[/* This is a comment in the CSS file */
             @variables
             {
                     defaultColor: #333333;
@@ -48,16 +51,15 @@ public class StyleSheetTextCSSData {
                     height: 100;
                     }
             ]]>
-                </css>;
+            </css>;
 
-                return xml.toString();
-                }
+            return xml.toString();
+        }
 
 
-
-        public static function get cssTextB() : String
+        public static function get cssTextB():String
         {
-            var xml : XML = <css><![CDATA[/* This is a comment in the CSS file */
+            var xml:XML = <css><![CDATA[/* This is a comment in the CSS file */
 
                                         @variables
                                         {
@@ -77,10 +79,9 @@ public class StyleSheetTextCSSData {
 
 
                                 ]]>
-                                </css>;
-        return xml.toString();
+            </css>;
+            return xml.toString();
         }
-
 
 
     }

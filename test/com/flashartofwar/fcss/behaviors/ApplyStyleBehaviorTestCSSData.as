@@ -1,9 +1,11 @@
-package com.flashartofwar.fcss.behaviors {
-public class ApplyStyleBehaviorTestCSSData {
-    public static function get cssText():String
+package com.flashartofwar.fcss.behaviors
+{
+    public class ApplyStyleBehaviorTestCSSData
     {
-        var xml:XML = <css>
-            <![CDATA[/* This is a comment in the CSS file */
+        public static function get cssText():String
+        {
+            var xml:XML = <css>
+                <![CDATA[/* This is a comment in the CSS file */
             DummyClass {
                     name: DummyClass;
                     x:50;
@@ -32,8 +34,8 @@ public class ApplyStyleBehaviorTestCSSData {
                     }
 
             ]]>
-                </css>;
-                return xml.toString();
-                }
-}
+            </css>;
+            return xml.toString();
+        }
+    }
 }

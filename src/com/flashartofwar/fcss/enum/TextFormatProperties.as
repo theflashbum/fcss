@@ -70,32 +70,32 @@ package com.flashartofwar.fcss.enum
         }
 
         private static const PROPERTY_TYPES:Object = new Object();
-    {
-        PROPERTY_TYPES[CSSProperties.ALIGN] = "string";
-        PROPERTY_TYPES[CSSProperties.BLOCK_INDENT] = "number";
-        PROPERTY_TYPES[CSSProperties.BOLD] = "boolean";
-        PROPERTY_TYPES[CSSProperties.BULLET] = "boolean";
-        PROPERTY_TYPES[CSSProperties.COLOR] = "uint";
-        PROPERTY_TYPES[CSSProperties.FONT] = "string";
-        PROPERTY_TYPES[CSSProperties.INDENT] = "number";
-        PROPERTY_TYPES[CSSProperties.ITALIC] = "boolean";
-        PROPERTY_TYPES[CSSProperties.KERNING] = "boolean";
-        PROPERTY_TYPES[CSSProperties.LEADING] = "number";
-        PROPERTY_TYPES[CSSProperties.LEFT_MARGIN] = "number";
-        PROPERTY_TYPES[CSSProperties.LETTER_SPACING] = "number";
-        PROPERTY_TYPES[CSSProperties.RIGHT_MARGIN] = "number";
-        PROPERTY_TYPES[CSSProperties.SIZE] = "number";
-        PROPERTY_TYPES[CSSProperties.UNDERLINE] = "boolean";
-    }
+        {
+            PROPERTY_TYPES[CSSProperties.ALIGN] = "string";
+            PROPERTY_TYPES[CSSProperties.BLOCK_INDENT] = "number";
+            PROPERTY_TYPES[CSSProperties.BOLD] = "boolean";
+            PROPERTY_TYPES[CSSProperties.BULLET] = "boolean";
+            PROPERTY_TYPES[CSSProperties.COLOR] = "uint";
+            PROPERTY_TYPES[CSSProperties.FONT] = "string";
+            PROPERTY_TYPES[CSSProperties.INDENT] = "number";
+            PROPERTY_TYPES[CSSProperties.ITALIC] = "boolean";
+            PROPERTY_TYPES[CSSProperties.KERNING] = "boolean";
+            PROPERTY_TYPES[CSSProperties.LEADING] = "number";
+            PROPERTY_TYPES[CSSProperties.LEFT_MARGIN] = "number";
+            PROPERTY_TYPES[CSSProperties.LETTER_SPACING] = "number";
+            PROPERTY_TYPES[CSSProperties.RIGHT_MARGIN] = "number";
+            PROPERTY_TYPES[CSSProperties.SIZE] = "number";
+            PROPERTY_TYPES[CSSProperties.UNDERLINE] = "boolean";
+        }
 
         private static const PROPERTY_MAP:Object = new Object;
-    {
-        PROPERTY_MAP[CSSProperties.FONT_FACE] = CSSProperties.FONT;
-        PROPERTY_MAP[CSSProperties.TEXT_ALIGN] = CSSProperties.ALIGN;
-        PROPERTY_MAP[CSSProperties.MARGIN_LEFT] = CSSProperties.LEFT_MARGIN;
-        PROPERTY_MAP[CSSProperties.MARGIN_RIGHT] = CSSProperties.RIGHT_MARGIN;
-        PROPERTY_MAP[CSSProperties.FONT_SIZE] = CSSProperties.SIZE;
-    }
+        {
+            PROPERTY_MAP[CSSProperties.FONT_FACE] = CSSProperties.FONT;
+            PROPERTY_MAP[CSSProperties.TEXT_ALIGN] = CSSProperties.ALIGN;
+            PROPERTY_MAP[CSSProperties.MARGIN_LEFT] = CSSProperties.LEFT_MARGIN;
+            PROPERTY_MAP[CSSProperties.MARGIN_RIGHT] = CSSProperties.RIGHT_MARGIN;
+            PROPERTY_MAP[CSSProperties.FONT_SIZE] = CSSProperties.SIZE;
+        }
 
 
     }

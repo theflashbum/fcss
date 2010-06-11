@@ -34,47 +34,36 @@
 
 package com.flashartofwar.fcss.utils
 {
-    import com.flashartofwar.fcss.enum.ColorsByName;
-
-    import flash.geom.Point;
-    import flash.geom.Rectangle;
-    import flash.net.URLRequest;
-    import flash.text.StyleSheet;
-    import flash.utils.Dictionary;
+    import typer.Types;
+    import typer.stringToArray;
+    import typer.stringToBoolean;
+    import typer.stringToDictionary;
+    import typer.stringToNumber;
+    import typer.stringToObject;
+    import typer.stringToPoint;
+    import typer.stringToRectangle;
+    import typer.stringToStyleSheet;
+    import typer.stringToUint;
+    import typer.stringToUrlRequest;
 
     public class TypeHelperUtil
     {
-
-        public static const STRING:String = "string";
-
-        public static const NUMBER:String = "number";
-
-        public static const BOOLEAN:String = "boolean";
-
-        public static const ARRAY:String = "array";
-
-        public static const DICTIONARY:String = "flash.utils::dictionary";
-
-        public static const OBJECT:String = "object";
-
-        public static const UINT:String = "uint";
-
-        public static const RECTANGLE:String = "flash.geom::rectangle";
-
-        public static const POINT:String = "flash.geom::point";
-
-        public static const STYLE_SHEET:String = "flash.text::stylesheet";
-
-        public static const URL_REQUEST:String = "flash.net::urlrequest";
-
         /**
          *
          */
         private static const FUNCTION_MAP:Object = new Object();
-    {
-        FUNCTION_MAP[NUMBER] = stringToNumber;
-        FUNCTION_MAP[BOOLEAN] = stringToBoolean,FUNCTION_MAP[ARRAY] = stringToArray,FUNCTION_MAP[DICTIONARY] = stringToDictionary,FUNCTION_MAP[OBJECT] = stringToObject,FUNCTION_MAP[UINT] = stringToUint,FUNCTION_MAP[RECTANGLE] = stringToRectangle,FUNCTION_MAP[POINT] = stringToPoint,FUNCTION_MAP[STYLE_SHEET] = stringToStyleSheet,FUNCTION_MAP[URL_REQUEST] = stringToUrlRequest;
-    }
+        {
+            FUNCTION_MAP[Types.NUMBER] = stringToNumber;
+            FUNCTION_MAP[Types.BOOLEAN] = stringToBoolean;
+            FUNCTION_MAP[Types.ARRAY] = stringToArray;
+            FUNCTION_MAP[Types.DICTIONARY] = stringToDictionary;
+            FUNCTION_MAP[Types.OBJECT] = stringToObject;
+            FUNCTION_MAP[Types.UINT] = stringToUint;
+            FUNCTION_MAP[Types.RECTANGLE] = stringToRectangle;
+            FUNCTION_MAP[Types.POINT] = stringToPoint;
+            FUNCTION_MAP[Types.STYLE_SHEET] = stringToStyleSheet;
+            FUNCTION_MAP[Types.URL_REQUEST] = stringToUrlRequest;
+        }
 
         /**
          * <p>This method allows you to register other functions to handle types
@@ -117,189 +106,6 @@ package com.flashartofwar.fcss.utils
             return FUNCTION_MAP[type] ? FUNCTION_MAP[type](data) : data;
         }
 
-        public static function stringToNumber(value:String):Number
-        {
-            return Number(value);
-        }
-
-        /**
-         * By default this method is set up to convert CSS style arrays delimited by spaces.
-         */
-        public static function stringToArray(value:String, delimiter:String = " "):Array
-        {
-            return value.split(delimiter);
-        }
-
-        public static function splitTypeFromSource(value:String):Object
-        {
-            var obj:Object = new Object();
-            // Pattern to strip out ',", and ) from the string;
-            var pattern:RegExp = RegExp(/[\'\)\"]/g); // this fixes a color highlight issue in FDT --> '
-            // Fine type and source
-            var split:Array = value.split("(");
-            //
-            obj.type = split[0];
-            obj.source = split[1].replace(pattern, "");
-
-            return obj;
-        }
-
-        /**
-         *
-         */
-        public static function stringToDictionary(value:String):Dictionary
-        {
-            return stringToComplexArray(value, DICTIONARY);
-        }
-
-        public static function stringToObject(value:String):Object
-        {
-            return stringToComplexArray(value, OBJECT);
-        }
-
-        /**
-         * <p>This function parses out a complex array and puts it into an Associate
-         * Array, Dictionary, or Object. Use this function to split up the array base
-         * on the dataDelimiter (default ",") and the propDelimiter (default ":").</p>
-         *
-         * <p>Example of a data: "up:play,over:playO,down:playO,off_up:pause,off_over:pauseO,off_down:pauseO"</p>
-         *
-         */
-        protected static function stringToComplexArray(data:String, returnType:String, dataDelimiter:String = ",", propDelimiter:String = ":"):*
-        {
-
-            var dataContainer:*;
-
-            // Determine what type of object to return
-            switch (returnType)
-            {
-                case DICTIONARY:
-                    dataContainer = new Dictionary();
-                    break;
-                case OBJECT:
-                    dataContainer = {};
-                    break;
-                default:
-                    dataContainer = [];
-            }
-
-            var list:Array = data.split(dataDelimiter);
-            var total:Number = list.length;
-
-            for (var i:Number = 0; i < total; i++)
-            {
-                var prop:Array = list[i].split(propDelimiter);
-                dataContainer[prop[0]] = prop[1];
-            }
-
-            return dataContainer;
-        }
-
-        /**
-         * <p>Converts a string to a boolean.</p>
-         */
-        public static function stringToBoolean(value:String):Boolean
-        {
-            return (value == "true") ? true : false;
-        }
-
-        /**
-         * <p>Converts a string into a uint. This function also supports converting
-         * colors into .</p>
-         */
-        public static function stringToUint(value:String):uint
-        {
-            // Check to see if it is a registered color
-            if (ColorsByName.isSupported(value))
-            {
-                return ColorsByName.convertColor(value);
-            }
-            else
-            {
-                value = value.substr(-6, 6);
-                var color:uint = Number("0x" + value);
-                return color;
-            }
-        }
-
-        /**
-         * <p>Converts rgb to hex.</p>
-         *
-         */
-        public static function rgbToHex(r:Number, g:Number, b:Number):Number
-        {
-            return r << 16 | g << 8 | b;
-        }
-
-        /**
-         * <p>Use this to turn Yes No values into True or False.</p>
-         *
-         *    @param value Accepts "yes" for true or "no" for false.
-         */
-        public static function stringYesNoToBoolean(value:String):Boolean
-        {
-            if (value.toLowerCase() == "yes")
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /**
-         *
-         * @param value
-         * @param delimiter
-         * @return
-         *
-         */
-        public static function stringToRectangle(value:String, delimiter:String = " "):Rectangle
-        {
-            var coords:Array = splitTypeFromSource(value).source.split(delimiter, 4);
-
-            if ((value == "") || (coords.length != 4))
-            {
-                return null;
-            }
-            else
-            {
-                return new Rectangle(coords[0], coords[1], coords[2], coords[3]);
-            }
-        }
-
-        /**
-         *
-         * @param value
-         * @param delimiter
-         * @return
-         *
-         */
-        public static function stringToPoint(value:String, delimiter:String = " "):Point
-        {
-            var coords:Array = splitTypeFromSource(value).source.split(delimiter, 2);
-            return new Point(Number(coords[0]), Number(coords[1]));
-        }
-
-        /**
-         *
-         * @param value
-         * @return
-         *
-         */
-        public static function stringToStyleSheet(value:String):StyleSheet
-        {
-
-            var styleSheet:StyleSheet = new StyleSheet();
-            styleSheet.parseCSS(value);
-            return styleSheet;
-        }
-
-        public static function stringToUrlRequest(value:String):URLRequest
-        {
-            return new URLRequest(splitTypeFromSource(value).source);
-        }
     }
 }
 

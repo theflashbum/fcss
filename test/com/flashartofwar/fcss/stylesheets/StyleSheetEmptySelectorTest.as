@@ -1,31 +1,32 @@
-package com.flashartofwar.fcss.stylesheets {
+package com.flashartofwar.fcss.stylesheets
+{
+    import com.flashartofwar.fcss.styles.IStyle;
 
-import com.flashartofwar.fcss.styles.IStyle;
+    import org.flexunit.Assert;
 
-import org.flexunit.Assert;
-
-public class StyleSheetEmptySelectorTest {
-    
-    private var collection:IStyleSheetCollection = new StyleSheetCollection();
-    
-    [Before(ui)]
-    public function runBeforeEachTest():void
+    public class StyleSheetEmptySelectorTest
     {
 
-    }
+        private var collection:IStyleSheetCollection = new StyleSheetCollection();
 
-    [Test]
-    public function testForEmptyStyle():void
-    {
-        collection.parseCSS(cssText);
-        var style:IStyle = collection.getStyle("DummyClass", "#dummyClassB", "bla");
-        Assert.assertEquals(style.styleName, "#dummyClassB");
-    }
+        [Before(ui)]
+        public function runBeforeEachTest():void
+        {
 
-    public function get cssText():String
-    {
-        var xml:XML = <css>
-            <![CDATA[/* This is a comment in the CSS file */
+        }
+
+        [Test]
+        public function testForEmptyStyle():void
+        {
+            collection.parseCSS(cssText);
+            var style:IStyle = collection.getStyle("DummyClass", "#dummyClassB", "bla");
+            Assert.assertEquals(style.styleName, "#dummyClassB");
+        }
+
+        public function get cssText():String
+        {
+            var xml:XML = <css>
+                <![CDATA[/* This is a comment in the CSS file */
 
             DummyClass {
                     name: DummyClass;
@@ -55,8 +56,8 @@ public class StyleSheetEmptySelectorTest {
                     }
 
             ]]>
-                </css>;
-                return xml.toString();
-                }
-                }
-                }
+            </css>;
+            return xml.toString();
+        }
+    }
+}

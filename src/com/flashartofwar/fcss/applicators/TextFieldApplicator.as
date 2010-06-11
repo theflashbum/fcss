@@ -44,7 +44,8 @@ package com.flashartofwar.fcss.applicators
         private static const STYLE_SHEET:String = "styleSheet";
 
 
-        public function TextFieldApplicator() {
+        public function TextFieldApplicator()
+        {
             super(this);
         }
 

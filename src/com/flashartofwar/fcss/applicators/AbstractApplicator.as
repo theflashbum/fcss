@@ -1,21 +1,25 @@
-package com.flashartofwar.fcss.applicators {
-    public class AbstractApplicator implements IApplicator{
+package com.flashartofwar.fcss.applicators
+{
+    public class AbstractApplicator implements IApplicator
+    {
 
-        public function AbstractApplicator(self:AbstractApplicator) {
-            if(self != this)
+        public function AbstractApplicator(self:AbstractApplicator)
+        {
+            if (self != this)
             {
                 throw new Error("AbstractApplicator can not be directly Instantiated");
             }
         }
 
-        public function applyStyle(target:Object, style:Object):void {
+        public function applyStyle(target:Object, style:Object):void
+        {
 
         }
 
         /**
          * This allows you to convert the name of a property before
          * it is applied to the target.
-         * 
+         *
          * @param value
          * @return
          */

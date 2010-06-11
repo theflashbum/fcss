@@ -57,7 +57,7 @@ package com.flashartofwar.fcss.applicators
             var propMap:PropertyMapObject = PropertyMapUtil.propertyMap(target);
             var filteredProp:String;
             var prop:String;
-            
+
             for (prop in style)
             {
                 filteredProp = propertyFilter(prop);

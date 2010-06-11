@@ -10,7 +10,7 @@ package com.flashartofwar.fcss.stylesheets
     {
 
         private var sheet:FStyleSheet;
-    
+
         public function StyleSheetTest()
         {
         }
