@@ -4,6 +4,8 @@ package com.flashartofwar.fcss.utils
 
     import org.flexunit.Assert;
 
+    import typer.Types;
+
     public class PropertyMapUtilTest
     {
 
@@ -11,7 +13,7 @@ package com.flashartofwar.fcss.utils
         public function testPropertyMapObject():void
         {
             var propertyMap:PropertyMapObject = PropertyMapUtil.propertyMap(DummyClass);
-            var pass:Boolean = ((propertyMap.name == "string") && (propertyMap.speed == "number") && (propertyMap.items == "array"));
+            var pass:Boolean = ((propertyMap["name"] == Types.STRING) && (propertyMap["speed"] == Types.NUMBER) && (propertyMap["items"] == Types.ARRAY));
             Assert.assertTrue(pass);
         }
     }
