@@ -1,4 +1,4 @@
-package typer
+package com.flashartofwar.fcss.typer
 {
     import flash.geom.Point;
 

@@ -1,4 +1,4 @@
-package typer
+package com.flashartofwar.fcss.typer
 {
     public function stringToNumber(value:String):Number
     {

@@ -34,17 +34,17 @@
 
 package com.flashartofwar.fcss.utils
 {
-    import typer.Types;
-    import typer.stringToArray;
-    import typer.stringToBoolean;
-    import typer.stringToDictionary;
-    import typer.stringToNumber;
-    import typer.stringToObject;
-    import typer.stringToPoint;
-    import typer.stringToRectangle;
-    import typer.stringToStyleSheet;
-    import typer.stringToUint;
-    import typer.stringToUrlRequest;
+    import com.flashartofwar.fcss.typer.Types;
+    import com.flashartofwar.fcss.typer.stringToArray;
+    import com.flashartofwar.fcss.typer.stringToBoolean;
+    import com.flashartofwar.fcss.typer.stringToDictionary;
+    import com.flashartofwar.fcss.typer.stringToNumber;
+    import com.flashartofwar.fcss.typer.stringToObject;
+    import com.flashartofwar.fcss.typer.stringToPoint;
+    import com.flashartofwar.fcss.typer.stringToRectangle;
+    import com.flashartofwar.fcss.typer.stringToStyleSheet;
+    import com.flashartofwar.fcss.typer.stringToUint;
+    import com.flashartofwar.fcss.typer.stringToUrlRequest;
 
     public class TypeHelperUtil
     {

@@ -4,7 +4,7 @@ package com.flashartofwar.fcss.utils
 
     import org.flexunit.Assert;
 
-    import typer.Types;
+    import com.flashartofwar.fcss.typer.Types;
 
     public class PropertyMapUtilTest
     {

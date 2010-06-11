@@ -1,4 +1,4 @@
-package typer
+package com.flashartofwar.fcss.typer
 {
     /**
      * <p>Use this to turn Yes No values into True or False.</p>

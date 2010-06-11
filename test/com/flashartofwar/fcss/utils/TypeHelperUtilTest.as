@@ -4,10 +4,10 @@ package com.flashartofwar.fcss.utils
 
     import org.flexunit.Assert;
 
-    import typer.stringToArray;
-    import typer.stringToBoolean;
-    import typer.stringToUrlRequest;
-    import typer.stringYesNoToBoolean;
+    import com.flashartofwar.fcss.typer.stringToArray;
+    import com.flashartofwar.fcss.typer.stringToBoolean;
+    import com.flashartofwar.fcss.typer.stringToUrlRequest;
+    import com.flashartofwar.fcss.typer.stringYesNoToBoolean;
 
     public class TypeHelperUtilTest
     {

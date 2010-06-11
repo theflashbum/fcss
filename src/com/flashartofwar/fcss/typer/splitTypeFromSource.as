@@ -1,4 +1,4 @@
-package typer
+package com.flashartofwar.fcss.typer
 {
 
     public function splitTypeFromSource(value:String):Object

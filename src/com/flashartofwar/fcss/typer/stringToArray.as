@@ -1,4 +1,4 @@
-package typer
+package com.flashartofwar.fcss.typer
 {
     /**
      * By default this method is set up to convert CSS style arrays delimited by spaces.
