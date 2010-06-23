@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<project name="compile-swc" basedir="." default="compile">
+
+    <target name="clean-bin">
+        <if>
+            <not>
+                <available type="dir" file="${bin.loc}"/>
+            </not>
+            <then>
+                <mkdir dir="${bin.loc}"/>
+            </then>
+        </if>
+    </target>
+
+    <!-- Compile Release SWC -->
+    <target name="compile" depends="clean-bin">
+        <echo>[compile] Compiling release SWC</echo>
+        <echo>[compile] Using Flex SDK at: ${FLEX_HOME}</echo>
+
+        <java jar="${FLEX_HOME}/lib/compc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
+            <!-- Build our SWC with a versioned name. -->
+            <arg value="-output=${bin.loc}/${project.name.versioned}.swc"/>
+
+            <!-- We want all the org package classes in the SWC being built. -->
+            <arg value="-include-sources=${main.src.loc}/"/>
+
+            <!-- Include classes from SWCs in this folder, but only the ones we use. -->
+            <arg value="-library-path+=${lib.loc}"/>
+
+            <!-- Keep the magic alive. -->
+            <arg value="-keep-as3-metadata+=Inject"/>
+
+            <!-- Boolean mosh pit! -->
+            <arg value="-incremental=true"/>
+            <arg value="-static-link-runtime-shared-libraries=true"/>
+            <arg value="-verbose-stacktraces=true"/>
+            <arg value="-headless-server=true"/>
+        </java>
+
+        <echo>[compile] Release SWC ${project.name.versioned}.swc created successfully</echo>
+    </target>
+
+
+    <target name="convert-to-swf" depends="compile">
+        <sequential>
+            <unzip src="${bin.loc}/${project.name.versioned}.swc" dest="${bin.loc}">
+                <patternset>
+                    <include name="library.swf"/>
+                </patternset>
+            </unzip>
+
+            <move file="${bin.loc}/library.swf" tofile="${bin.loc}/${project.name.versioned}.swf"/>
+
+            <runtarget target="deploy-swf-lib"/>
+
+            <delete file="${bin.loc}/library.swf"/>
+        </sequential>
+    </target>
+
+    <target name="optimize" depends="convert-to-swf" if="run.swflib.optimize">
+        <java jar="${FLEX_HOME}/lib/optimizer.jar" fork="true" failonerror="true">
+            <jvmarg line="-ea -DAS3 -DAVMPLUS -Dflexlib=${FLEX_HOME}/frameworks -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false"/>
+            <arg line="'${bin.loc}/${project.name.versioned}.swf' --output '${bin.loc}/${deploy.name.versioned}.swf' "/>
+        </java>
+    </target>
+
+    <target name="deploy" depends="optimize">
+        <move file="${bin.loc}/${deploy.name.versioned}.swf" tofile="${lib.deploy.dir}/${project.name.versioned}.swf"/>
+    </target>
+</project>

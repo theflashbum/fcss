@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<project name="misc" basedir="." default="init">
+    <target name="usage">
+        <echo message=""/>
+        <echo message="${project.name} Build Usage"/>
+        <echo message="-----------------------------------"/>
+        <echo message="Main targets are:"/>
+        <echo message="local-test        --> Build ${project.name} Launch, SWF, asdoc and test"/>
+        <echo message="compile-swc     --> Build ${project.name} SWC, asdoc, test"/>
+        <echo message="compile-swf     --> Build ${project.name} SWF"/>
+        <echo message=""/>
+        <echo message="Additonal targets are:"/>
+        <echo message="setup-bin         --> Build ${project.name} test, asdocs, setups up bin"/>
+        <echo message="asdoc                 --> Build ${project.name} test and generate asdocs"/>
+        <echo message="test                    --> Build ${project.name} runs unit tests"/>
+        <echo message="clean                 --> Remove all folders created by build script"/>
+        <echo message="init                    --> Clean and create build folders"/>
+        <echo message="-----------------------------------"/>
+        <echo message="disconnect        --> Removed git files from project"/>
+    </target>
+
+    <!-- Deletes .git folder and .gitignore file -->
+    <target name="disconnect">
+        <delete dir="${basedir}/.git"/>
+        <delete file="${basedir}/.gitignore"/>
+    </target>
+</project>

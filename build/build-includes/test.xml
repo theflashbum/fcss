@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<project name="test" basedir="." default="run">
+    <!-- This file is only for inclusion in the main buildscript.
+     It contains all of the testing targets -->
+
+    <target name="clean-folders">
+        <if>
+            <available type="dir" file="${report.loc}"/>
+            <then>
+                <delete includeemptydirs="true" failonerror="false">
+                    <fileset dir="${report.loc}" defaultexcludes="false">
+                        <include name="**/*"/>
+                    </fileset>
+                </delete>
+            </then>
+            <else>
+                <mkdir dir="${report.loc}"/>
+            </else>
+        </if>
+        <if>
+            <not>
+                <available type="dir" file="${bin.loc}"/>
+            </not>
+            <then>
+                <mkdir dir="${bin.loc}"/>
+            </then>
+        </if>
+    </target>
+
+
+    <!-- Compiles TestRunner.mxml as a SWF -->
+    <target name="build">
+
+        <java jar="${FLEX_HOME}/lib/mxmlc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
+            <arg value="${test.src.loc}/${project.name}TestApp.mxml"/>
+            <arg value="-source-path=${main.src.loc}"/>
+
+            <arg value="-output=${bin.loc}/TestRunner.swf"/>
+            <arg value="-default-size=148,148"/>
+            <arg value="-default-background-color=0x320401"/>
+
+            <!-- Include classes from SWCs in this folder, but only the ones we use. -->
+            <arg value="-library-path+=${lib.loc}"/>
+
+            <!-- So true. -->
+            <arg value="-incremental=true"/>
+            <arg value="-verbose-stacktraces=true"/>
+            <arg value="-headless-server=true"/>
+        </java>
+        <echo>TestRunner built.</echo>
+    </target>
+
+
+    <!-- Execute TestRunner.swf as FlexUnit tests and publish reports -->
+    <target name="exec" depends="build">
+        <flexunit swf="bin/TestRunner.swf"
+                  toDir="${report.loc}"
+                  haltonfailure="false"
+                  verbose="true"
+                  localTrusted="true"
+                  failureproperty="flexunit.failed"
+                  timeout="5000"
+                />
+    </target>
+
+    <!--Generate and display test results-->
+    <target name="report" depends="exec" if="flexunit.failed">
+        <!-- Generate readable JUnit-style reports -->
+        <junitreport todir="${report.loc}">
+            <fileset dir="${report.loc}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${report.loc}/html"/>
+        </junitreport>
+
+        <if>
+            <equals arg1="${os.name}" arg2="Mac OS X"/>
+            <then>
+                <antcall target="local-run-mac"/>
+            </then>
+            <else>
+                <antcall target="local-run-pc"/>
+            </else>
+        </if>
+
+    </target>
+
+    <!-- Run Unit Tests -->
+    <target name="run" depends="build,exec,report">
+        <if>
+            <isset property="flexunit.failed"/>
+            <then>
+                <fail>Tests completed -- failed.</fail>
+            </then>
+            <else>
+                <echo>Tests completed -- passed.</echo>
+            </else>
+        </if>
+    </target>
+
+    <target name="local-run-pc">
+        <exec executable="${browser}">
+            <arg line="file://${report.url}"/>
+        </exec>
+    </target>
+
+    <target name="local-run-mac">
+        <exec executable="open">
+            <arg line="-a ${browser} file://${report.url}"/>
+        </exec>
+    </target>
+</project>

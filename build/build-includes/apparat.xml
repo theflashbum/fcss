@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<project name="apparat" basedir="." default="build-opt">
+	<path id="apparat.path">
+      <fileset dir="${SCALA_HOME}" includes="lib/*.jar"/>
+      <fileset dir="${APPARAT_HOME}" includes="apparat.jar"/>
+    </path>
+
+	<taskdef resource="apparat/embedding/ant/antlib.xml">
+	  <classpath refid="apparat.path"/>
+	</taskdef>
+
+    <target name="compile">
+        <java jar="${FLEX_HOME}/lib/mxmlc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
+            <arg line="-define=CONFIG::Debug,false"/>
+            <arg line="-define+=CONFIG::Release,true"/>
+            <arg value="${main.src.loc}/${project.name}.as"/>
+            <arg value="-source-path=${main.src.loc}"/>
+
+            <arg value="-output=${bin.loc}/swfs/${project.name.versioned}.swf"/>
+            <arg value="-static-link-runtime-shared-libraries=true"/>
+            <!-- Include classes from SWCs in this folder, but only the ones we use. -->
+            <arg value="-library-path+=${lib.loc}"/>
+            <arg value="-library-path+=${air.swcs}"/>
+            <arg value="-incremental=true"/>
+            <arg value="-debug=false"/>
+			<arg line="-strict"/>
+			<arg line="-optimize"/>
+            <arg value="-verbose-stacktraces=true"/>
+            <arg value="-headless-server=true"/>
+            <arg value="-use-network=false"/>
+            <arg value="-default-frame-rate=31"/>
+            <arg value="-define=CONFIG::mobile,${mobile}"/>
+            <arg line="-include-libraries '${APPARAT_HOME}/apparat.swc'"/>
+        </java>
+        <tdsi in="${bin.loc}/swfs/${project.name.versioned}.swf">
+            <classpath refid="apparat.path"/>
+        </tdsi>
+    </target>
+
+</project>
