@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="BitmapSampler" basedir="." default="full-build">
+<project name="FCSS" basedir="." default="full-build">
     
     <!-- identify properties file -->
     <property file="build.properties" />
