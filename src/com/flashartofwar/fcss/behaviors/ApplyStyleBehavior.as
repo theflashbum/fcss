@@ -56,7 +56,7 @@ package com.flashartofwar.fcss.behaviors
 
         protected var target:Object;
 
-        private var _defaultStyleNames:Array;
+        protected var _defaultStyleNames:Array;
 
         protected var _styleSheet:IStyleSheet;
 
