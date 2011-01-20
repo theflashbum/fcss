@@ -120,6 +120,7 @@ class DummyClass extends Sprite implements IApplyStyleBehavior
 {
 
     private var styleBehavior:IApplyStyleBehavior;
+    private var _z:Number;
 
     public function DummyClass(styleSheet:IStyleSheet, id:String = "dummyClass", styleClass:String = null)
     {
@@ -159,5 +160,15 @@ class DummyClass extends Sprite implements IApplyStyleBehavior
     public function getPseudoSelector(state:String):IStyle
     {
         return styleBehavior.getPseudoSelector(state);
+    }
+
+    public function get z():Number
+    {
+        return _z;
+    }
+
+    public function set z(value:Number):void
+    {
+        _z = value;
     }
 }
