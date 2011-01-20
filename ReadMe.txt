@@ -55,7 +55,7 @@ var css:XML = <css><![CDATA[
     y: 50;
 }
 
-/* This is how you can inharit from another style */
+/* This is how you can inherit from another style */
 #demoStyle #demoStyle2
 {
     y:100;
@@ -150,19 +150,6 @@ tfApplicator.applyStyle(tf2, style2);
 // Use TextField like you would normally
 tf2.htmlText = "F*CSS Demo 2 - Hello World";
 addChild(tf2);
-
-
-/** Global StyleSheetManager **/
-
-// If you want to make the CSS available globally use the
-// StyleSheetManager/StyleSheetCollection
-
-// Get a reference of the StyleSheetCollection from the StyleSheetManager
-var styleSheetCollection:IStyleSheetCollection = SingletonManager.getClassReference(StyleSheetCollection) as IStyleSheetCollection;
-
-// Register style sheet with the Collection.
-styleSheetCollection.addStyleSheet(styleSheet, "defaultSheet");
-
 
 /** How To Use The TextFieldFactory **/
 
